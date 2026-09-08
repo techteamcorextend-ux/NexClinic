@@ -105,7 +105,7 @@ export default function AnalyticsView() {
               data={series}
               xKey="label"
               suffix={UNIT[range]}
-              series={[{ key: "value", name: "Revenue", color: "#F857A6" }]}
+              series={[{ key: "value", name: "Revenue", color: "#2563EB" }]}
               ariaLabel={`Line chart of ${RANGE_LABEL[range].toLowerCase()} revenue totalling ₹${total.toFixed(1)} lakh.`}
             />
           </div>

@@ -71,9 +71,9 @@ export const FACILITY_OVERVIEW = {
 
 /** SAMPLE — where this month's patients came from. */
 export const PATIENT_SOURCE = [
-  { name: "Online Booking", value: 52, color: "#F857A6" },
-  { name: "Walk-in", value: 31, color: "#8B5CF6" },
-  { name: "Referral", value: 17, color: "#3B82F6" },
+  { name: "Online Booking", value: 52, color: "#2563EB" },
+  { name: "Walk-in", value: 31, color: "#5B6EF5" },
+  { name: "Referral", value: 17, color: "#0EA5E9" },
 ];
 
 export type StatCardDatum = {
@@ -375,9 +375,9 @@ export const FOOTFALL = [
 
 /** SAMPLE — expense split for the selected range. */
 export const EXPENSE_BREAKDOWN = [
-  { name: "Staff", value: 46, color: "#F857A6" },
-  { name: "Inventory", value: 24, color: "#8B5CF6" },
-  { name: "Equipment", value: 18, color: "#3B82F6" },
+  { name: "Staff", value: 46, color: "#2563EB" },
+  { name: "Inventory", value: 24, color: "#5B6EF5" },
+  { name: "Equipment", value: 18, color: "#0EA5E9" },
   { name: "Utilities", value: 12, color: "#FFA45C" },
 ];
 

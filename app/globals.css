@@ -53,28 +53,28 @@
        Kept at :root (not scoped to the admin subtree) because Radix
        dropdowns, tooltips and dialogs render into a portal on <body>.
     */
-    --admin-page-bg: #fbe9f1;
+    --admin-page-bg: #eef3fc;
     --admin-sidebar-bg: #ffffff;
     --admin-card-bg: #ffffff;
-    --admin-text-primary: #241e33;
-    --admin-text-muted-soft: #9b94a8; /* decorative only — 2.9:1 on white */
-    --admin-text-muted: #6e6785; /* readable label/body muted — 5.4:1 on white */
-    --admin-border: #f0e3ea;
+    --admin-text-primary: #16233f;
+    --admin-text-muted-soft: #98a3ba; /* decorative only — 2.9:1 on white */
+    --admin-text-muted: #5b6b8c; /* readable label/body muted — 5.4:1 on white */
+    --admin-border: #e2eaf8;
 
-    --admin-page-bg-rgb: 251 233 241;
+    --admin-page-bg-rgb: 238 243 252;
     --admin-sidebar-bg-rgb: 255 255 255;
     --admin-card-bg-rgb: 255 255 255;
-    --admin-ink-rgb: 36 30 51;
-    --admin-muted-soft-rgb: 155 148 168;
-    --admin-muted-rgb: 110 103 133;
-    --admin-border-rgb: 240 227 234;
-    --admin-pink-rgb: 248 87 166;
-    --admin-purple-rgb: 139 92 246;
-    --admin-blue-rgb: 59 130 246;
+    --admin-ink-rgb: 22 35 63;
+    --admin-muted-soft-rgb: 152 163 186;
+    --admin-muted-rgb: 91 107 140;
+    --admin-border-rgb: 226 234 248;
+    --admin-pink-rgb: 37 99 235;
+    --admin-purple-rgb: 91 110 245;
+    --admin-blue-rgb: 14 165 233;
 
-    --admin-grad-pink-purple: linear-gradient(135deg, #f857a6 0%, #a65ff8 100%);
-    --admin-grad-purple: linear-gradient(135deg, #8e6ff7 0%, #6c4ce0 100%);
-    --admin-grad-blue: linear-gradient(135deg, #4fc3f7 0%, #3b82f6 100%);
+    --admin-grad-pink-purple: linear-gradient(135deg, #2563eb 0%, #5b6ef5 100%);
+    --admin-grad-purple: linear-gradient(135deg, #5b6ef5 0%, #3446c9 100%);
+    --admin-grad-blue: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
     --admin-grad-orange: linear-gradient(135deg, #ffa45c 0%, #ff7a45 100%);
 
     /* Radius of the concave notches that fuse the active nav pill into the
@@ -244,8 +244,8 @@
 
     Two pseudo-elements sit directly above and below the pill. Each is a
     notch-sized square painted with a radial gradient: inside the circle is
-    sidebar white, outside is page pink — which produces the concave quarter
-    curve that carries the pink smoothly back into the white sidebar.
+    sidebar white, outside is the page's blue tint — which produces the
+    concave quarter curve that carries it smoothly back into the white sidebar.
 
     Fine-tune the whole curve with `--admin-notch` above.
   */

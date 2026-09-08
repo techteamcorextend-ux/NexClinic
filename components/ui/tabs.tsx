@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 /** shadcn/ui Tabs, restyled: pill track on the page background. */
@@ -29,7 +30,11 @@ const TabsTrigger = React.forwardRef<
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      "whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium text-admin-muted transition-colors duration-200 hover:text-admin-ink data-[state=active]:bg-white data-[state=active]:text-admin-ink data-[state=active]:shadow-admin",
+      "relative whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium text-admin-muted transition-all duration-300 ease-out-soft hover:-translate-y-px hover:text-admin-ink active:translate-y-0 active:scale-[0.97] data-[state=active]:text-admin-ink motion-reduce:hover:translate-y-0 motion-reduce:active:scale-100",
+      // The active pill itself: no shared layoutId here (each trigger mounts
+      // independently), so it fades/scales in on its own, but the colour and
+      // shadow transitions above still carry the hand-off between triggers.
+      "data-[state=active]:shadow-admin data-[state=active]:before:absolute data-[state=active]:before:inset-0 data-[state=active]:before:-z-10 data-[state=active]:before:rounded-full data-[state=active]:before:bg-white data-[state=active]:before:content-['']",
       className,
     )}
     {...props}
@@ -40,12 +45,23 @@ TabsTrigger.displayName = "TabsTrigger";
 const TabsContent = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
->(({ className, ...props }, ref) => (
+>(({ className, children, ...props }, ref) => (
   <TabsPrimitive.Content
     ref={ref}
     className={cn("mt-5 focus-visible:outline-none", className)}
     {...props}
-  />
+    asChild
+  >
+    {/* Radix unmounts inactive panels by default, so this replays on every
+        switch rather than only once on first mount. */}
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+    >
+      {children}
+    </motion.div>
+  </TabsPrimitive.Content>
 ));
 TabsContent.displayName = "TabsContent";
 

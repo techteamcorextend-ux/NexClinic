@@ -53,7 +53,13 @@ export function CardHeading({
   );
 }
 
-/* ─────────────────────── Section entrance fade ─────────────────── */
+/* ─────────────────────── Section entrance fade ───────────────────
+   Triggers off the scroll viewport (not just on mount), so slabs further
+   down the page animate into place as they're scrolled to rather than
+   sitting fixed. `once: true` keeps it a one-way reveal per element instead
+   of replaying on every scroll direction change; the small negative bottom
+   margin starts the animation a little before the card is fully on screen.
+*/
 
 export function Reveal({
   children,
@@ -68,10 +74,11 @@ export function Reveal({
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: reduced ? 0 : 10 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: reduced ? 0 : 22 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "0px 0px -80px 0px" }}
       transition={{
-        duration: reduced ? 0.15 : 0.45,
+        duration: reduced ? 0.15 : 0.5,
         delay: reduced ? 0 : delay,
         ease: [0.16, 1, 0.3, 1],
       }}

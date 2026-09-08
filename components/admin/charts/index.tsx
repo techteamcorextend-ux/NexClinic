@@ -1,5 +1,6 @@
 "use client";
 
+import { useId } from "react";
 import {
   Area,
   AreaChart,
@@ -7,6 +8,7 @@ import {
   BarChart,
   CartesianGrid,
   Cell,
+  ComposedChart,
   Line,
   LineChart,
   Pie,
@@ -21,12 +23,12 @@ import { usePrefersReducedMotion } from "../use-media-query";
 /* Shared axis / grid styling so every chart reads as one system. */
 const AXIS = {
   stroke: "transparent",
-  tick: { fill: "#6E6785", fontSize: 11 },
+  tick: { fill: "#5B6B8C", fontSize: 11 },
   tickLine: false as const,
   axisLine: false as const,
 };
 
-const GRID_STROKE = "#F0E3EA";
+const GRID_STROKE = "#E2EAF8";
 
 type TooltipPayloadEntry = {
   name?: string | number;
@@ -48,6 +50,16 @@ function ChartTooltip({
 }) {
   if (!active || !payload || payload.length === 0) return null;
 
+  // A chart may layer a fill-only <Area> under a <Line> for the same
+  // dataKey (the gradient finish) — collapse those to one tooltip row.
+  const seenKeys = new Set<string | number>();
+  const items = payload.filter((entry) => {
+    const key = entry.dataKey ?? entry.name ?? "";
+    if (seenKeys.has(key)) return false;
+    seenKeys.add(key);
+    return true;
+  });
+
   return (
     <div className="rounded-xl border border-admin-line bg-white px-3 py-2 shadow-admin-lg">
       {label !== undefined ? (
@@ -56,7 +68,7 @@ function ChartTooltip({
         </p>
       ) : null}
       <ul className="mt-1 list-none space-y-0.5">
-        {payload.map((entry, index) => (
+        {items.map((entry, index) => (
           <li key={index} className="flex items-center gap-2 text-xs text-admin-ink">
             <span
               aria-hidden="true"
@@ -107,19 +119,19 @@ export function RevenueAreaChart({
         <AreaChart data={data} margin={{ top: 8, right: 8, bottom: 0, left: -18 }}>
           <defs>
             <linearGradient id="revenueFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#F857A6" stopOpacity={0.32} />
-              <stop offset="100%" stopColor="#A65FF8" stopOpacity={0.02} />
+              <stop offset="0%" stopColor="#2563EB" stopOpacity={0.32} />
+              <stop offset="100%" stopColor="#5B6EF5" stopOpacity={0.02} />
             </linearGradient>
             <linearGradient id="revenueStroke" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="#F857A6" />
-              <stop offset="100%" stopColor="#A65FF8" />
+              <stop offset="0%" stopColor="#2563EB" />
+              <stop offset="100%" stopColor="#5B6EF5" />
             </linearGradient>
           </defs>
           <CartesianGrid vertical={false} stroke={GRID_STROKE} />
           <XAxis dataKey={xKey} {...AXIS} minTickGap={18} />
           <YAxis {...AXIS} width={54} />
           <Tooltip
-            cursor={{ stroke: "#F857A6", strokeDasharray: "4 4" }}
+            cursor={{ stroke: "#2563EB", strokeDasharray: "4 4" }}
             content={
               <ChartTooltip
                 formatter={(value) => `${unitPrefix}${value}${unitSuffix}`}
@@ -166,19 +178,19 @@ export function RevenueTargetChart({
         <AreaChart data={data} margin={{ top: 8, right: 8, bottom: 0, left: -18 }}>
           <defs>
             <linearGradient id="trendFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#F857A6" stopOpacity={0.34} />
-              <stop offset="100%" stopColor="#A65FF8" stopOpacity={0.02} />
+              <stop offset="0%" stopColor="#2563EB" stopOpacity={0.34} />
+              <stop offset="100%" stopColor="#5B6EF5" stopOpacity={0.02} />
             </linearGradient>
             <linearGradient id="trendStroke" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="#F857A6" />
-              <stop offset="100%" stopColor="#A65FF8" />
+              <stop offset="0%" stopColor="#2563EB" />
+              <stop offset="100%" stopColor="#5B6EF5" />
             </linearGradient>
           </defs>
           <CartesianGrid vertical={false} stroke={GRID_STROKE} />
           <XAxis dataKey="month" {...AXIS} />
           <YAxis {...AXIS} width={54} />
           <Tooltip
-            cursor={{ stroke: "#F857A6", strokeDasharray: "4 4" }}
+            cursor={{ stroke: "#2563EB", strokeDasharray: "4 4" }}
             content={<ChartTooltip formatter={(value, name) => `${name}: ₹${value}L`} />}
           />
           <Area
@@ -194,7 +206,7 @@ export function RevenueTargetChart({
             type="monotone"
             dataKey="target"
             name="Target"
-            stroke="#8B5CF6"
+            stroke="#5B6EF5"
             strokeWidth={1.5}
             strokeDasharray="5 5"
             fill="transparent"
@@ -307,20 +319,20 @@ export function FootfallBarChart({
           <XAxis dataKey="day" {...AXIS} />
           <YAxis {...AXIS} width={54} />
           <Tooltip
-            cursor={{ fill: "rgba(248, 87, 166, 0.06)" }}
+            cursor={{ fill: "rgba(37, 99, 235, 0.06)" }}
             content={<ChartTooltip formatter={(value, name) => `${name}: ${value}`} />}
           />
           <Bar
             dataKey="opd"
             name="Booked OPD"
-            fill="#F857A6"
+            fill="#2563EB"
             radius={[6, 6, 0, 0]}
             isAnimationActive={!reduced}
           />
           <Bar
             dataKey="walkIn"
             name="Walk-in"
-            fill="#8B5CF6"
+            fill="#5B6EF5"
             radius={[6, 6, 0, 0]}
             isAnimationActive={!reduced}
           />
@@ -356,7 +368,7 @@ export function StressLineChart({
           <XAxis dataKey="month" {...AXIS} />
           <YAxis {...AXIS} width={54} domain={[0, 10]} />
           <Tooltip
-            cursor={{ stroke: "#8B5CF6", strokeDasharray: "4 4" }}
+            cursor={{ stroke: "#5B6EF5", strokeDasharray: "4 4" }}
             content={
               <ChartTooltip
                 formatter={(value, name) =>
@@ -369,9 +381,9 @@ export function StressLineChart({
             type="monotone"
             dataKey="score"
             name="Avg. stress score"
-            stroke="#8B5CF6"
+            stroke="#5B6EF5"
             strokeWidth={2.5}
-            dot={{ r: 3, fill: "#8B5CF6", strokeWidth: 0 }}
+            dot={{ r: 3, fill: "#5B6EF5", strokeWidth: 0 }}
             activeDot={{ r: 5 }}
             isAnimationActive={!reduced}
           />
@@ -379,7 +391,7 @@ export function StressLineChart({
             type="monotone"
             dataKey="participation"
             name="Participation"
-            stroke="#3B82F6"
+            stroke="#0EA5E9"
             strokeWidth={1.5}
             strokeDasharray="5 5"
             dot={false}
@@ -455,11 +467,19 @@ export function TwoLineChart({
   suffix?: string;
 }) {
   const reduced = usePrefersReducedMotion();
+  const gradientId = useId();
+  const primary = series[0];
 
   return (
     <div style={{ height }} className="w-full" role="img" aria-label={ariaLabel}>
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={data} margin={{ top: 8, right: 8, bottom: 0, left: -14 }}>
+        <ComposedChart data={data} margin={{ top: 8, right: 8, bottom: 0, left: -14 }}>
+          <defs>
+            <linearGradient id={`twoLineFill-${gradientId}`} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={primary.color} stopOpacity={0.28} />
+              <stop offset="100%" stopColor={primary.color} stopOpacity={0} />
+            </linearGradient>
+          </defs>
           <CartesianGrid vertical={false} stroke={GRID_STROKE} />
           <XAxis dataKey={xKey} {...AXIS} />
           <YAxis {...AXIS} width={54} />
@@ -468,6 +488,16 @@ export function TwoLineChart({
             content={
               <ChartTooltip formatter={(value, name) => `${name}: ${value}${suffix}`} />
             }
+          />
+          {/* Gradient finish under the primary series only, fading to transparent. */}
+          <Area
+            type="monotone"
+            dataKey={primary.key}
+            name={primary.name}
+            stroke="none"
+            fill={`url(#twoLineFill-${gradientId})`}
+            isAnimationActive={!reduced}
+            activeDot={false}
           />
           {series.map((entry) => (
             <Line
@@ -483,7 +513,7 @@ export function TwoLineChart({
               isAnimationActive={!reduced}
             />
           ))}
-        </LineChart>
+        </ComposedChart>
       </ResponsiveContainer>
     </div>
   );

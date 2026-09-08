@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 import {
   ArrowUpRight,
   Banknote,
@@ -36,25 +37,39 @@ import { netPay } from "@/lib/clinic-types";
 import { downloadCsv, downloadPdf } from "@/lib/downloads";
 import { cn } from "@/lib/utils";
 
-/** The clickable oversight tabs that sit above the dashboard. */
+/**
+ * The clickable oversight tabs that sit above the dashboard. The active
+ * pill is a single shared-layout element (`layoutId`) that slides from its
+ * old tab to the new one instead of just swapping colour.
+ */
 function OversightTabs() {
   const pathname = usePathname();
   return (
     <nav aria-label="Oversight" className="no-scrollbar -mx-1 flex gap-2 overflow-x-auto px-1 pb-1">
-      {DASHBOARD_TABS.map((tab) => (
-        <Link
-          key={tab.id}
-          href={tab.href}
-          className={cn(
-            "shrink-0 whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-semibold transition-all duration-300 ease-out-soft",
-            pathname === tab.href
-              ? "bg-admin-grad-pink text-white shadow-admin"
-              : "border border-admin-line bg-white text-admin-muted hover:-translate-y-0.5 hover:text-admin-ink motion-reduce:hover:translate-y-0",
-          )}
-        >
-          {tab.label}
-        </Link>
-      ))}
+      {DASHBOARD_TABS.map((tab) => {
+        const active = pathname === tab.href;
+        return (
+          <Link
+            key={tab.id}
+            href={tab.href}
+            className={cn(
+              "relative shrink-0 whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-semibold transition-all duration-300 ease-out-soft",
+              active
+                ? "text-white"
+                : "border border-admin-line bg-white text-admin-muted hover:-translate-y-0.5 hover:text-admin-ink motion-reduce:hover:translate-y-0",
+            )}
+          >
+            {active ? (
+              <motion.span
+                layoutId="oversight-active-pill"
+                className="absolute inset-0 -z-10 rounded-full bg-admin-grad-pink shadow-admin"
+                transition={{ type: "spring", stiffness: 380, damping: 32 }}
+              />
+            ) : null}
+            {tab.label}
+          </Link>
+        );
+      })}
     </nav>
   );
 }
@@ -190,8 +205,8 @@ export default function AdminDashboard() {
                 xKey="month"
                 suffix=" L"
                 series={[
-                  { key: "revenue", name: "This year", color: "#F857A6" },
-                  { key: "lastYear", name: "Last year", color: "#8B5CF6", dashed: true },
+                  { key: "revenue", name: "This year", color: "#2563EB" },
+                  { key: "lastYear", name: "Last year", color: "#5B6EF5", dashed: true },
                 ]}
                 ariaLabel="Line chart of monthly revenue rising from ₹64 lakh in April to ₹92 lakh in March, consistently above last year."
               />
@@ -219,7 +234,7 @@ export default function AdminDashboard() {
                 data={PATIENT_VISITS}
                 xKey="month"
                 series={[
-                  { key: "visits", name: "Total visits", color: "#3B82F6" },
+                  { key: "visits", name: "Total visits", color: "#0EA5E9" },
                   { key: "newPatients", name: "New patients", color: "#FFA45C", dashed: true },
                 ]}
                 ariaLabel="Line chart of monthly patient visits rising from 2,180 in April to 3,240 in March, with new registrations tracking below."

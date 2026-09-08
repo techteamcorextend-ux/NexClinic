@@ -49,21 +49,21 @@ export const REVENUE_BY_SOURCE: Record<
   { name: string; value: number; color: string }[]
 > = {
   daily: [
-    { name: "Consultations", value: 38, color: "#F857A6" },
-    { name: "Pharmacy", value: 27, color: "#8B5CF6" },
-    { name: "Diagnostics", value: 21, color: "#3B82F6" },
+    { name: "Consultations", value: 38, color: "#2563EB" },
+    { name: "Pharmacy", value: 27, color: "#5B6EF5" },
+    { name: "Diagnostics", value: 21, color: "#0EA5E9" },
     { name: "Procedures", value: 14, color: "#FFA45C" },
   ],
   monthly: [
-    { name: "Consultations", value: 34, color: "#F857A6" },
-    { name: "Pharmacy", value: 25, color: "#8B5CF6" },
-    { name: "Diagnostics", value: 24, color: "#3B82F6" },
+    { name: "Consultations", value: 34, color: "#2563EB" },
+    { name: "Pharmacy", value: 25, color: "#5B6EF5" },
+    { name: "Diagnostics", value: 24, color: "#0EA5E9" },
     { name: "Procedures", value: 17, color: "#FFA45C" },
   ],
   yearly: [
-    { name: "Consultations", value: 31, color: "#F857A6" },
-    { name: "Pharmacy", value: 23, color: "#8B5CF6" },
-    { name: "Diagnostics", value: 26, color: "#3B82F6" },
+    { name: "Consultations", value: 31, color: "#2563EB" },
+    { name: "Pharmacy", value: 23, color: "#5B6EF5" },
+    { name: "Diagnostics", value: 26, color: "#0EA5E9" },
     { name: "Procedures", value: 20, color: "#FFA45C" },
   ],
 };

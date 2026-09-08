@@ -168,7 +168,7 @@ export default function HomeEntry() {
   return (
     <main className="min-h-screen bg-[#0B1020] lg:grid lg:grid-cols-2">
       {/* ─────────────── Left grid — about Nexclinic ─────────────── */}
-      <section className="relative flex min-h-[52vh] flex-col justify-between overflow-hidden px-6 py-10 sm:px-10 lg:min-h-screen lg:px-14 lg:py-14">
+      <section className="isolate relative flex min-h-[52vh] flex-col justify-between overflow-hidden px-6 py-10 sm:px-10 lg:min-h-screen lg:px-14 lg:py-14">
         <div aria-hidden="true" className="absolute inset-0 -z-10">
           <Image
             src="/images/lungs.jpg"
