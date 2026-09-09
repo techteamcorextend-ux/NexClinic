@@ -23,6 +23,7 @@ import {
   SectionTitle,
 } from "@/components/portal/ui";
 import NoticeBell from "@/components/system/NoticeBell";
+import { EcgHeartbeatBackdrop } from "@/components/surgeon/EcgHeartbeatBackdrop";
 import {
   ChevronButton,
   ConicButton,
@@ -133,8 +134,11 @@ export default function SurgeonDashboard() {
       }}
       actions={<NoticeBell audience="surgeon" />}
     >
-      {/* ── Patient database search ── */}
-      <Reveal>
+      <div className="relative isolate">
+        <EcgHeartbeatBackdrop />
+
+        {/* ── Patient database search ── */}
+        <Reveal>
         <PCard>
           <label htmlFor="patient-search" className="sr-only">
             Search the patient database
@@ -404,6 +408,7 @@ export default function SurgeonDashboard() {
               </div>
             </PLinkCard>
           </Reveal>
+        </div>
         </div>
       </div>
     </PortalShell>

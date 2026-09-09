@@ -121,6 +121,16 @@ const config: Config = {
           "70%": { boxShadow: "0 0 0 10px rgba(239, 68, 68, 0)" },
           "100%": { boxShadow: "0 0 0 0 rgba(239, 68, 68, 0)" },
         },
+        "emergency-glow": {
+          "0%, 100%": {
+            boxShadow:
+              "0 0 25px 6px rgba(225, 29, 72, 0.55), 0 16px 40px -14px rgba(225, 29, 72, 0.8)",
+          },
+          "50%": {
+            boxShadow:
+              "0 0 55px 16px rgba(244, 63, 94, 0.95), 0 16px 40px -14px rgba(225, 29, 72, 0.8)",
+          },
+        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -135,6 +145,7 @@ const config: Config = {
         "marquee-right": "marquee-right 34s linear infinite",
         float: "float 3s ease-in-out infinite",
         "pulse-ring": "pulse-ring 1.8s ease-out infinite",
+        "emergency-glow": "emergency-glow 1.1s ease-in-out infinite",
         "btn-fly": "btn-fly 680ms cubic-bezier(0.4, 0, 0.2, 1)",
         "accordion-down": "accordion-down 380ms cubic-bezier(0.16, 1, 0.3, 1)",
         "accordion-up": "accordion-up 320ms cubic-bezier(0.16, 1, 0.3, 1)",
