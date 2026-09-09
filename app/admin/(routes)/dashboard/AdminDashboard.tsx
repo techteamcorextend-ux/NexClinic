@@ -12,7 +12,7 @@ import {
   UserCheck,
   Users,
 } from "lucide-react";
-import { Card, CardHeading, Reveal } from "@/components/admin/ui";
+import { Card, CardHeading, Reveal, RevealBox, RevealText } from "@/components/admin/ui";
 import StatusBadge from "@/components/admin/StatusBadge";
 import { TwoLineChart } from "@/components/admin/charts";
 import { DownloadButton, ChevronButton } from "@/components/motion-ui/buttons";
@@ -166,22 +166,31 @@ export default function AdminDashboard() {
       <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {kpis.map((kpi, index) => {
           const Icon = kpi.icon;
+          const delay = 0.06 + index * 0.05;
           return (
-            <Reveal key={kpi.label} delay={0.06 + index * 0.04}>
+            <RevealBox key={kpi.label} delay={delay}>
               <Card>
                 <div className="flex items-start justify-between gap-2">
-                  <p className="text-xs font-medium text-admin-muted">{kpi.label}</p>
+                  <RevealText delay={delay} className="text-xs font-medium text-admin-muted">
+                    {kpi.label}
+                  </RevealText>
                   <Icon className="h-4 w-4 shrink-0 text-admin-pink" aria-hidden="true" />
                 </div>
-                <p className="mt-3 text-3xl font-bold tracking-tight text-admin-ink">
+                <RevealText
+                  delay={delay}
+                  className="mt-3 text-3xl font-bold tracking-tight text-admin-ink"
+                >
                   {kpi.value}
-                </p>
-                <p className="mt-1 flex items-center gap-1 text-xs font-medium text-admin-muted">
+                </RevealText>
+                <RevealText
+                  delay={delay}
+                  className="mt-1 flex items-center gap-1 text-xs font-medium text-admin-muted"
+                >
                   <TrendingUp className="h-3 w-3" aria-hidden="true" />
                   {kpi.delta}
-                </p>
+                </RevealText>
               </Card>
-            </Reveal>
+            </RevealBox>
           );
         })}
       </div>

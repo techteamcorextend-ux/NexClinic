@@ -88,6 +88,76 @@ export function Reveal({
   );
 }
 
+/* ────────────── Box grid reveal: blur/rise-in tile + staggered text ─────────
+   Distinct from `Reveal` above: built for grid tiles (KPI cards, stat boxes)
+   where the tile itself blurs/rises into place and its inner text elements
+   run their own nested fade-up, timed to start ~150ms after the tile begins
+   moving rather than at the same instant. Pass the same `delay` to a
+   `RevealBox` and its child `RevealText`s so the text's extra 150ms is
+   measured from that tile's own start, not from the viewport trigger.
+*/
+
+export function RevealBox({
+  children,
+  delay = 0,
+  className,
+}: {
+  children: ReactNode;
+  delay?: number;
+  className?: string;
+}) {
+  const reduced = usePrefersReducedMotion();
+  return (
+    <motion.div
+      className={className}
+      variants={{
+        hidden: reduced
+          ? { opacity: 0 }
+          : { opacity: 0, y: 40, filter: "blur(10px)" },
+        visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+      }}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "0px 0px -80px 0px" }}
+      transition={{
+        duration: reduced ? 0.15 : 0.7,
+        delay: reduced ? 0 : delay,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export function RevealText({
+  children,
+  delay = 0,
+  className,
+}: {
+  children: ReactNode;
+  delay?: number;
+  className?: string;
+}) {
+  const reduced = usePrefersReducedMotion();
+  return (
+    <motion.p
+      className={className}
+      variants={{
+        hidden: reduced ? { opacity: 0 } : { opacity: 0, y: 15 },
+        visible: { opacity: 1, y: 0 },
+      }}
+      transition={{
+        duration: reduced ? 0.15 : 0.6,
+        delay: reduced ? 0 : delay + 0.15,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+    >
+      {children}
+    </motion.p>
+  );
+}
+
 /* ─────────────────────────── Avatar ───────────────────────────── */
 
 const AVATAR_TONES = [
