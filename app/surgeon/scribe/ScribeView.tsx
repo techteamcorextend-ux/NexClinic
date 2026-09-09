@@ -5,6 +5,7 @@ import { Mic, Sparkles, Square, Waves } from "lucide-react";
 import PortalShell from "@/components/portal/PortalShell";
 import NoticeBell from "@/components/system/NoticeBell";
 import { PAvatar, PCard, Reveal, SectionTitle } from "@/components/portal/ui";
+import { VoiceWave } from "@/components/surgeon/VoiceWave";
 import { Textarea } from "@/components/ui/input";
 import {
   ChevronButton,
@@ -212,9 +213,18 @@ export default function ScribeView() {
                 </li>
               ))}
               {visible === 0 ? (
-                <li className="rounded-2xl bg-p-soft px-4 py-3 text-sm text-p-muted">
-                  Press start to begin the consultation.
-                </li>
+                listening ? (
+                  <li>
+                    <VoiceWave />
+                    <p className="mt-3 text-center text-xs text-p-muted">
+                      Listening for the consultation to begin…
+                    </p>
+                  </li>
+                ) : (
+                  <li className="rounded-2xl bg-p-soft px-4 py-3 text-sm text-p-muted">
+                    Press start to begin the consultation.
+                  </li>
+                )
               ) : null}
             </ul>
           </PCard>
