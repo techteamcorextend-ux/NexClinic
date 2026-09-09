@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   AlertTriangle,
   ArrowDown,
@@ -10,6 +11,7 @@ import {
   Siren,
   UserPlus,
 } from "lucide-react";
+import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 import PortalShell from "@/components/portal/PortalShell";
 import NoticeBell from "@/components/system/NoticeBell";
 import {
@@ -45,10 +47,44 @@ const PRIORITY_STYLE: Record<Priority, string> = {
   low: "bg-p-soft text-p-ink",
 };
 
+/**
+ * The screen-edge alarm frame that appears for as long as the emergency
+ * dialog is open — a "vintage red" vignette hugging the viewport border,
+ * `fixed` so it covers the whole screen regardless of scroll position or
+ * which portal section is showing behind it.
+ */
+function EmergencyScreenGlow({ active }: { active: boolean }) {
+  const reduced = useReducedMotionSafe();
+
+  return (
+    <AnimatePresence>
+      {active ? (
+        <motion.div
+          aria-hidden="true"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.4 }}
+          className="pointer-events-none fixed inset-0 z-[90] border-[6px] border-red-900/40"
+        >
+          <motion.div
+            animate={reduced ? { opacity: 0.7 } : { opacity: [0.55, 0.85, 0.55] }}
+            transition={
+              reduced ? undefined : { duration: 1.6, repeat: Infinity, ease: "easeInOut" }
+            }
+            className="absolute inset-0 shadow-[inset_0_0_60px_18px_rgba(127,29,29,0.55),inset_0_0_160px_60px_rgba(127,29,29,0.35)]"
+          />
+        </motion.div>
+      ) : null}
+    </AnimatePresence>
+  );
+}
+
 /** Raises an emergency and pushes it to every surgeon on call. */
 function EmergencyButton() {
   const { dispatch } = useClinic();
   const [sent, setSent] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -62,22 +98,36 @@ function EmergencyButton() {
   };
 
   return (
-    <Dialog onOpenChange={(open) => !open && setSent(false)}>
-      <DialogTrigger asChild>
-        <button
-          type="button"
-          className="inline-flex items-center gap-2.5 rounded-full bg-rose-600 px-5 py-3 text-sm font-bold text-white shadow-[0_16px_40px_-14px_rgba(225,29,72,0.8)] transition-transform duration-300 hover:scale-[1.03] motion-reduce:hover:scale-100"
-        >
-          <span
-            aria-hidden="true"
-            className="h-2 w-2 rounded-full bg-white motion-safe:animate-pulse-ring"
-          />
-          <Siren className="h-4 w-4" aria-hidden="true" />
-          Emergency
-        </button>
-      </DialogTrigger>
+    <>
+      <EmergencyScreenGlow active={open} />
 
-      <DialogContent>
+      <Dialog
+        open={open}
+        onOpenChange={(next) => {
+          setOpen(next);
+          if (!next) setSent(false);
+        }}
+      >
+        <DialogTrigger asChild>
+          <button
+            type="button"
+            className={cn(
+              "inline-flex items-center gap-2.5 rounded-full bg-rose-600 px-5 py-3 text-sm font-bold text-white transition-transform duration-300 hover:scale-[1.03] motion-reduce:hover:scale-100",
+              open
+                ? "motion-safe:animate-emergency-glow shadow-[0_0_45px_12px_rgba(244,63,94,0.85)]"
+                : "shadow-[0_16px_40px_-14px_rgba(225,29,72,0.8)]",
+            )}
+          >
+            <span
+              aria-hidden="true"
+              className="h-2 w-2 rounded-full bg-white motion-safe:animate-pulse-ring"
+            />
+            <Siren className="h-4 w-4" aria-hidden="true" />
+            Emergency
+          </button>
+        </DialogTrigger>
+
+        <DialogContent>
         <DialogTitle>Raise an emergency</DialogTitle>
         <DialogDescription>
           Broadcasts a push notification to every surgeon on call and logs it for
@@ -125,8 +175,9 @@ function EmergencyButton() {
             </MorphButton>
           </form>
         )}
-      </DialogContent>
-    </Dialog>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
 
