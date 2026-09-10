@@ -50,6 +50,7 @@ export type TextRevealProps = {
   as?: TextRevealTag;
   /** Seconds to wait before wiping — stagger sibling headings with this. */
   delay?: number;
+  /** Seconds the wipe takes. Raise for a calmer feel, lower for a snappier one. */
   duration?: number;
   className?: string;
   /** Pass through for `aria-*`/`id` needs on the heading itself. */
@@ -61,7 +62,7 @@ export default function TextReveal({
   children,
   as = "h2",
   delay = 0,
-  duration = 0.7,
+  duration = 1.05,
   className,
   id,
   title,
