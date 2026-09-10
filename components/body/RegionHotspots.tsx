@@ -45,11 +45,16 @@ export default function RegionHotspots({ regions, vitals, activeRegion }: Region
             distanceFactor={8}
             occlude="blending"
             zIndexRange={[10, 0]}
-            // The DOM list in BodyLegend is the accessible surface; these are
-            // decorative duplicates and must not be announced twice.
-            aria-hidden="true"
           >
+            {/*
+              aria-hidden belongs on this div, never on <Html> itself: R3F's
+              applyProps treats an unknown prop's dashes as a nested path, so
+              `aria-hidden` on a three object resolves `instance.aria.hidden`
+              and throws. The DOM list in BodyLegend is the accessible
+              surface; these pins are decorative duplicates.
+            */}
             <div
+              aria-hidden="true"
               className="pointer-events-none flex select-none items-center gap-1.5 whitespace-nowrap rounded-full px-2 py-1 text-[10px] font-semibold shadow-sm transition-all duration-200"
               style={{
                 backgroundColor: isActive ? color : "rgba(255,255,255,0.92)",
