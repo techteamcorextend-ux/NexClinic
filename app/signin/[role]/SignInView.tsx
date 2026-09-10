@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -22,46 +22,98 @@ import { CLINIC_INFO, ROLES, findRole, type RoleKey } from "@/lib/roles";
 import { cn } from "@/lib/utils";
 
 /**
- * One shared background layer for the whole admin sign-in card: the
- * illustration bleeds in from the right, feathered by a left-to-right mask
- * so it fades into the plain text zone instead of ending in a hard rectangle
- * — there's no seam between a "left panel" and "right panel" because it's
- * one continuous layer behind the whole card. A few decorative circles /
- * rounded shapes / a pin-drop marker are scattered on top of the fade for
- * texture where the illustration has already faded out.
+ * Shared backdrop for the whole admin sign-in screen: the desk photo sits
+ * behind everything, blurred and dimmed just enough to read as texture
+ * rather than a literal photo, with a dark wash and an indigo glow tying it
+ * to the role's accent colour. The sign-in card itself is a translucent
+ * glass panel floating on top of this — same treatment as the main /login
+ * page's shared backdrop.
  */
-function AdminIllustrationBackground() {
+function AdminBackdrop() {
   return (
     <div aria-hidden="true" className="absolute inset-0 -z-10 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-white via-[#f3f6fd] to-[#e3ecfb]" />
-
-      <div
-        className="absolute inset-0"
-        style={{
-          maskImage:
-            "linear-gradient(90deg, transparent 0%, transparent 6%, black 42%, black 100%)",
-          WebkitMaskImage:
-            "linear-gradient(90deg, transparent 0%, transparent 6%, black 42%, black 100%)",
-        }}
-      >
-        <Image
-          src="/images/admin-login.jpg"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-[78%_38%] opacity-95"
-        />
-      </div>
-
-      {/* Decorative shapes over the faded-out left/lower zone. */}
-      <div className="absolute -left-10 bottom-10 h-32 w-32 rounded-full bg-blue-50" />
-      <div className="absolute left-16 bottom-6 h-16 w-16 -rotate-6 rounded-2xl border-2 border-sky-100" />
-      <div className="absolute left-6 top-24 h-2.5 w-2.5 rounded-full bg-sky-300" />
-      <MapPin
-        className="absolute left-[38%] bottom-24 h-8 w-8 -rotate-6 text-blue-200"
-        strokeWidth={1.5}
+      <Image
+        src="/images/adminbg.jpg"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="scale-105 object-cover object-[78%_38%] opacity-70 blur-[2px]"
       />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#05070d]/70 via-[#0B1020]/65 to-[#151235]/70" />
+      <div className="absolute -right-16 -top-20 h-72 w-72 rounded-full bg-indigo-500/30 blur-[130px]" />
+      <div className="absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-[#2563EB]/25 blur-[130px]" />
+    </div>
+  );
+}
+
+/**
+ * Shared backdrop for the surgeon sign-in screen: the operating-theatre
+ * photo sits behind both glass panels, dimmed and softened just enough to
+ * read as texture rather than a literal photo, with a teal/indigo wash
+ * tying it to the role's own sky-to-indigo accent.
+ */
+function SurgeonBackdrop() {
+  return (
+    <div aria-hidden="true" className="fixed inset-0 -z-10 overflow-hidden">
+      <Image
+        src="/images/healing-together.jpg"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="scale-105 object-cover object-[62%_40%] opacity-65 blur-[3px]"
+      />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#04151f]/65 via-[#060b1a]/60 to-[#0a1440]/65" />
+      <div className="animate-aurora-a absolute -left-24 top-0 h-[30rem] w-[30rem] rounded-full bg-[#0EA5E9]/30 blur-[130px]" />
+      <div className="animate-aurora-b absolute -right-20 bottom-0 h-[26rem] w-[26rem] rounded-full bg-[#4F46E5]/30 blur-[130px]" />
+    </div>
+  );
+}
+
+/**
+ * Shared backdrop for the receptionist sign-in screen: the front-desk
+ * illustration sits behind both glass panels, dimmed and softened just
+ * enough to read as texture, with an emerald/teal wash tying it to the
+ * role's own accent.
+ */
+function ReceptionBackdrop() {
+  return (
+    <div aria-hidden="true" className="fixed inset-0 -z-10 overflow-hidden">
+      <Image
+        src="/images/receptionist-bg.jpg"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="scale-105 object-cover object-center opacity-55 blur-[3px]"
+      />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#031814]/78 via-[#061024]/74 to-[#031814]/78" />
+      <div className="animate-aurora-a absolute -left-24 top-0 h-[30rem] w-[30rem] rounded-full bg-[#10B981]/30 blur-[130px]" />
+      <div className="animate-aurora-b absolute -right-20 bottom-0 h-[26rem] w-[26rem] rounded-full bg-[#0D9488]/30 blur-[130px]" />
+    </div>
+  );
+}
+
+/**
+ * Shared backdrop for the patient sign-in screen: the telehealth-dashboard
+ * photo sits behind both glass panels, already dark enough to need only a
+ * light wash, with a rose/pink glow tying it to the role's own accent.
+ */
+function PatientBackdrop() {
+  return (
+    <div aria-hidden="true" className="fixed inset-0 -z-10 overflow-hidden">
+      <Image
+        src="/images/patient-bg.jpg"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="scale-105 object-cover object-center opacity-70 blur-[2px]"
+      />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#1a0512]/60 via-[#060b1a]/55 to-[#1a0512]/60" />
+      <div className="animate-aurora-a absolute -left-24 top-0 h-[30rem] w-[30rem] rounded-full bg-[#F43F5E]/30 blur-[130px]" />
+      <div className="animate-aurora-b absolute -right-20 bottom-0 h-[26rem] w-[26rem] rounded-full bg-[#EC4899]/25 blur-[130px]" />
     </div>
   );
 }
@@ -75,9 +127,9 @@ function AdminIllustrationBackground() {
  * Lucide icon component, which can't cross the server → client boundary
  * from the server-component page.tsx.
  *
- * The admin role gets a distinct light/blue treatment (illustration
- * background, decorative shapes) — the other four roles keep the original
- * dark aurora look.
+ * Admin, surgeon, receptionist and patient each get a distinct photo-backed
+ * glassmorphism treatment — inventory manager keeps the original dark
+ * aurora look until it gets its own image.
  */
 export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
   const router = useRouter();
@@ -86,6 +138,10 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
   const role = findRole(roleKey)!;
   const Icon = role.icon;
   const isAdmin = role.key === "admin";
+  const isSurgeon = role.key === "surgeon";
+  const isReception = role.key === "reception";
+  const isPatient = role.key === "patient";
+  const isGlass = isAdmin || isSurgeon || isReception || isPatient;
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -109,11 +165,16 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
         autoComplete="current-password"
       />
 
-      <label className="flex cursor-pointer items-center gap-2 pt-1 text-sm text-ink-muted">
+      <label
+        className={cn(
+          "flex cursor-pointer items-center gap-2 pt-1 text-sm",
+          isGlass ? "text-white/70" : "text-ink-muted",
+        )}
+      >
         <input
           type="checkbox"
           defaultChecked
-          className="h-4 w-4 rounded border-line accent-[#2563EB]"
+          className={cn("h-4 w-4 rounded accent-[#2563EB]", isGlass ? "border-white/30" : "border-line")}
         />
         Keep me signed in on this device
       </label>
@@ -125,8 +186,13 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
   );
 
   const switchRole = (
-    <div className="mt-8 border-t border-line pt-5">
-      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-muted">
+    <div className={cn("mt-8 border-t pt-5", isGlass ? "border-white/15" : "border-line")}>
+      <p
+        className={cn(
+          "text-xs font-semibold uppercase tracking-[0.14em]",
+          isGlass ? "text-white/50" : "text-ink-muted",
+        )}
+      >
         Switch role
       </p>
       <ul className="mt-3 flex list-none flex-wrap gap-2">
@@ -134,7 +200,12 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
           <li key={entry.key}>
             <Link
               href={`/signin/${entry.key}`}
-              className="rounded-full border border-line px-3 py-1.5 text-xs font-medium text-ink-muted transition-colors hover:border-ink/25 hover:text-ink"
+              className={cn(
+                "rounded-full border px-3 py-1.5 text-xs font-medium transition-colors",
+                isGlass
+                  ? "border-white/15 text-white/60 hover:border-white/35 hover:text-white"
+                  : "border-line text-ink-muted hover:border-ink/25 hover:text-ink",
+              )}
             >
               {entry.label}
             </Link>
@@ -146,27 +217,19 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
 
   if (isAdmin) {
     return (
-      <main className="isolate relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-[#dbe6fb] via-[#eef3fc] to-[#e3ecfb] px-4 py-10 sm:px-8">
-        {/* Big soft shapes peeking from behind the card's corners, like the
-            reference — they sit outside the card so its border clips them. */}
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-          <div className="absolute -right-16 -top-20 h-72 w-72 rounded-full bg-blue-200/50 blur-[2px]" />
-          <div className="absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-[#c7d6f5]/70 blur-[2px]" />
-        </div>
+      <main className="isolate relative flex min-h-screen items-center justify-center overflow-hidden bg-[#05070d] px-4 py-10 sm:px-8">
+        <AdminBackdrop />
 
-        {/* One unified card: a single rounded border around the whole
-            sign-in experience, no seam between a "left panel" and a "right
-            panel" — the illustration bleeds continuously behind both. */}
-        <div className="isolate relative w-full max-w-6xl overflow-hidden rounded-[2.5rem] border-2 border-[#16233f] bg-white shadow-2xl">
-          <AdminIllustrationBackground />
-
+        {/* One unified glass card: a single translucent panel around the
+            whole sign-in experience, floating on the shared backdrop —
+            no seam between a "left panel" and a "right panel". */}
+        <div className="isolate relative w-full max-w-6xl overflow-hidden rounded-[2.5rem] border border-white/15 bg-white/[0.05] shadow-[0_8px_60px_rgba(0,0,0,0.45)] backdrop-blur-md">
           <div className="relative grid gap-10 p-8 sm:p-10 lg:grid-cols-[1.05fr_1fr] lg:gap-8 lg:p-14">
-            {/* Left — role info, plain text (the illustration has already
-                faded out by the time it reaches this column). */}
+            {/* Left — role info. */}
             <div className="flex flex-col justify-center">
               <Link
                 href="/login"
-                className="inline-flex w-fit items-center gap-1.5 text-sm font-medium text-[#3c4a68] transition-colors hover:text-[#16233f]"
+                className="inline-flex w-fit items-center gap-1.5 text-sm font-medium text-white/60 transition-colors hover:text-white"
               >
                 <ArrowLeft className="h-4 w-4" aria-hidden="true" />
                 All portals
@@ -180,23 +243,23 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
               >
                 <span
                   aria-hidden="true"
-                  className={`grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br ${role.gradient} text-white shadow-lg shadow-blue-900/10`}
+                  className={`grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br ${role.gradient} text-white shadow-lg shadow-black/20`}
                 >
                   <Icon className="h-6 w-6" />
                 </span>
 
-                <h1 className="mt-5 text-3xl font-bold tracking-tight text-[#16233f] sm:text-4xl">
+                <h1 className="mt-5 text-3xl font-bold tracking-tight text-white sm:text-4xl">
                   {role.label} sign in
                 </h1>
-                <p className="mt-2 max-w-sm text-sm leading-relaxed text-[#3c4a68]">
+                <p className="mt-2 max-w-sm text-sm leading-relaxed text-white/70">
                   {role.blurb}
                 </p>
 
                 <ul className="mt-7 list-none space-y-2.5">
                   {role.highlights.map((line) => (
-                    <li key={line} className="flex items-start gap-2.5 text-sm text-[#2c3a5c]">
+                    <li key={line} className="flex items-start gap-2.5 text-sm text-white/80">
                       <CheckCircle2
-                        className="mt-0.5 h-4 w-4 shrink-0 text-blue-500"
+                        className="mt-0.5 h-4 w-4 shrink-0 text-indigo-300"
                         aria-hidden="true"
                       />
                       {line}
@@ -205,13 +268,13 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
                 </ul>
               </motion.div>
 
-              {/* Boxed so it stays legible over the illustration's fade. */}
-              <div className="mt-8 max-w-sm rounded-[22px] border border-[#c7d6f5] bg-white p-5 shadow-md">
-                <p className="flex items-center gap-2 text-sm font-semibold text-[#16233f]">
+              {/* Nested glass card so it stays legible over the backdrop. */}
+              <div className="mt-8 max-w-sm rounded-[22px] border border-white/15 bg-white/[0.04] p-5 backdrop-blur-sm">
+                <p className="flex items-center gap-2 text-sm font-semibold text-white">
                   <Building2 className="h-4 w-4" aria-hidden="true" />
                   {CLINIC_INFO.name}
                 </p>
-                <ul className="mt-3 list-none space-y-2 text-xs text-[#4a577a]">
+                <ul className="mt-3 list-none space-y-2 text-xs text-white/65">
                   <li className="flex items-start gap-2">
                     <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
                     {CLINIC_INFO.address}
@@ -233,7 +296,7 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
                   {CLINIC_INFO.departments.map((dept) => (
                     <li
                       key={dept}
-                      className="rounded-full border border-[#c7d6f5] px-2.5 py-1 text-[11px] text-[#4a577a]"
+                      className="rounded-full border border-white/15 px-2.5 py-1 text-[11px] text-white/65"
                     >
                       {dept}
                     </li>
@@ -242,25 +305,25 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
               </div>
             </div>
 
-            {/* Right — the sign-in form, boxed so it reads clearly against
-                the illustration behind it. */}
+            {/* Right — the sign-in form, its own glass panel so it reads
+                clearly against the backdrop. */}
             <motion.div
               initial={{ opacity: 0, y: reduced ? 0 : 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: reduced ? 0.2 : 0.55, delay: reduced ? 0 : 0.08, ease: [0.16, 1, 0.3, 1] }}
               className="flex items-center justify-center lg:justify-end"
             >
-              <div className="w-full max-w-sm rounded-[28px] border border-[#c7d6f5] bg-white p-6 shadow-xl sm:p-8">
-                <p className="inline-flex items-center gap-2 rounded-full border border-line bg-gradient-to-r from-blue-50 to-sky-50 px-3 py-1.5 text-xs font-medium text-ink">
-                  <ShieldCheck className="h-3.5 w-3.5 text-blue-500" aria-hidden="true" />
+              <div className="w-full max-w-sm rounded-[28px] border border-white/15 bg-white/[0.04] p-6 backdrop-blur-sm sm:p-8">
+                <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-white">
+                  <ShieldCheck className="h-3.5 w-3.5 text-indigo-300" aria-hidden="true" />
                   Demo credentials — no password check
                 </p>
 
-                <h2 className="mt-5 text-2xl font-bold tracking-tight text-ink">
+                <h2 className="mt-5 text-2xl font-bold tracking-tight text-white">
                   Welcome back
                 </h2>
-                <p className="mt-1.5 text-sm text-ink-muted">
-                  Signing in opens <span className="font-medium text-ink">{role.home}</span>.
+                <p className="mt-1.5 text-sm text-white/60">
+                  Signing in opens <span className="font-medium text-white">{role.home}</span>.
                 </p>
 
                 {formFields}
@@ -271,6 +334,133 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
         </div>
       </main>
     );
+  }
+
+  /**
+   * Two glass panels — role info on the left, sign-in form on the right —
+   * floating over a role-specific photo backdrop. Shared by every role that
+   * has its own background image, so the ~100 lines of layout markup exist
+   * exactly once.
+   */
+  const renderPhotoGlass = (backdrop: ReactNode, mainBg: string, accentColor: string) => (
+    <main className={cn("relative isolate min-h-screen overflow-hidden", mainBg)}>
+      {backdrop}
+
+      <div className="relative z-10 mx-auto grid min-h-screen w-full max-w-7xl items-center gap-6 px-6 py-10 sm:px-10 lg:grid-cols-2 lg:gap-10 lg:px-14 lg:py-14">
+        {/* Left panel — role info */}
+        <motion.section
+          initial={{ opacity: 0, y: reduced ? 0 : 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: reduced ? 0.2 : 0.55, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col justify-between rounded-[32px] border border-white/15 bg-white/[0.04] p-7 shadow-[0_8px_60px_rgba(0,0,0,0.4)] backdrop-blur-sm sm:p-9 lg:min-h-[calc(100vh-7rem)] lg:p-12"
+        >
+          <div>
+            <Link
+              href="/login"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-white/60 transition-colors hover:text-white"
+            >
+              <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+              All portals
+            </Link>
+
+            <span
+              aria-hidden="true"
+              className={`mt-8 grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br ${role.gradient} text-white`}
+            >
+              <Icon className="h-6 w-6" />
+            </span>
+
+            <h1 className="mt-5 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              {role.label} sign in
+            </h1>
+            <p className="mt-2 max-w-md text-sm leading-relaxed text-white/70">
+              {role.blurb}
+            </p>
+
+            <ul className="mt-7 list-none space-y-2.5">
+              {role.highlights.map((line) => (
+                <li key={line} className="flex items-start gap-2.5 text-sm text-white/80">
+                  <CheckCircle2 className={cn("mt-0.5 h-4 w-4 shrink-0", accentColor)} aria-hidden="true" />
+                  {line}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="mt-10 rounded-[22px] border border-white/15 bg-white/[0.03] p-5 backdrop-blur-sm">
+            <p className="flex items-center gap-2 text-sm font-semibold text-white">
+              <Building2 className="h-4 w-4" aria-hidden="true" />
+              {CLINIC_INFO.name}
+            </p>
+            <ul className="mt-3 list-none space-y-2 text-xs text-white/65">
+              <li className="flex items-start gap-2">
+                <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                {CLINIC_INFO.address}
+              </li>
+              <li className="flex items-center gap-2">
+                <Clock className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                {CLINIC_INFO.hours}
+              </li>
+              <li className="flex items-center gap-2">
+                <Phone className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                {CLINIC_INFO.phone}
+              </li>
+              <li className="flex items-center gap-2">
+                <Mail className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                {CLINIC_INFO.email}
+              </li>
+            </ul>
+            <ul className="mt-4 flex list-none flex-wrap gap-1.5">
+              {CLINIC_INFO.departments.map((dept) => (
+                <li
+                  key={dept}
+                  className="rounded-full border border-white/15 px-2.5 py-1 text-[11px] text-white/65"
+                >
+                  {dept}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </motion.section>
+
+        {/* Right panel — sign-in form */}
+        <motion.section
+          initial={{ opacity: 0, y: reduced ? 0 : 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: reduced ? 0.2 : 0.55, delay: reduced ? 0 : 0.08, ease: [0.16, 1, 0.3, 1] }}
+          className="rounded-[32px] border border-white/15 bg-white/[0.04] p-7 shadow-[0_8px_60px_rgba(0,0,0,0.4)] backdrop-blur-sm sm:p-9 lg:p-12"
+        >
+          <div className="mx-auto w-full max-w-sm">
+            <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-white">
+              <ShieldCheck className={cn("h-3.5 w-3.5", accentColor)} aria-hidden="true" />
+              Demo credentials — no password check
+            </p>
+
+            <h2 className="mt-5 text-2xl font-bold tracking-tight text-white">
+              Welcome back
+            </h2>
+            <p className="mt-1.5 text-sm text-white/60">
+              Signing in opens <span className="font-medium text-white">{role.home}</span>.
+            </p>
+
+            {formFields}
+            {switchRole}
+          </div>
+        </motion.section>
+      </div>
+    </main>
+  );
+
+  if (isSurgeon) {
+    return renderPhotoGlass(<SurgeonBackdrop />, "bg-[#060b1a]", "text-sky-300");
+  }
+
+  if (isReception) {
+    return renderPhotoGlass(<ReceptionBackdrop />, "bg-[#04120f]", "text-emerald-300");
+  }
+
+  if (isPatient) {
+    return renderPhotoGlass(<PatientBackdrop />, "bg-[#12040c]", "text-rose-300");
   }
 
   return (

@@ -11,7 +11,7 @@ import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 import { HERO, HERO_PROOF } from "@/lib/data";
 
 /** The Three.js scene is client-only and lazily loaded so it never blocks first paint. */
-const DnaHelix = dynamic(() => import("@/components/three/DnaHelix"), {
+const ParticleHuman = dynamic(() => import("@/components/three/ParticleHuman"), {
   ssr: false,
   loading: () => <HelixFallback />,
 });
@@ -47,12 +47,24 @@ export function Hero() {
           className="order-1 lg:order-2"
           style={reduced ? undefined : { y: visualY }}
         >
-          <div className="relative">
+          <div className="relative h-[420px] w-full md:h-[520px]">
             <div
               aria-hidden="true"
               className="absolute inset-8 -z-10 rounded-full bg-[radial-gradient(closest-side,rgba(124,111,240,0.20),transparent)] blur-2xl"
             />
-            {reduced ? <HelixFallback /> : <DnaHelix />}
+            {reduced ? (
+              <HelixFallback />
+            ) : (
+              <ParticleHuman
+                cameraDistance={3}
+                offsetY={0.05}
+                count={4500}
+                pointSize={1.3}
+                opacity={0.65}
+                looseRatio={0.22}
+                looseOpacity={0.75}
+              />
+            )}
           </div>
         </motion.div>
 
