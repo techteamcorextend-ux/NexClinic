@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/select";
 import { CONTACT } from "@/lib/data";
 
+import TextReveal from "@/components/motion/TextReveal";
 export function ContactForm() {
   const [volume, setVolume] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -28,9 +29,9 @@ export function ContactForm() {
     <section id="pricing" className="scroll-mt-28 bg-white py-24 md:py-32">
       <div className="shell">
         <FadeInOnScroll>
-          <h2 className="text-center text-6xl font-bold uppercase leading-[0.9] tracking-tight text-ink sm:text-7xl md:text-8xl">
+          <TextReveal as="h2" className="text-center text-6xl font-bold uppercase leading-[0.9] tracking-tight text-ink sm:text-7xl md:text-8xl">
             {CONTACT.headline}
-          </h2>
+          </TextReveal>
           <p className="body-copy mx-auto mt-6 max-w-xl text-center">
             Tell us about your facility and we&apos;ll tailor the walkthrough to the
             portals and workflows your teams actually use.

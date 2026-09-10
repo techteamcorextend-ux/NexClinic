@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import TextReveal from "@/components/motion/TextReveal";
 import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 
 /* ── Card ──────────────────────────────────────────────────────────── */
@@ -80,7 +81,9 @@ export function SectionTitle({
 }) {
   return (
     <div className={cn("flex flex-wrap items-center justify-between gap-3", className)}>
-      <Tag className="text-base font-semibold tracking-tight text-p-ink">{title}</Tag>
+      <TextReveal as={Tag} className="text-base font-semibold tracking-tight text-p-ink">
+        {title}
+      </TextReveal>
       {action ? <div className="shrink-0">{action}</div> : null}
     </div>
   );

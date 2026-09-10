@@ -8,6 +8,7 @@ import { ChevronButton, DownloadButton } from "@/components/motion-ui/buttons";
 import { useClinic } from "@/lib/clinic-store";
 import { downloadCsv } from "@/lib/downloads";
 
+import TextReveal from "@/components/motion/TextReveal";
 function Rating({ value }: { value: number }) {
   const full = Math.floor(value);
   return (
@@ -65,9 +66,9 @@ export default function SuppliersView() {
               <PCard className="flex h-full flex-col">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <h2 className="truncate text-base font-bold tracking-tight text-p-ink">
+                    <TextReveal as="h2" className="truncate text-base font-bold tracking-tight text-p-ink">
                       {supplier.name}
-                    </h2>
+                    </TextReveal>
                     <p className="mt-0.5 text-xs text-p-muted">{supplier.id}</p>
                   </div>
                   <PPill>{supplier.category}</PPill>

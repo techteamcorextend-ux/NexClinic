@@ -24,6 +24,7 @@ import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 import { useClinic } from "@/lib/clinic-store";
 import { CLINIC_INFO, DOCTOR_OPTIONS, ROLES } from "@/lib/roles";
 
+import TextReveal from "@/components/motion/TextReveal";
 const PILLARS = [
   "Six role-based portals on one record",
   "AI scribe drafts clinical notes as you consult",
@@ -196,12 +197,12 @@ export default function HomeEntry() {
               Unified CMS &amp; Wellness Architecture
             </span>
 
-            <h1 className="mt-7 text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-5xl xl:text-6xl">
+            <TextReveal as="h1" className="mt-7 text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-5xl xl:text-6xl">
               Nexclinic
               <span className="mt-2 block bg-gradient-to-r from-rose-300 via-fuchsia-200 to-sky-300 bg-clip-text text-transparent">
                 one record, every role.
               </span>
-            </h1>
+            </TextReveal>
 
             <p className="mt-6 max-w-lg text-base leading-relaxed text-white/70">
               Nexclinic runs the whole facility on a single patient record —
@@ -254,9 +255,9 @@ export default function HomeEntry() {
               Front-end test build · demo credentials pre-filled
             </p>
 
-            <h2 className="mt-5 text-3xl font-bold tracking-tight text-white">
+            <TextReveal as="h2" className="mt-5 text-3xl font-bold tracking-tight text-white">
               Sign in to your portal
-            </h2>
+            </TextReveal>
             <p className="mt-2 text-sm text-white/60">
               Pick the role you work as. Each portal opens on its own dashboard.
             </p>

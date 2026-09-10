@@ -24,6 +24,7 @@ import {
 import { ADMIN_PROFILE } from "@/lib/admin-data";
 import { findNavItem } from "@/lib/admin-nav";
 
+import TextReveal from "@/components/motion/TextReveal";
 export function AdminHeader({ onOpenDrawer }: { onOpenDrawer: () => void }) {
   const pathname = usePathname();
   const current = findNavItem(pathname);
@@ -44,9 +45,9 @@ export function AdminHeader({ onOpenDrawer }: { onOpenDrawer: () => void }) {
         </button>
 
         <div className="min-w-0 flex-1">
-          <h1 className="truncate text-2xl font-semibold tracking-tight text-admin-ink">
+          <TextReveal as="h1" className="truncate text-2xl font-semibold tracking-tight text-admin-ink">
             {title}
-          </h1>
+          </TextReveal>
           <nav aria-label="Breadcrumb" className="mt-0.5">
             <ol className="flex list-none items-center gap-1 text-xs text-admin-muted">
               <li>

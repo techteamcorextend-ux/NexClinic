@@ -21,6 +21,7 @@ import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 import { CLINIC_INFO, ROLES, findRole, type RoleKey } from "@/lib/roles";
 import { cn } from "@/lib/utils";
 
+import TextReveal from "@/components/motion/TextReveal";
 /**
  * Shared backdrop for the whole admin sign-in screen: the desk photo sits
  * behind everything, blurred and dimmed just enough to read as texture
@@ -248,9 +249,9 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
                   <Icon className="h-6 w-6" />
                 </span>
 
-                <h1 className="mt-5 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                <TextReveal as="h1" className="mt-5 text-3xl font-bold tracking-tight text-white sm:text-4xl">
                   {role.label} sign in
-                </h1>
+                </TextReveal>
                 <p className="mt-2 max-w-sm text-sm leading-relaxed text-white/70">
                   {role.blurb}
                 </p>
@@ -319,9 +320,9 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
                   Demo credentials — no password check
                 </p>
 
-                <h2 className="mt-5 text-2xl font-bold tracking-tight text-white">
+                <TextReveal as="h2" className="mt-5 text-2xl font-bold tracking-tight text-white">
                   Welcome back
-                </h2>
+                </TextReveal>
                 <p className="mt-1.5 text-sm text-white/60">
                   Signing in opens <span className="font-medium text-white">{role.home}</span>.
                 </p>
@@ -370,9 +371,9 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
               <Icon className="h-6 w-6" />
             </span>
 
-            <h1 className="mt-5 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            <TextReveal as="h1" className="mt-5 text-3xl font-bold tracking-tight text-white sm:text-4xl">
               {role.label} sign in
-            </h1>
+            </TextReveal>
             <p className="mt-2 max-w-md text-sm leading-relaxed text-white/70">
               {role.blurb}
             </p>
@@ -436,9 +437,9 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
               Demo credentials — no password check
             </p>
 
-            <h2 className="mt-5 text-2xl font-bold tracking-tight text-white">
+            <TextReveal as="h2" className="mt-5 text-2xl font-bold tracking-tight text-white">
               Welcome back
-            </h2>
+            </TextReveal>
             <p className="mt-1.5 text-sm text-white/60">
               Signing in opens <span className="font-medium text-white">{role.home}</span>.
             </p>
@@ -501,9 +502,9 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
               <Icon className="h-6 w-6" />
             </span>
 
-            <h1 className="mt-5 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            <TextReveal as="h1" className="mt-5 text-3xl font-bold tracking-tight text-white sm:text-4xl">
               {role.label} sign in
-            </h1>
+            </TextReveal>
             <p className="mt-2 max-w-md text-sm leading-relaxed text-white/70">
               {role.blurb}
             </p>
@@ -571,9 +572,9 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
             Demo credentials — no password check
           </p>
 
-          <h2 className="mt-5 text-2xl font-bold tracking-tight text-ink">
+          <TextReveal as="h2" className="mt-5 text-2xl font-bold tracking-tight text-ink">
             Welcome back
-          </h2>
+          </TextReveal>
           <p className="mt-1.5 text-sm text-ink-muted">
             Signing in opens <span className="font-medium text-ink">{role.home}</span>.
           </p>

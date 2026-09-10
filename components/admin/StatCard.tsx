@@ -12,6 +12,7 @@ import { MiniChart } from "./charts";
 import type { StatCardDatum } from "@/lib/admin-data";
 import { cn } from "@/lib/utils";
 
+import TextReveal from "@/components/motion/TextReveal";
 const GRADIENTS: Record<StatCardDatum["gradient"], string> = {
   pink: "bg-admin-grad-pink",
   purple: "bg-admin-grad-purple",
@@ -32,9 +33,9 @@ export function StatCard({ stat }: { stat: StatCardDatum }) {
       )}
     >
       <div className="flex items-start justify-between gap-3">
-        <h3 className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white">
+        <TextReveal as="h3" className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white">
           {stat.label}
-        </h3>
+        </TextReveal>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

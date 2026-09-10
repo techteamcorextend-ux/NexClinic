@@ -7,6 +7,7 @@ import { FadeInOnScroll } from "@/components/motion/FadeInOnScroll";
 import { TESTIMONIALS, TESTIMONIALS_HEADER } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
+import TextReveal from "@/components/motion/TextReveal";
 export function Testimonials() {
   const trackRef = useRef<HTMLUListElement>(null);
   const drag = useRef({ active: false, startX: 0, startScroll: 0 });
@@ -45,7 +46,7 @@ export function Testimonials() {
         <FadeInOnScroll className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <p className="eyebrow">Customer stories</p>
-            <h2 className="section-title mt-5">{TESTIMONIALS_HEADER.headline}</h2>
+            <TextReveal as="h2" className="section-title mt-5">{TESTIMONIALS_HEADER.headline}</TextReveal>
           </div>
 
           <div className="flex items-center gap-3">

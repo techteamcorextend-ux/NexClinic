@@ -37,6 +37,7 @@ import { DOCTOR_PROFILE, findPatient } from "@/lib/portal-data";
 import { downloadPdf } from "@/lib/downloads";
 import type { PatientChart } from "@/lib/clinic-types";
 
+import TextReveal from "@/components/motion/TextReveal";
 const EMPTY_CHART: PatientChart = { vitals: [], diet: [], notes: "" };
 
 export default function ConsultationView({ patientId }: { patientId: string }) {
@@ -134,9 +135,9 @@ export default function ConsultationView({ patientId }: { patientId: string }) {
             />
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-3">
-                <h2 className="text-2xl font-bold tracking-tight text-p-ink">
+                <TextReveal as="h2" className="text-2xl font-bold tracking-tight text-p-ink">
                   {patient.name}
-                </h2>
+                </TextReveal>
                 <PPill tone={patient.status}>{patient.status}</PPill>
               </div>
               <p className="mt-1 text-sm text-p-muted">{patient.condition}</p>

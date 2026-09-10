@@ -11,6 +11,7 @@ import { PAvatar } from "./ui";
 import { cn } from "@/lib/utils";
 import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 
+import TextReveal from "@/components/motion/TextReveal";
 export type PortalNavItem = {
   label: string;
   href: string;
@@ -123,9 +124,9 @@ export function PortalShell({
             </button>
 
             <div className="min-w-0 flex-1">
-              <h1 className="truncate text-2xl font-bold tracking-tight text-p-ink">
+              <TextReveal as="h1" className="truncate text-2xl font-bold tracking-tight text-p-ink">
                 {title}
-              </h1>
+              </TextReveal>
               {subtitle ? (
                 <p className="mt-0.5 truncate text-sm text-p-muted">{subtitle}</p>
               ) : null}

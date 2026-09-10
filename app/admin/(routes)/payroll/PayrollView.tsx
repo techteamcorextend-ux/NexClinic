@@ -26,6 +26,7 @@ import { PAYROLL_CYCLES } from "@/lib/admin-metrics";
 import { downloadCsv, downloadPdf } from "@/lib/downloads";
 import { cn } from "@/lib/utils";
 
+import TextReveal from "@/components/motion/TextReveal";
 const inr = (value: number) => `₹${value.toLocaleString("en-IN")}`;
 
 /** An editable slip: bonus, allowances and tax can be adjusted in place. */
@@ -166,7 +167,7 @@ export default function PayrollView() {
         <Card>
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
-              <h2 className="text-sm font-medium text-admin-muted">Current cycle</h2>
+              <TextReveal as="h2" className="text-sm font-medium text-admin-muted">Current cycle</TextReveal>
               <p className="mt-1 text-lg font-semibold tracking-tight text-admin-ink">
                 September 2026
               </p>

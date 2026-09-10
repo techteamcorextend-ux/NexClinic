@@ -21,6 +21,7 @@ import { useClinic } from "@/lib/clinic-store";
 import { netPay } from "@/lib/clinic-types";
 import { downloadPdf } from "@/lib/downloads";
 
+import TextReveal from "@/components/motion/TextReveal";
 const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 export default function StaffProfile({ id }: { id: string }) {
@@ -89,9 +90,9 @@ export default function StaffProfile({ id }: { id: string }) {
           <div className="flex flex-wrap items-start gap-5">
             <Avatar initials={member.initials} name={member.name} className="h-16 w-16 text-base" />
             <div className="min-w-0 flex-1">
-              <h2 className="text-2xl font-bold tracking-tight text-admin-ink">
+              <TextReveal as="h2" className="text-2xl font-bold tracking-tight text-admin-ink">
                 {member.name}
-              </h2>
+              </TextReveal>
               <p className="mt-1 text-sm text-admin-muted">
                 {member.role} · {member.dept}
               </p>

@@ -13,6 +13,7 @@ import {
 import { STEPPER_HEADER, STEPS } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
+import TextReveal from "@/components/motion/TextReveal";
 export function Stepper() {
   const rootRef = useRef<HTMLDivElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
@@ -69,7 +70,7 @@ export function Stepper() {
           <div className="shell w-full">
             <div className="max-w-2xl">
               <p className="eyebrow">Platform architecture</p>
-              <h2 className="section-title mt-5">{STEPPER_HEADER.headline}</h2>
+              <TextReveal as="h2" className="section-title mt-5">{STEPPER_HEADER.headline}</TextReveal>
               <p className="body-copy mt-5">{STEPPER_HEADER.subtext}</p>
             </div>
 
@@ -141,9 +142,9 @@ export function Stepper() {
                   <span className="text-5xl font-bold leading-none tracking-tight text-accent-gradient">
                     0{active + 1}
                   </span>
-                  <h3 className="mt-5 text-2xl font-bold tracking-tight text-ink md:text-3xl">
+                  <TextReveal as="h3" className="mt-5 text-2xl font-bold tracking-tight text-ink md:text-3xl">
                     {activeStep.title}
-                  </h3>
+                  </TextReveal>
                   <p className="body-copy mt-3 max-w-2xl">{activeStep.body}</p>
                 </motion.div>
               </AnimatePresence>
@@ -156,7 +157,7 @@ export function Stepper() {
       <div className="shell py-24 lg:hidden">
         <FadeInOnScroll className="max-w-xl">
           <p className="eyebrow">Platform architecture</p>
-          <h2 className="section-title mt-5">{STEPPER_HEADER.headline}</h2>
+          <TextReveal as="h2" className="section-title mt-5">{STEPPER_HEADER.headline}</TextReveal>
           <p className="body-copy mt-5">{STEPPER_HEADER.subtext}</p>
         </FadeInOnScroll>
 

@@ -38,6 +38,7 @@ import { DOCTOR_OPTIONS } from "@/lib/roles";
 import { isLow } from "@/lib/clinic-types";
 import { downloadPdf } from "@/lib/downloads";
 
+import TextReveal from "@/components/motion/TextReveal";
 type QuickAction = "refill" | "book" | "telehealth" | null;
 
 export default function PatientDashboard() {
@@ -122,9 +123,9 @@ export default function PatientDashboard() {
                 />
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-3">
-                    <h2 className="text-2xl font-bold tracking-tight text-p-ink">
+                    <TextReveal as="h2" className="text-2xl font-bold tracking-tight text-p-ink">
                       {patient.name}
-                    </h2>
+                    </TextReveal>
                     <PPill tone={patient.status}>{patient.status}</PPill>
                   </div>
                   <p className="mt-1 text-sm text-p-muted">
