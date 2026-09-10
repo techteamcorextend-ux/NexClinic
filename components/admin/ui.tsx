@@ -172,11 +172,13 @@ export function Avatar({
   name,
   size = "md",
   index = 0,
+  className,
 }: {
   initials: string;
   name: string;
   size?: "sm" | "md";
   index?: number;
+  className?: string;
 }) {
   return (
     <span
@@ -186,6 +188,7 @@ export function Avatar({
         "grid shrink-0 place-items-center rounded-full font-semibold text-white",
         AVATAR_TONES[index % AVATAR_TONES.length],
         size === "sm" ? "h-8 w-8 text-[11px]" : "h-10 w-10 text-xs",
+        className,
       )}
     >
       {initials}
