@@ -100,12 +100,12 @@ export default function InventoryOverview() {
       }
     >
       {/* ── Overview tiles ── */}
-      <Reveal>
-        <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
-          {tiles.map((tile) => {
-            const Icon = tile.icon;
-            return (
-              <PLinkCard key={tile.label} href={tile.href} label={`${tile.label}: ${tile.value}`}>
+      <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
+        {tiles.map((tile, index) => {
+          const Icon = tile.icon;
+          return (
+            <Reveal key={tile.label} delay={index * 0.07}>
+              <PLinkCard href={tile.href} label={`${tile.label}: ${tile.value}`}>
                 <div className="flex items-start justify-between gap-2">
                   <p className="text-xs font-medium text-p-muted">{tile.label}</p>
                   <Icon className="h-4 w-4 shrink-0 text-p-accent" aria-hidden="true" />
@@ -114,10 +114,10 @@ export default function InventoryOverview() {
                   {tile.value}
                 </p>
               </PLinkCard>
-            );
-          })}
-        </div>
-      </Reveal>
+            </Reveal>
+          );
+        })}
+      </div>
 
       {/* ── Register ── */}
       <Reveal delay={0.05}>

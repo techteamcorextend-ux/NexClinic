@@ -86,7 +86,13 @@ export function SectionTitle({
   );
 }
 
-/* ── Reveal ────────────────────────────────────────────────────────── */
+/* ── Reveal ────────────────────────────────────────────────────────
+   Triggers off the scroll viewport rather than mount, so content further
+   down a page animates into place as it's scrolled to. `once: false` makes
+   the reveal replay every time an element re-enters the viewport, and
+   reverts it to hidden when scrolled back out — so scrolling up undoes the
+   reveal, and scrolling down plays it again.
+*/
 
 export function Reveal({
   children,
@@ -102,7 +108,8 @@ export function Reveal({
     <motion.div
       className={className}
       initial={{ opacity: 0, y: reduced ? 0 : 12 }}
-      animate={{ opacity: 1, y: 0 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false, margin: "0px 0px -60px 0px" }}
       transition={{
         duration: reduced ? 0.15 : 0.5,
         delay: reduced ? 0 : delay,

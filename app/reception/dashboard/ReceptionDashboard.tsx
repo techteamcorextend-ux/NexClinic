@@ -219,18 +219,18 @@ export default function ReceptionDashboard() {
       }
     >
       {/* ── Stat tiles ── */}
-      <Reveal>
-        <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
-          {stats.map((stat) => (
-            <PLinkCard key={stat.label} href={stat.href} label={`${stat.label}: ${stat.value}`}>
+      <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
+        {stats.map((stat, index) => (
+          <Reveal key={stat.label} delay={index * 0.07}>
+            <PLinkCard href={stat.href} label={`${stat.label}: ${stat.value}`}>
               <p className="text-xs font-medium text-p-muted">{stat.label}</p>
               <p className="mt-3 text-3xl font-bold tracking-tight text-p-ink">
                 {stat.value}
               </p>
             </PLinkCard>
-          ))}
-        </div>
-      </Reveal>
+          </Reveal>
+        ))}
+      </div>
 
       <div className="mt-5 grid grid-cols-1 gap-5 xl:grid-cols-[1.6fr_1fr]">
         {/* ── Patient queue ── */}

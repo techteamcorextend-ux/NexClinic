@@ -8,14 +8,15 @@ import {
   Banknote,
   Download,
   Receipt,
-  TrendingUp,
   UserCheck,
   Users,
 } from "lucide-react";
-import { Card, CardHeading, Reveal, RevealBox, RevealText } from "@/components/admin/ui";
+import { Card, CardHeading, Reveal } from "@/components/admin/ui";
 import StatusBadge from "@/components/admin/StatusBadge";
 import { TwoLineChart } from "@/components/admin/charts";
 import { DownloadButton, ChevronButton } from "@/components/motion-ui/buttons";
+import { MediaCard } from "@/components/ui/MediaCard";
+import { CascadeGrid } from "@/components/ui/CascadeGrid";
 import {
   Table,
   TableBody,
@@ -89,33 +90,6 @@ export default function AdminDashboard() {
   const revenueThisMonth = MONTHLY_REVENUE[MONTHLY_REVENUE.length - 1].revenue;
   const visitsThisMonth = PATIENT_VISITS[PATIENT_VISITS.length - 1].visits;
 
-  const kpis = [
-    {
-      label: "Revenue this month",
-      value: `₹${revenueThisMonth} L`,
-      delta: "+5.7% vs last month",
-      icon: Banknote,
-    },
-    {
-      label: "Patient visits",
-      value: visitsThisMonth.toLocaleString("en-IN"),
-      delta: "+7.8% vs last month",
-      icon: Users,
-    },
-    {
-      label: "Active staff",
-      value: String(activeStaff),
-      delta: `${state.staff.length - activeStaff} suspended`,
-      icon: UserCheck,
-    },
-    {
-      label: "Payroll (net)",
-      value: `₹${(payrollTotal / 100000).toFixed(1)} L`,
-      delta: `${state.staff.length} on the register`,
-      icon: Receipt,
-    },
-  ];
-
   const exportBoard = () =>
     downloadPdf("nexclinic-oversight-summary", {
       title: "Nexclinic — Oversight Summary",
@@ -141,6 +115,37 @@ export default function AdminDashboard() {
       PATIENT_VISITS.map((row) => [row.month, row.visits, row.newPatients]),
     );
 
+  const kpis = [
+    {
+      label: "Revenue this month",
+      value: `₹${revenueThisMonth} L`,
+      delta: "+5.7% vs last month",
+      icon: Banknote,
+      action: { label: "Analytics", href: "/admin/analytics" } as const,
+    },
+    {
+      label: "Patient visits",
+      value: visitsThisMonth.toLocaleString("en-IN"),
+      delta: "+7.8% vs last month",
+      icon: Users,
+      action: { label: "CSV", onClick: exportVisits } as const,
+    },
+    {
+      label: "Active staff",
+      value: String(activeStaff),
+      delta: `${state.staff.length - activeStaff} suspended`,
+      icon: UserCheck,
+      action: { label: "View", href: "/admin/staff" } as const,
+    },
+    {
+      label: "Payroll (net)",
+      value: `₹${(payrollTotal / 100000).toFixed(1)} L`,
+      delta: `${state.staff.length} on the register`,
+      icon: Receipt,
+      action: { label: "Download report", onClick: exportBoard } as const,
+    },
+  ];
+
   return (
     <div className="pb-2">
       <Reveal>
@@ -163,37 +168,27 @@ export default function AdminDashboard() {
         </div>
       </Reveal>
 
-      <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {kpis.map((kpi, index) => {
+      <CascadeGrid className="mt-5 grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {kpis.map((kpi) => {
           const Icon = kpi.icon;
-          const delay = 0.06 + index * 0.05;
           return (
-            <RevealBox key={kpi.label} delay={delay}>
-              <Card>
-                <div className="flex items-start justify-between gap-2">
-                  <RevealText delay={delay} className="text-xs font-medium text-admin-muted">
-                    {kpi.label}
-                  </RevealText>
-                  <Icon className="h-4 w-4 shrink-0 text-admin-pink" aria-hidden="true" />
-                </div>
-                <RevealText
-                  delay={delay}
-                  className="mt-3 text-3xl font-bold tracking-tight text-admin-ink"
-                >
-                  {kpi.value}
-                </RevealText>
-                <RevealText
-                  delay={delay}
-                  className="mt-1 flex items-center gap-1 text-xs font-medium text-admin-muted"
-                >
-                  <TrendingUp className="h-3 w-3" aria-hidden="true" />
-                  {kpi.delta}
-                </RevealText>
-              </Card>
-            </RevealBox>
+            <MediaCard
+              key={kpi.label}
+              seed={kpi.label}
+              badgeLabel={kpi.label}
+              badgeIcon={<Icon aria-hidden="true" />}
+              eyebrow={kpi.label}
+              title={kpi.value}
+              avatarIcon={<Icon aria-hidden="true" />}
+              line1={kpi.delta}
+              actionLabel={kpi.action.label}
+              href={"href" in kpi.action ? kpi.action.href : undefined}
+              onAction={"onClick" in kpi.action ? kpi.action.onClick : undefined}
+              className="max-w-[260px]"
+            />
           );
         })}
-      </div>
+      </CascadeGrid>
 
       {/* The two line charts the spec calls for */}
       <div className="mt-5 grid grid-cols-1 gap-5 xl:grid-cols-2">

@@ -2,7 +2,7 @@
 
 import { useMemo, useState, type FormEvent } from "react";
 import Link from "next/link";
-import { ArrowUpRight, Clock, Search, UserPlus } from "lucide-react";
+import { Search, UserPlus } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -12,15 +12,9 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Avatar,
-  Card,
-  EmptyState,
-  FilterSelect,
-  GradientButton,
-  Reveal,
-} from "@/components/admin/ui";
-import StatusBadge from "@/components/admin/StatusBadge";
+import { Card, EmptyState, FilterSelect, GradientButton, Reveal } from "@/components/admin/ui";
+import { MediaCard } from "@/components/ui/MediaCard";
+import { CascadeGrid } from "@/components/ui/CascadeGrid";
 import { useClinic } from "@/lib/clinic-store";
 import type { StaffMember } from "@/lib/clinic-types";
 
@@ -223,55 +217,23 @@ export default function StaffView() {
               />
             </div>
           ) : (
-            <ul className="mt-5 grid list-none grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
-              {rows.map((member, index) => (
-                <li key={member.id}>
-                  <Link
-                    href={`/admin/staff/${member.id}`}
-                    className="group flex h-full flex-col rounded-admin border border-admin-line bg-white p-5 transition-all duration-300 ease-out-soft hover:-translate-y-1 hover:border-admin-pink/40 hover:shadow-admin-lg motion-reduce:hover:translate-y-0"
-                  >
-                    <div className="flex items-start gap-3">
-                      <Avatar initials={member.initials} name={member.name} index={index} />
-                      <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-bold text-admin-ink">
-                          {member.name}
-                        </p>
-                        <p className="truncate text-xs text-admin-muted">{member.role}</p>
-                      </div>
-                      <StatusBadge status={member.active ? "Active" : "Inactive"} />
-                    </div>
-
-                    <dl className="mt-4 space-y-1.5 text-xs">
-                      <div className="flex justify-between gap-3">
-                        <dt className="text-admin-muted">Department</dt>
-                        <dd className="font-medium text-admin-ink">{member.dept}</dd>
-                      </div>
-                      <div className="flex justify-between gap-3">
-                        <dt className="flex items-center gap-1 text-admin-muted">
-                          <Clock className="h-3 w-3" aria-hidden="true" />
-                          Shift
-                        </dt>
-                        <dd className="font-medium tabular-nums text-admin-ink">
-                          {member.shiftStart} – {member.shiftEnd}
-                        </dd>
-                      </div>
-                      <div className="flex justify-between gap-3">
-                        <dt className="text-admin-muted">Access</dt>
-                        <dd className="font-medium text-admin-ink">{member.accessRole}</dd>
-                      </div>
-                    </dl>
-
-                    <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-admin-pink">
-                      Open profile
-                      <ArrowUpRight
-                        className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 motion-reduce:transform-none"
-                        aria-hidden="true"
-                      />
-                    </span>
-                  </Link>
-                </li>
+            <CascadeGrid className="mt-5 grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {rows.map((member) => (
+                <MediaCard
+                  key={member.id}
+                  seed={member.id}
+                  badgeLabel={member.active ? "Active" : "Inactive"}
+                  badgeStatus={member.active ? "active" : "inactive"}
+                  title={member.name}
+                  avatarInitials={member.initials}
+                  line1={member.role}
+                  line2={member.dept}
+                  actionLabel="Open profile"
+                  href={`/admin/staff/${member.id}`}
+                  className="max-w-[228px]"
+                />
               ))}
-            </ul>
+            </CascadeGrid>
           )}
         </Card>
       </Reveal>

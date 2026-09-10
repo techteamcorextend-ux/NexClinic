@@ -200,7 +200,7 @@ export default function PatientDashboard() {
             <PCard>
               <SectionTitle title="Quick action" />
               <ul className="mt-4 grid list-none grid-cols-1 gap-3 sm:grid-cols-2">
-                {QUICK_ACTIONS.map((entry) => {
+                {QUICK_ACTIONS.map((entry, index) => {
                   const Icon = entry.icon;
                   const body = (
                     <>
@@ -218,22 +218,24 @@ export default function PatientDashboard() {
 
                   return (
                     <li key={entry.key}>
-                      {entry.key === "record" ? (
-                        <Link
-                          href="/patient/records"
-                          className="group flex h-full items-center gap-3.5 rounded-2xl border border-p-line bg-p-card p-4 transition-all duration-300 ease-out-soft hover:-translate-y-1 hover:border-p-accent/40 motion-reduce:hover:translate-y-0"
-                        >
-                          {body}
-                        </Link>
-                      ) : (
-                        <button
-                          type="button"
-                          onClick={() => setAction(entry.key)}
-                          className="group flex h-full w-full items-center gap-3.5 rounded-2xl border border-p-line bg-p-card p-4 text-left transition-all duration-300 ease-out-soft hover:-translate-y-1 hover:border-p-accent/40 motion-reduce:hover:translate-y-0"
-                        >
-                          {body}
-                        </button>
-                      )}
+                      <Reveal delay={index * 0.07} className="h-full">
+                        {entry.key === "record" ? (
+                          <Link
+                            href="/patient/records"
+                            className="group flex h-full items-center gap-3.5 rounded-2xl border border-p-line bg-p-card p-4 transition-all duration-300 ease-out-soft hover:-translate-y-1 hover:border-p-accent/40 motion-reduce:hover:translate-y-0"
+                          >
+                            {body}
+                          </Link>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => setAction(entry.key)}
+                            className="group flex h-full w-full items-center gap-3.5 rounded-2xl border border-p-line bg-p-card p-4 text-left transition-all duration-300 ease-out-soft hover:-translate-y-1 hover:border-p-accent/40 motion-reduce:hover:translate-y-0"
+                          >
+                            {body}
+                          </button>
+                        )}
+                      </Reveal>
                     </li>
                   );
                 })}

@@ -196,12 +196,12 @@ export default function SurgeonDashboard() {
       </Reveal>
 
       {/* ── Stat tabs ── */}
-      <Reveal delay={0.05}>
-        <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
-          {stats.map((stat) => {
-            const Icon = stat.icon;
-            return (
-              <PLinkCard key={stat.label} href={stat.href} label={`${stat.label}: ${stat.value}`}>
+      <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
+        {stats.map((stat, index) => {
+          const Icon = stat.icon;
+          return (
+            <Reveal key={stat.label} delay={index * 0.07}>
+              <PLinkCard href={stat.href} label={`${stat.label}: ${stat.value}`}>
                 <div className="flex items-start justify-between gap-2">
                   <p className="text-xs font-medium text-p-muted">{stat.label}</p>
                   <Icon className="h-4 w-4 shrink-0 text-p-accent" aria-hidden="true" />
@@ -210,10 +210,10 @@ export default function SurgeonDashboard() {
                   {stat.value}
                 </p>
               </PLinkCard>
-            );
-          })}
-        </div>
-      </Reveal>
+            </Reveal>
+          );
+        })}
+      </div>
 
       <div className="mt-5 grid grid-cols-1 gap-5 xl:grid-cols-[1.5fr_1fr]">
         <div className="min-w-0 space-y-5">
