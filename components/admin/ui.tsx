@@ -3,6 +3,7 @@
 import type { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import TextReveal from "@/components/motion/TextReveal";
 import { usePrefersReducedMotion } from "./use-media-query";
 
 /* ───────────────────────────── Card ───────────────────────────── */
@@ -41,7 +42,9 @@ export function CardHeading({
   return (
     <div className={cn("flex flex-wrap items-start justify-between gap-3", className)}>
       <div className="min-w-0">
-        <Tag className="text-sm font-medium text-admin-muted">{title}</Tag>
+        <TextReveal as={Tag} className="text-sm font-medium text-admin-muted">
+          {title}
+        </TextReveal>
         {description ? (
           <p className="mt-1 text-lg font-semibold tracking-tight text-admin-ink">
             {description}

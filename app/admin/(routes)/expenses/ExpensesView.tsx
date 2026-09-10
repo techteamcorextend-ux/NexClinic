@@ -17,6 +17,7 @@ import { DownloadButton } from "@/components/motion-ui/buttons";
 import { EXPENSES, EXPENSE_MONTHS, MONTHLY_REVENUE } from "@/lib/admin-metrics";
 import { downloadCsv } from "@/lib/downloads";
 
+import TextReveal from "@/components/motion/TextReveal";
 const inr = (value: number) => `₹${value.toLocaleString("en-IN")}`;
 
 export default function ExpensesView() {
@@ -46,7 +47,7 @@ export default function ExpensesView() {
         <Card>
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
-              <h2 className="text-sm font-medium text-admin-muted">Net profit</h2>
+              <TextReveal as="h2" className="text-sm font-medium text-admin-muted">Net profit</TextReveal>
               <p className="mt-1 flex items-baseline gap-3">
                 <span className="text-3xl font-bold tracking-tight text-admin-ink md:text-4xl">
                   {inr(netProfit)}

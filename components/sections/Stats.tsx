@@ -13,6 +13,7 @@ import {
 } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
+import TextReveal from "@/components/motion/TextReveal";
 /** Where each node's label sits relative to its dot, by position on the ring. */
 const LABEL_ANCHOR = [
   "bottom-full left-1/2 mb-3 -translate-x-1/2",
@@ -146,7 +147,7 @@ export function Stats() {
         <div>
           <FadeInOnScroll>
             <p className="eyebrow">{STATS_INTRO.label}</p>
-            <h2 className="section-title mt-5 max-w-lg">{STATS_INTRO.sentence}</h2>
+            <TextReveal as="h2" className="section-title mt-5 max-w-lg">{STATS_INTRO.sentence}</TextReveal>
           </FadeInOnScroll>
 
           {/* ⚠️ PLACEHOLDER STATS — swap for real, verified numbers before launch. */}
@@ -173,7 +174,7 @@ export function Stats() {
 
         <FadeInOnScroll delay={0.1}>
           <div className="rounded-card border border-line bg-surface p-6 md:p-10">
-            <h3 className="sr-only">The patient journey through Nexclinic</h3>
+            <TextReveal as="h3" className="sr-only">The patient journey through Nexclinic</TextReveal>
             <RadialDiagram />
           </div>
         </FadeInOnScroll>

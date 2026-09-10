@@ -38,6 +38,7 @@ import {
 import type { Patient } from "@/lib/portal-data";
 import { downloadCsv, downloadPdf } from "@/lib/downloads";
 
+import TextReveal from "@/components/motion/TextReveal";
 const SIDE_NAV = [
   { label: "Profile", icon: User, count: null as number | null },
   { label: "Care programmes", icon: ClipboardList, count: 4 },
@@ -180,9 +181,9 @@ export default function PatientProfile({ patient }: { patient: Patient }) {
                 <span className="hidden sm:inline">Back</span>
               </Link>
 
-              <h1 className="min-w-0 flex-1 truncate text-xl font-bold tracking-tight text-p-ink">
+              <TextReveal as="h1" className="min-w-0 flex-1 truncate text-xl font-bold tracking-tight text-p-ink">
                 Patient profile
-              </h1>
+              </TextReveal>
 
               <div className="relative order-last w-full sm:order-none sm:w-56">
                 <label htmlFor="profile-search" className="sr-only">
@@ -253,9 +254,9 @@ export default function PatientProfile({ patient }: { patient: Patient }) {
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-start justify-between gap-3">
                       <div>
-                        <h2 className="text-3xl font-bold tracking-tight text-p-ink">
+                        <TextReveal as="h2" className="text-3xl font-bold tracking-tight text-p-ink">
                           {patient.name}
-                        </h2>
+                        </TextReveal>
                         <p className="mt-1 text-sm text-p-muted">
                           {patient.condition} · {patient.doctor}
                         </p>
@@ -309,9 +310,9 @@ export default function PatientProfile({ patient }: { patient: Patient }) {
             <div className="grid grid-cols-1 gap-5 xl:grid-cols-[1.6fr_1fr]">
               <Reveal delay={0.1}>
                 <section className="h-full rounded-[22px] border border-p-line bg-p-card p-6 shadow-[0_4px_24px_rgba(16,24,40,0.05)]">
-                  <h3 className="text-lg font-bold tracking-tight text-p-ink">
+                  <TextReveal as="h3" className="text-lg font-bold tracking-tight text-p-ink">
                     Care pathway
-                  </h3>
+                  </TextReveal>
 
                   {patient.courses.length === 0 ? (
                     <p className="mt-6 rounded-2xl bg-p-soft p-5 text-sm text-p-muted">
@@ -384,9 +385,9 @@ export default function PatientProfile({ patient }: { patient: Patient }) {
               <div className="space-y-5">
                 <Reveal delay={0.14}>
                   <section className="rounded-[22px] border border-p-line bg-p-card p-6 shadow-[0_4px_24px_rgba(16,24,40,0.05)]">
-                    <h3 className="text-base font-bold tracking-tight text-p-ink">
+                    <TextReveal as="h3" className="text-base font-bold tracking-tight text-p-ink">
                       Billing information
-                    </h3>
+                    </TextReveal>
                     <p className="mt-4 text-xs font-medium text-p-muted">Card on file</p>
                     <p className="mt-2 rounded-xl border border-p-line bg-p-bg px-4 py-3 font-mono text-sm tracking-widest text-p-ink">
                       **** **** **** 4242
@@ -406,10 +407,10 @@ export default function PatientProfile({ patient }: { patient: Patient }) {
 
                 <Reveal delay={0.18}>
                   <section className="rounded-[22px] bg-[#2A2340] p-6 text-white shadow-lift">
-                    <h3 className="flex items-center gap-2 text-lg font-bold tracking-tight">
+                    <TextReveal as="h3" className="flex items-center gap-2 text-lg font-bold tracking-tight">
                       <Sparkles className="h-4 w-4" aria-hidden="true" />
                       Care Plan Premium
-                    </h3>
+                    </TextReveal>
                     <ul className="mt-5 list-none space-y-2.5">
                       {CARE_PLAN.map((line) => (
                         <li key={line} className="flex items-start gap-2.5 text-sm text-white/85">
@@ -430,9 +431,9 @@ export default function PatientProfile({ patient }: { patient: Patient }) {
             {/* Recent activity */}
             <Reveal delay={0.22}>
               <section className="relative overflow-hidden rounded-[22px] border border-p-line bg-p-card p-6 shadow-[0_4px_24px_rgba(16,24,40,0.05)]">
-                <h3 className="text-lg font-bold tracking-tight text-p-ink">
+                <TextReveal as="h3" className="text-lg font-bold tracking-tight text-p-ink">
                   Recent activity
-                </h3>
+                </TextReveal>
 
                 <ul className="mt-5 list-none space-y-2 lg:max-w-[62%]">
                   {patient.activity.map((entry) => {

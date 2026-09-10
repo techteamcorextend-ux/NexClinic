@@ -5,6 +5,7 @@ import { FadeInOnScroll } from "@/components/motion/FadeInOnScroll";
 import { PORTALS, PORTALS_HEADER } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
+import TextReveal from "@/components/motion/TextReveal";
 /** Fan angles for the stacked desktop deck (degrees, left → right). */
 const FAN_ANGLES = [-7, -4.2, -1.4, 1.4, 4.2, 7];
 const FAN_LIFT = [18, 8, 0, 0, 8, 18];
@@ -37,9 +38,9 @@ function PortalCard({
           className="placeholder-surface mt-5 h-24 w-full rounded-chip border border-line"
         />
 
-        <h3 className="mt-6 text-lg font-semibold leading-tight tracking-tight text-ink">
+        <TextReveal as="h3" className="mt-6 text-lg font-semibold leading-tight tracking-tight text-ink">
           {name}
-        </h3>
+        </TextReveal>
         <p className="mt-3 text-sm leading-relaxed text-ink-muted">{body}</p>
       </div>
 
@@ -56,7 +57,7 @@ export function Portals() {
       <div className="shell">
         <FadeInOnScroll className="max-w-2xl">
           <p className="eyebrow">Role-based workspaces</p>
-          <h2 className="section-title mt-5">{PORTALS_HEADER.headline}</h2>
+          <TextReveal as="h2" className="section-title mt-5">{PORTALS_HEADER.headline}</TextReveal>
           <p className="body-copy mt-5">{PORTALS_HEADER.subtext}</p>
         </FadeInOnScroll>
       </div>

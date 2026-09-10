@@ -8,6 +8,7 @@ import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 import { EXPLORE_PANELS } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
+import TextReveal from "@/components/motion/TextReveal";
 export function ExplorePanels() {
   // The first panel is expanded by default so the section is never empty on load.
   const [openIndex, setOpenIndex] = useState(0);
@@ -19,7 +20,7 @@ export function ExplorePanels() {
       <div className="shell">
         <FadeInOnScroll className="max-w-2xl">
           <p className="eyebrow">What&apos;s inside</p>
-          <h2 className="section-title mt-5">Three layers, one login.</h2>
+          <TextReveal as="h2" className="section-title mt-5">Three layers, one login.</TextReveal>
         </FadeInOnScroll>
 
         <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -92,9 +93,9 @@ export function ExplorePanels() {
                   className="placeholder-surface grain absolute inset-0 -z-10"
                 />
                 <div className="relative max-w-xl">
-                  <h3 className="text-2xl font-bold tracking-tight text-ink md:text-3xl">
+                  <TextReveal as="h3" className="text-2xl font-bold tracking-tight text-ink md:text-3xl">
                     {openPanel.title}
-                  </h3>
+                  </TextReveal>
                   <p className="mt-3 text-base leading-relaxed text-ink/80 md:text-lg">
                     {openPanel.body}
                   </p>

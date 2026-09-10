@@ -1,6 +1,7 @@
 import { Instagram, Linkedin, Twitter } from "lucide-react";
 import { FOOTER_COLUMNS, FOOTER_META } from "@/lib/data";
 
+import TextReveal from "@/components/motion/TextReveal";
 const SOCIALS = [
   { label: "Nexclinic on LinkedIn", Icon: Linkedin, href: "#" },
   { label: "Nexclinic on X (formerly Twitter)", Icon: Twitter, href: "#" },
@@ -35,9 +36,9 @@ export function Footer() {
 
           {FOOTER_COLUMNS.map((column) => (
             <nav key={column.heading} aria-label={column.heading}>
-              <h2 className="text-xs font-medium uppercase tracking-[0.2em] text-ink-muted">
+              <TextReveal as="h2" className="text-xs font-medium uppercase tracking-[0.2em] text-ink-muted">
                 {column.heading}
-              </h2>
+              </TextReveal>
               <ul className="mt-5 list-none space-y-3">
                 {column.links.map((link) => (
                   <li key={link}>

@@ -27,6 +27,7 @@ import {
 import { SIGNED_IN_PATIENT } from "@/lib/portal-data";
 import { downloadPdf } from "@/lib/downloads";
 
+import TextReveal from "@/components/motion/TextReveal";
 const NAV = [
   { label: "Dashboard", href: "/patient", icon: LayoutGrid },
   { label: "Health overview", href: "/patient/health", icon: HeartPulse },
@@ -94,10 +95,10 @@ export default function HealthOverview() {
           <div className="relative overflow-hidden rounded-[26px] p-glass">
             <div className="flex flex-wrap items-start justify-between gap-4 p-6">
               <div>
-                <h2 className="text-3xl font-bold leading-tight tracking-tight text-p-ink">
+                <TextReveal as="h2" className="text-3xl font-bold leading-tight tracking-tight text-p-ink">
                   Overview
                   <span className="block text-p-grad">Patient Health</span>
-                </h2>
+                </TextReveal>
                 <p className="mt-2 max-w-sm text-sm text-p-muted">
                   Contrast-enhanced cardiac study, reviewed by {patient.doctor}.
                 </p>

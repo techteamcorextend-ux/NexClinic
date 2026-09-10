@@ -5,17 +5,18 @@ import { Button } from "@/components/ui/button";
 import { FadeInOnScroll } from "@/components/motion/FadeInOnScroll";
 import { RESOURCES, RESOURCES_HEADER } from "@/lib/data";
 
+import TextReveal from "@/components/motion/TextReveal";
 export function Resources() {
   return (
     <section id="resources" className="scroll-mt-28 bg-surface py-24 md:py-32">
       <div className="shell">
         <FadeInOnScroll className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-          <h2 className="section-title max-w-2xl">
+          <TextReveal as="h2" className="section-title max-w-2xl">
             {RESOURCES_HEADER.headlineLead}{" "}
             <span className="text-accent-gradient">
               {RESOURCES_HEADER.headlineGradient}
             </span>
-          </h2>
+          </TextReveal>
 
           <Button variant="outline" asChild>
             <a href="#resources">

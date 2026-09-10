@@ -18,6 +18,7 @@ import { useClinic } from "@/lib/clinic-store";
 import type { EquipmentStatus } from "@/lib/clinic-types";
 import { downloadCsv } from "@/lib/downloads";
 
+import TextReveal from "@/components/motion/TextReveal";
 const STATUS_TONE: Record<EquipmentStatus, string> = {
   Operational: "Stable",
   "Under maintenance": "In consult",
@@ -227,9 +228,9 @@ export default function EquipmentView() {
                       <Wrench className="h-4 w-4" />
                     </span>
                     <div className="min-w-0">
-                      <h2 className="truncate text-base font-bold tracking-tight text-p-ink">
+                      <TextReveal as="h2" className="truncate text-base font-bold tracking-tight text-p-ink">
                         {item.name}
-                      </h2>
+                      </TextReveal>
                       <p className="mt-0.5 flex items-center gap-1.5 text-xs text-p-muted">
                         <MapPin className="h-3 w-3" aria-hidden="true" />
                         {item.location}

@@ -14,6 +14,7 @@ import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 import { MILESTONES, TIMELINE_CHIP } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
+import TextReveal from "@/components/motion/TextReveal";
 function QuestionChip() {
   return (
     <BookDemoDialog>
@@ -61,7 +62,7 @@ export function Timeline() {
           <div className="shell grid w-full grid-cols-2 items-center gap-16">
             <div>
               <p className="eyebrow">Platform milestones</p>
-              <h2 className="section-title mt-5">How Nexclinic grew.</h2>
+              <TextReveal as="h2" className="section-title mt-5">How Nexclinic grew.</TextReveal>
 
               <ol className="mt-10 list-none space-y-2">
                 {MILESTONES.map((milestone, index) => {
@@ -131,7 +132,7 @@ export function Timeline() {
       <div className="shell py-24 lg:hidden">
         <FadeInOnScroll>
           <p className="eyebrow">Platform milestones</p>
-          <h2 className="section-title mt-5">How Nexclinic grew.</h2>
+          <TextReveal as="h2" className="section-title mt-5">How Nexclinic grew.</TextReveal>
         </FadeInOnScroll>
 
         <ol className="mt-12 list-none border-l border-line pl-6">

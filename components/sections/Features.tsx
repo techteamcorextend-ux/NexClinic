@@ -11,6 +11,7 @@ import { FadeInOnScroll } from "@/components/motion/FadeInOnScroll";
 import { Marquee } from "@/components/sections/Marquee";
 import { FEATURES, FEATURE_CARD, MARQUEE_SMALL } from "@/lib/data";
 
+import TextReveal from "@/components/motion/TextReveal";
 const AVATAR_TINTS = [
   "from-[#A78BFA] to-[#7C6FF0]",
   "from-[#7C6FF0] to-[#5B4FE0]",
@@ -72,9 +73,9 @@ export function Features() {
 
         {/* Accordion */}
         <FadeInOnScroll delay={0.08}>
-          <h2 className="section-title max-w-md">
+          <TextReveal as="h2" className="section-title max-w-md">
             One platform, three things it never lets slip.
-          </h2>
+          </TextReveal>
 
           <Accordion
             type="single"

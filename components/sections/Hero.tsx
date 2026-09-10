@@ -10,6 +10,7 @@ import { HelixFallback } from "@/components/three/HelixFallback";
 import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 import { HERO, HERO_PROOF } from "@/lib/data";
 
+import TextReveal from "@/components/motion/TextReveal";
 /** The Three.js scene is client-only and lazily loaded so it never blocks first paint. */
 const ParticleHuman = dynamic(() => import("@/components/three/ParticleHuman"), {
   ssr: false,
@@ -143,9 +144,9 @@ export function Hero() {
               </span>
             </div>
             <div>
-              <h2 className="text-2xl font-bold leading-tight tracking-tight text-ink md:text-3xl">
+              <TextReveal as="h2" className="text-2xl font-bold leading-tight tracking-tight text-ink md:text-3xl">
                 {HERO_PROOF.headline}
-              </h2>
+              </TextReveal>
               <p className="body-copy mt-3 max-w-xl">{HERO_PROOF.body}</p>
             </div>
           </div>

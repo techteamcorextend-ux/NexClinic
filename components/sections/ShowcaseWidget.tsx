@@ -7,6 +7,7 @@ import { FadeInOnScroll } from "@/components/motion/FadeInOnScroll";
 import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 import { SHOWCASE } from "@/lib/data";
 
+import TextReveal from "@/components/motion/TextReveal";
 /** ⚠️ PLACEHOLDER SERIES — replace with real queue telemetry. */
 const SPARKLINE = [14, 9, 17, 11, 20, 13, 8, 15, 6, 12, 5];
 
@@ -99,9 +100,9 @@ export function ShowcaseWidget() {
             </motion.div>
 
             {/* Bottom-left overlaid headline */}
-            <h2 className="relative z-10 max-w-xl text-4xl font-bold leading-[1.03] tracking-tight text-white drop-shadow-[0_2px_18px_rgba(11,11,15,0.35)] md:text-5xl">
+            <TextReveal as="h2" className="relative z-10 max-w-xl text-4xl font-bold leading-[1.03] tracking-tight text-white drop-shadow-[0_2px_18px_rgba(11,11,15,0.35)] md:text-5xl">
               {SHOWCASE.headline}
-            </h2>
+            </TextReveal>
           </div>
         </FadeInOnScroll>
       </div>
