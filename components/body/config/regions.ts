@@ -182,7 +182,19 @@ export const SEVERITY_COLOR: Record<Severity, string> = {
 export const MATERIAL = {
   color: "#0f766e",
   rim: "#2dd4bf",
-  transmission: 0.3,
+  /**
+   * The brief asked for transmission 0.3. Dropped to 0 deliberately:
+   * transmission forces three to allocate a separate render target and
+   * re-render the scene into it every frame, which on a shared GPU (the
+   * observed case: several WebGL tabs open) was enough to lose the context
+   * outright. It also fights the highlight — a transmissive material does
+   * its own blending, so the alpha-based dim of unfocused regions barely
+   * registered. Plain alpha plus the fresnel rim gives the same translucent
+   * read for a fraction of the cost. Raise it if you want the refraction
+   * back and can spend the frame time.
+   */
+  transmission: 0,
+  opacity: 0.92,
   thickness: 0.8,
   roughness: 0.35,
   metalness: 0,

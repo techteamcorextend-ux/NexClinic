@@ -123,6 +123,7 @@ function Scene({
       <OrbitControls
         ref={controls}
         makeDefault
+        target={[...NEUTRAL_POSE.target]}
         // The single most important rule here: the wheel belongs to the page.
         // Camera distance is a consequence of which region is focused, never
         // of the scroll wheel.
@@ -162,6 +163,7 @@ export default function BodyViewer({ vitals, className, caption }: BodyViewerPro
 
   const containerRef = useRef<HTMLDivElement>(null);
   const draggingRef = useRef(false);
+  const lostAt = useRef<number | null>(null);
   const [inView, setInView] = useState(true);
 
   const uniforms = useMemo(() => createBodyUniforms(), []);
@@ -228,20 +230,41 @@ export default function BodyViewer({ vitals, className, caption }: BodyViewerPro
       ref={containerRef}
       className={`relative flex h-full min-h-[420px] flex-col overflow-hidden rounded-2xl border border-slate-200/70 bg-gradient-to-b from-slate-50 to-white ${className ?? ""}`}
     >
-      <div className="relative flex-1">
+      {/* A real floor for the canvas. Without it the 13-row legend and the
+          footer consume the panel's min-height and leave the 3D view a
+          ~150px letterbox with the figure cropped out of frame. */}
+      <div className="relative flex-1 min-h-[380px]">
         {showCanvas ? (
           <>
+            {/*
+              absolute inset-0 is load-bearing. R3F sizes its canvas from a
+              ResizeObserver on this wrapper, and the wrapper's own height:100%
+              can't resolve against a parent whose height comes from
+              min-height rather than height — it measures 0 and the canvas
+              stays at the HTML default 300x150. Anchoring to the positioned
+              parent gives it a definite box to measure.
+            */}
+            <div className="absolute inset-0">
             <CanvasBoundary onError={() => setCrashed(true)}>
               <Canvas
                 // The canvas is decorative. Every number in it also exists as
                 // DOM text in the legend and the callout below.
                 aria-hidden="true"
                 frameloop="demand"
-                dpr={[1, 2]}
+                dpr={[1, 1.75]}
                 gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
                 camera={{ position: [...NEUTRAL_POSE.position], fov: NEUTRAL_POSE.fov, near: 0.1, far: 100 }}
                 onCreated={({ gl }) => {
-                  gl.domElement.addEventListener("webglcontextlost", () => setCrashed(true));
+                  const canvas = gl.domElement;
+                  // preventDefault is what makes a lost context restorable at
+                  // all; without it the browser never fires contextrestored.
+                  canvas.addEventListener("webglcontextlost", (event) => {
+                    event.preventDefault();
+                    lostAt.current = Date.now();
+                  });
+                  canvas.addEventListener("webglcontextrestored", () => {
+                    lostAt.current = null;
+                  });
                 }}
                 style={{ touchAction: "pan-y" }}
               >
@@ -256,6 +279,7 @@ export default function BodyViewer({ vitals, className, caption }: BodyViewerPro
                 />
               </Canvas>
             </CanvasBoundary>
+            </div>
 
             <VitalCallout
               region={activeRegion}

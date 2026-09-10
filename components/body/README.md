@@ -120,25 +120,43 @@ patient's right.
 
 ## Verification status
 
-Verified:
+Verified in a real browser (Chrome, dev server):
 
-- Segmentation math, offline against the actual GLB — all 13 regions within
-  5%, zero unassigned (see the table above).
-- `tsc --noEmit` clean, strict, no `any` in the region/vitals types.
-- `next lint` clean.
-- No module-scope `window`/`document` in `components/body/`; every listener
-  is inside an effect.
-- `THREE.ShaderChunk.opaque_fragment` exists in the installed three@0.169, so
-  the `onBeforeCompile` patch finds its anchor.
-- All six drei exports used here resolve in the installed drei@9.114.
+- The figure loads, is upright, and frames correctly at the neutral pose.
+- Console logs `region segmentation — height 4.469, all within 5%` on load,
+  confirming the offline segmentation math against the live model.
+- Hover works end to end: raycast -> region id -> camera tween -> shader
+  highlight -> callout -> legend sync. Hovering a thigh highlights only that
+  thigh and dims the rest.
+- The canvas sizes to its container (675x380 at a 1440px viewport) and the
+  under-768px fallback renders the standalone legend with every reading as
+  DOM text.
 
-**Not verified — please run these:**
+Also verified statically: `tsc --noEmit` strict clean, `next lint` clean,
+no module-scope `window`/`document`, `THREE.ShaderChunk.opaque_fragment`
+present in three@0.169, all drei exports resolve.
 
-- `npm run build` and a browser pass. The agent that wrote this could not keep
-  a process alive longer than ~3 minutes on the mounted filesystem, so the
-  full production build and the interaction checks in §9 of the brief
-  (hover isolates one region, scroll flies the camera, wheel never zooms,
-  375px fallback) have not been executed against a running app.
+**Still unverified:** a full `next build` (the dev machine can't finish one
+inside the agent's command timeout), scroll choreography on the consultation
+screen, and the wheel-never-zooms rule.
+
+### Three bugs worth remembering
+
+1. **`aria-hidden` on a drei `<Html>`.** R3F's `applyProps` treats dashes in
+   an unknown prop as a nested property path, so it resolved
+   `instance.aria.hidden` and threw at scene construction. DOM attributes go
+   on the rendered child, never on a three object.
+
+2. **`occlude="blending"` rewrites the canvas's own inline styles** —
+   `position: absolute`, `pointer-events: none`, and a z-index derived from
+   `zIndexRange`. That stopped the canvas sizing to its container and
+   silently killed every pointer event on the mesh. Removed.
+
+3. **A percentage height can't resolve against `min-height`.** R3F measures
+   its container with a ResizeObserver; the wrapper's `height: 100%` saw a
+   parent whose height came from `min-h-[380px]` rather than `height`,
+   measured 0, and the canvas stayed at the HTML default 300x150. The canvas
+   wrapper is now `absolute inset-0` inside the positioned parent.
 
 ## Licence
 

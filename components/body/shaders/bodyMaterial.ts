@@ -103,6 +103,7 @@ export function createBodyMaterial(uniforms: BodyUniforms): THREE.MeshPhysicalMa
     color: new THREE.Color(MATERIAL.color),
     transmission: MATERIAL.transmission,
     thickness: MATERIAL.thickness,
+    opacity: MATERIAL.opacity,
     roughness: MATERIAL.roughness,
     metalness: MATERIAL.metalness,
     envMapIntensity: MATERIAL.envMapIntensity,
