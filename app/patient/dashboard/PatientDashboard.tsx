@@ -12,6 +12,7 @@ import {
   Video,
 } from "lucide-react";
 import PortalShell from "@/components/portal/PortalShell";
+import BodyVitalsPanel from "@/components/portal/BodyVitalsPanel";
 import NoticeBell from "@/components/system/NoticeBell";
 import QrPlaceholder from "@/components/system/QrPlaceholder";
 import {
@@ -244,39 +245,53 @@ export default function PatientDashboard() {
           </Reveal>
         </div>
 
-        {/* ── Upcoming appointments ── */}
-        <Reveal delay={0.1}>
-          <PCard className="h-full">
-            <SectionTitle
-              title="Upcoming appointments"
-              action={<ChevronButton href="/patient/records">Timeline</ChevronButton>}
+        <div className="min-w-0 space-y-5">
+          {/* ── Upcoming appointments ── */}
+          <Reveal delay={0.1}>
+            <PCard className="h-full">
+              <SectionTitle
+                title="Upcoming appointments"
+                action={<ChevronButton href="/patient/records">Timeline</ChevronButton>}
+              />
+              <ul className="mt-4 list-none space-y-2.5">
+                {upcoming.map((entry) => (
+                  <li
+                    key={entry.id}
+                    className="rounded-2xl border border-p-line px-4 py-3"
+                  >
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <p className="text-sm font-semibold text-p-ink">{entry.reason}</p>
+                      <PPill tone={entry.status === "approved" ? "Resolved" : "Waiting"}>
+                        {entry.status}
+                      </PPill>
+                    </div>
+                    <p className="mt-1 text-xs text-p-muted">
+                      {entry.date} at {entry.time} · {entry.doctor}
+                    </p>
+                  </li>
+                ))}
+                {upcoming.length === 0 ? (
+                  <li className="rounded-2xl bg-p-soft px-4 py-3 text-sm text-p-muted">
+                    Nothing booked. Use <span className="font-semibold">Book visit</span> to
+                    request a slot.
+                  </li>
+                ) : null}
+              </ul>
+            </PCard>
+          </Reveal>
+
+          {/*
+            The patient's own chart, on their own body. No scroll container is
+            passed: this screen has no per-region sections to observe, so the
+            viewer answers to hover, click and the keyboard legend only.
+          */}
+          <Reveal delay={0.16}>
+            <BodyVitalsPanel
+              patientId={patient.id}
+              caption="Your latest readings · hover or click a region"
             />
-            <ul className="mt-4 list-none space-y-2.5">
-              {upcoming.map((entry) => (
-                <li
-                  key={entry.id}
-                  className="rounded-2xl border border-p-line px-4 py-3"
-                >
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <p className="text-sm font-semibold text-p-ink">{entry.reason}</p>
-                    <PPill tone={entry.status === "approved" ? "Resolved" : "Waiting"}>
-                      {entry.status}
-                    </PPill>
-                  </div>
-                  <p className="mt-1 text-xs text-p-muted">
-                    {entry.date} at {entry.time} · {entry.doctor}
-                  </p>
-                </li>
-              ))}
-              {upcoming.length === 0 ? (
-                <li className="rounded-2xl bg-p-soft px-4 py-3 text-sm text-p-muted">
-                  Nothing booked. Use <span className="font-semibold">Book visit</span> to
-                  request a slot.
-                </li>
-              ) : null}
-            </ul>
-          </PCard>
-        </Reveal>
+          </Reveal>
+        </div>
       </div>
 
       {/* ── Change password ── */}

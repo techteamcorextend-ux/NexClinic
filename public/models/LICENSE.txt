@@ -1,0 +1,8 @@
+3D model: "HUMAN_BODY"
+Author:   vistaalienprime (https://sketchfab.com/vistaalienprime)
+Source:   Sketchfab
+Licence:  Creative Commons Attribution 4.0 International (CC BY 4.0)
+          https://creativecommons.org/licenses/by/4.0/
+
+This model is used unmodified in NexClinic's 3D body viewer.
+Attribution is displayed in the viewer panel footer as required by the licence.
