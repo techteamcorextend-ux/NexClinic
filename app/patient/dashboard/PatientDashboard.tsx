@@ -247,8 +247,11 @@ export default function PatientDashboard() {
 
         <div className="min-w-0 space-y-5">
           {/* ── Upcoming appointments ── */}
+          {/* No h-full here: this card used to be the column's only child and
+              stretched to the grid row. With the viewer stacked beneath it,
+              h-full would eat the whole column and push the viewer off. */}
           <Reveal delay={0.1}>
-            <PCard className="h-full">
+            <PCard>
               <SectionTitle
                 title="Upcoming appointments"
                 action={<ChevronButton href="/patient/records">Timeline</ChevronButton>}
@@ -288,6 +291,7 @@ export default function PatientDashboard() {
           <Reveal delay={0.16}>
             <BodyVitalsPanel
               patientId={patient.id}
+              className="min-h-[520px]"
               caption="Your latest readings · hover or click a region"
             />
           </Reveal>
