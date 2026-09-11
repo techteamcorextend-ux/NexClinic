@@ -501,3 +501,170 @@
     animation: none !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   DARK THEME
+   ─────────────────────────────────────────────────────────────────────
+   Every colour in this app resolves through a CSS variable, so the dark
+   theme is a value swap rather than a second set of components. `.dark`
+   is put on <html> by the inline script in app/layout.tsx before first
+   paint, and toggled by components/system/ThemeToggle.
+
+   Three palette families are re-tuned independently, because they carry
+   different identities in light mode and inverting them uniformly would
+   flatten that: the marketing site (violet), the five role portals
+   (--p-*), and the Super Admin panel (blue).
+
+   Values are hand-picked rather than mechanically inverted. Backgrounds
+   sit near #0b0e14 with a hue cast matching each family; body text holds
+   at least 12:1 against its own surface and muted text at least 4.5:1,
+   which is why the muted tones are lighter here than a straight inversion
+   of the light palette would give.
+   ═══════════════════════════════════════════════════════════════════ */
+
+@layer base {
+  .dark {
+    color-scheme: dark;
+
+    /* ── Marketing / shared shell ── */
+    --bg: #0b0b10;
+    --bg-frame: #07070b;
+    --surface: #14141c;
+    --surface-tint: #1a1530;
+    --ink: #f4f4f7;
+    --ink-muted: #a1a6b4;
+    --border: #2a2a35;
+    /* Accents lift toward the light end of the ramp: the light-mode violets
+       are too dark to read as "bright" against a near-black ground. */
+    --accent-start: #c4b5fd;
+    --accent-mid: #a78bfa;
+    --accent-end: #8b7cf0;
+
+    --bg-rgb: 11 11 16;
+    --bg-frame-rgb: 7 7 11;
+    --surface-rgb: 20 20 28;
+    --surface-tint-rgb: 26 21 48;
+    --ink-rgb: 244 244 247;
+    --ink-muted-rgb: 161 166 180;
+    --border-rgb: 42 42 53;
+    --accent-start-rgb: 196 181 253;
+    --accent-mid-rgb: 167 139 250;
+    --accent-end-rgb: 139 124 240;
+
+    --accent-gradient: linear-gradient(135deg, #c4b5fd 0%, #a78bfa 52%, #8b7cf0 100%);
+    --accent-gradient-strong: linear-gradient(135deg, #a78bfa 0%, #8b7cf0 55%, #6d5bd0 100%);
+
+    /* ── Super Admin panel — keeps its blue identity ── */
+    --admin-page-bg: #0c1120;
+    --admin-sidebar-bg: #111a2e;
+    --admin-card-bg: #131d33;
+    --admin-text-primary: #e9eefb;
+    --admin-text-muted-soft: #6d7d9c; /* decorative only */
+    --admin-text-muted: #9aabc9; /* readable labels — 6.8:1 on the card */
+    --admin-border: #243049;
+
+    --admin-page-bg-rgb: 12 17 32;
+    --admin-sidebar-bg-rgb: 17 26 46;
+    --admin-card-bg-rgb: 19 29 51;
+    --admin-ink-rgb: 233 238 251;
+    --admin-muted-soft-rgb: 109 125 156;
+    --admin-muted-rgb: 154 171 201;
+    --admin-border-rgb: 36 48 73;
+    --admin-pink-rgb: 96 165 250;
+    --admin-purple-rgb: 139 156 255;
+    --admin-blue-rgb: 56 189 248;
+
+    --admin-grad-pink-purple: linear-gradient(135deg, #3b82f6 0%, #6d7cf7 100%);
+    --admin-grad-purple: linear-gradient(135deg, #6d7cf7 0%, #4553d6 100%);
+    --admin-grad-blue: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+    --admin-grad-orange: linear-gradient(135deg, #ffb877 0%, #ff8a5c 100%);
+
+    /* ── Portal default (inherited by any screen without a skin) ── */
+    --p-bg: 12 18 20;
+    --p-card: 22 30 33;
+    --p-ink: 236 244 246;
+    --p-muted: 150 166 172;
+    --p-line: 44 58 62;
+    --p-accent: 45 212 191;
+    --p-accent-2: 94 234 212;
+    --p-soft: 28 42 45;
+  }
+
+  /*
+     Portal skins. Each keeps its own hue so the five roles stay visually
+     distinct in the dark theme exactly as they are in the light one —
+     teal for care, indigo for clinic, violet for the patient profile,
+     indigo-on-black for the vault.
+  */
+
+  /* Nurse / care — teal */
+  .dark .theme-care {
+    --p-bg: 10 20 20;
+    --p-card: 20 32 32;
+    --p-ink: 232 246 244;
+    --p-muted: 146 168 166;
+    --p-line: 40 60 58;
+    --p-accent: 45 212 191;
+    --p-accent-2: 94 234 212;
+    --p-soft: 24 44 42;
+    --p-grad: linear-gradient(135deg, #5eead4 0%, #2dd4bf 55%, #14b8a6 100%);
+  }
+
+  /* Doctor + reception — indigo */
+  .dark .theme-clinic {
+    --p-bg: 13 15 28;
+    --p-card: 22 25 44;
+    --p-ink: 234 236 250;
+    --p-muted: 154 160 190;
+    --p-line: 44 50 78;
+    --p-accent: 129 140 248;
+    --p-accent-2: 165 180 252;
+    --p-soft: 28 32 56;
+    --p-grad: linear-gradient(135deg, #a5b4fc 0%, #818cf8 55%, #6366f1 100%);
+  }
+
+  /* Patient profile — violet */
+  .dark .theme-violet {
+    --p-bg: 18 14 28;
+    --p-card: 28 22 44;
+    --p-ink: 240 236 250;
+    --p-muted: 166 156 190;
+    --p-line: 52 44 76;
+    --p-accent: 167 139 250;
+    --p-accent-2: 196 181 253;
+    --p-soft: 34 26 54;
+    --p-grad: linear-gradient(135deg, #c4b5fd 0%, #a78bfa 55%, #8b7cf0 100%);
+  }
+
+  /* Inventory — indigo */
+  .dark .theme-vault {
+    --p-bg: 14 15 30;
+    --p-card: 24 26 46;
+    --p-ink: 234 236 252;
+    --p-muted: 152 156 190;
+    --p-line: 46 50 80;
+    --p-accent: 139 122 255;
+    --p-accent-2: 167 153 255;
+    --p-soft: 30 32 58;
+    --p-grad: linear-gradient(135deg, #a78bfa 0%, #8b7af5 55%, #6d5bd0 100%);
+    --p-panel: 10 11 24;
+    --p-panel-soft: 22 23 44;
+  }
+
+  /*
+     .theme-night is already a dark skin in light mode — the patient health
+     overview is dark glass by design. It's nudged rather than rebuilt so it
+     still reads as deliberately darker than its neighbours.
+  */
+  .dark .theme-night {
+    --p-bg: 9 11 16;
+    --p-card: 22 26 34;
+    --p-line: 46 52 66;
+  }
+
+  /* The page ground itself, so there's no white gutter behind the frame. */
+  .dark body {
+    background-color: rgb(var(--bg-frame-rgb));
+    color: rgb(var(--ink-rgb));
+  }
+}

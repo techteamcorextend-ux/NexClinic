@@ -248,7 +248,7 @@ export function AdminSidebar({
           aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
           aria-expanded={!collapsed}
           aria-controls="admin-sidebar"
-          className="absolute right-0 top-1/2 z-20 hidden h-7 w-7 -translate-y-1/2 translate-x-1/2 place-items-center rounded-full border border-admin-line bg-white text-admin-muted shadow-admin transition-colors duration-200 hover:text-admin-ink md:grid"
+          className="absolute right-0 top-1/2 z-20 hidden h-7 w-7 -translate-y-1/2 translate-x-1/2 place-items-center rounded-full border border-admin-line bg-white dark:bg-admin-card text-admin-muted shadow-admin transition-colors duration-200 hover:text-admin-ink md:grid"
         >
           {collapsed ? (
             <ChevronRight className="h-4 w-4" aria-hidden="true" />

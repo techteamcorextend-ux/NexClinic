@@ -118,12 +118,12 @@ function RadialDiagram() {
                       "block rounded-full ring-4 ring-white",
                       isActive
                         ? "h-6 w-6 bg-accent-gradient-strong shadow-lift"
-                        : "h-3 w-3 border border-line bg-white",
+                        : "h-3 w-3 border border-line bg-white dark:bg-surface",
                     )}
                   />
                   <span
                     className={cn(
-                      "absolute w-max max-w-[8.5rem] whitespace-normal rounded-full border border-line bg-white px-2.5 py-1 text-[11px] font-medium leading-tight text-ink shadow-sm",
+                      "absolute w-max max-w-[8.5rem] whitespace-normal rounded-full border border-line bg-white dark:bg-surface px-2.5 py-1 text-[11px] font-medium leading-tight text-ink shadow-sm",
                       LABEL_ANCHOR[index],
                       isActive && "border-transparent bg-accent-gradient-strong text-white shadow-lift",
                     )}
@@ -142,7 +142,7 @@ function RadialDiagram() {
 
 export function Stats() {
   return (
-    <section id="platform" className="scroll-mt-28 bg-white py-24 md:py-32">
+    <section id="platform" className="scroll-mt-28 bg-white dark:bg-surface py-24 md:py-32">
       <div className="shell grid grid-cols-1 items-center gap-16 lg:grid-cols-2 lg:gap-20">
         <div>
           <FadeInOnScroll>

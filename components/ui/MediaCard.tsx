@@ -207,8 +207,8 @@ export function MediaCard({
 
           <span
             className={cn(
-              "flex h-7 shrink-0 items-center justify-center whitespace-nowrap rounded-full bg-white px-3",
-              "text-[10px] font-semibold text-slate-900 shadow-[0_6px_16px_-6px_rgba(15,23,42,0.35)]",
+              "flex h-7 shrink-0 items-center justify-center whitespace-nowrap rounded-full bg-white dark:bg-surface px-3",
+              "text-[10px] font-semibold text-slate-900 dark:text-ink shadow-[0_6px_16px_-6px_rgba(15,23,42,0.35)]",
               "transition-transform duration-150 ease-out hover:scale-[1.04] motion-reduce:hover:scale-100",
             )}
           >

@@ -82,7 +82,7 @@ export function ScheduleSurgeryFab() {
               <select
                 id="surgery-patient"
                 name="patient"
-                className="h-12 w-full rounded-chip border border-line bg-white px-3 text-base text-ink focus:border-blue-500 focus:outline-none"
+                className="h-12 w-full rounded-chip border border-line bg-white dark:bg-p-card px-3 text-base text-ink focus:border-blue-500 focus:outline-none"
               >
                 {PATIENTS.map((patient) => (
                   <option key={patient.id}>{patient.name}</option>
@@ -114,7 +114,7 @@ export function ScheduleSurgeryFab() {
                 <select
                   id="surgery-theatre"
                   name="theatre"
-                  className="h-12 w-full rounded-chip border border-line bg-white px-3 text-base text-ink focus:border-blue-500 focus:outline-none"
+                  className="h-12 w-full rounded-chip border border-line bg-white dark:bg-p-card px-3 text-base text-ink focus:border-blue-500 focus:outline-none"
                 >
                   {THEATRES.map((theatre) => (
                     <option key={theatre}>{theatre}</option>

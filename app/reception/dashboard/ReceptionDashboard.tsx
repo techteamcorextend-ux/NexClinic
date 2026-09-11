@@ -120,7 +120,7 @@ function EmergencyButton() {
           >
             <span
               aria-hidden="true"
-              className="h-2 w-2 rounded-full bg-white motion-safe:animate-pulse-ring"
+              className="h-2 w-2 rounded-full bg-white dark:bg-p-card motion-safe:animate-pulse-ring"
             />
             <Siren className="h-4 w-4" aria-hidden="true" />
             Emergency
@@ -471,7 +471,7 @@ export default function ReceptionDashboard() {
                 id="walkin-priority"
                 name="priority"
                 defaultValue="medium"
-                className="h-12 w-full rounded-chip border border-line bg-white px-3 text-base capitalize text-ink focus:border-blue-500 focus:outline-none"
+                className="h-12 w-full rounded-chip border border-line bg-white dark:bg-p-card px-3 text-base capitalize text-ink focus:border-blue-500 focus:outline-none"
               >
                 {PRIORITIES.map((priority) => (
                   <option key={priority} value={priority} className="capitalize">

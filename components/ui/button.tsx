@@ -14,7 +14,7 @@ const buttonVariants = cva(
         solid: "bg-ink text-white shadow-soft hover:bg-[#1b1b22]",
         gradient: "bg-accent-gradient-strong text-white shadow-lift",
         outline:
-          "border border-line bg-white text-ink hover:border-ink/25 hover:bg-surface",
+          "border border-line bg-white dark:bg-surface text-ink hover:border-ink/25 hover:bg-surface",
         ghost: "text-ink hover:bg-surface",
         glass: "glass text-ink shadow-soft",
       },

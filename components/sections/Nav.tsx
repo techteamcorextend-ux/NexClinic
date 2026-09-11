@@ -10,6 +10,7 @@ import { NAV_LINKS } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 
+import ThemeToggle from "@/components/system/ThemeToggle";
 function MenuLines({ className }: { className?: string }) {
   return (
     <span className={cn("flex h-4 w-5 flex-col justify-between", className)} aria-hidden="true">
@@ -166,6 +167,7 @@ export function Nav() {
           <Button variant="solid" size="sm" className="md:px-6 md:py-3 md:text-base" asChild>
             <Link href="/login">Book a Demo</Link>
           </Button>
+          <ThemeToggle className="hidden sm:flex" />
         </div>
       </nav>
     </header>

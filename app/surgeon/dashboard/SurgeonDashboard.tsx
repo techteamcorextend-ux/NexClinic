@@ -240,7 +240,7 @@ export default function SurgeonDashboard() {
 
                   <StretchButton
                     href={`/surgeon/consultation/${nextUp.patientId ?? "p-1001"}`}
-                    className="bg-white !text-[#1B1C46]"
+                    className="bg-white dark:bg-p-card !text-[#1B1C46]"
                   >
                     <span className="flex items-center gap-2">
                       <Play className="h-4 w-4" aria-hidden="true" />

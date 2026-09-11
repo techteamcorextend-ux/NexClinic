@@ -24,7 +24,7 @@ function PortalCard({
   return (
     <article
       className={cn(
-        "flex h-full flex-col justify-between rounded-card border border-line bg-white p-6 shadow-soft transition-[transform,box-shadow] duration-500 ease-out-soft",
+        "flex h-full flex-col justify-between rounded-card border border-line bg-white dark:bg-surface p-6 shadow-soft transition-[transform,box-shadow] duration-500 ease-out-soft",
         className,
       )}
     >
@@ -53,7 +53,7 @@ function PortalCard({
 
 export function Portals() {
   return (
-    <section id="portals" className="scroll-mt-28 bg-white py-24 md:py-32">
+    <section id="portals" className="scroll-mt-28 bg-white dark:bg-surface py-24 md:py-32">
       <div className="shell">
         <FadeInOnScroll className="max-w-2xl">
           <p className="eyebrow">Role-based workspaces</p>

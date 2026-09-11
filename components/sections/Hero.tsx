@@ -4,13 +4,12 @@ import dynamic from "next/dynamic";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown } from "lucide-react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { HelixFallback } from "@/components/three/HelixFallback";
 import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 import { HERO, HERO_PROOF } from "@/lib/data";
 
 import TextReveal from "@/components/motion/TextReveal";
+import BookDemoButton from "@/components/ui/BookDemoButton";
 /** The Three.js scene is client-only and lazily loaded so it never blocks first paint. */
 const ParticleHuman = dynamic(() => import("@/components/three/ParticleHuman"), {
   ssr: false,
@@ -106,9 +105,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
           >
-            <Button variant="solid" size="lg" asChild>
-              <Link href="/login">{HERO.primaryCta}</Link>
-            </Button>
+            <BookDemoButton href="/login" ariaLabel={HERO.primaryCta} />
 
             <a
               href="#architecture"
@@ -129,7 +126,7 @@ export function Hero() {
         className="shell absolute inset-x-0 bottom-0 z-10"
         style={reduced ? undefined : { y: proofY }}
       >
-        <div className="relative overflow-hidden rounded-card border border-line bg-white p-7 shadow-soft md:p-10 lg:max-w-3xl">
+        <div className="relative overflow-hidden rounded-card border border-line bg-white dark:bg-surface p-7 shadow-soft md:p-10 lg:max-w-3xl">
           <div
             aria-hidden="true"
             className="absolute right-0 top-0 h-40 w-40 rounded-full bg-surface-tint blur-2xl"

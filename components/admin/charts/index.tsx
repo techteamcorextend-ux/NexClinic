@@ -61,7 +61,7 @@ function ChartTooltip({
   });
 
   return (
-    <div className="rounded-xl border border-admin-line bg-white px-3 py-2 shadow-admin-lg">
+    <div className="rounded-xl border border-admin-line bg-white dark:bg-admin-card px-3 py-2 shadow-admin-lg">
       {label !== undefined ? (
         <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-admin-muted">
           {label}

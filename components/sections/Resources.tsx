@@ -41,7 +41,7 @@ export function Resources() {
                     aria-hidden="true"
                     className="placeholder-surface grain absolute inset-0 block transition-transform duration-700 ease-out-soft group-hover:scale-105"
                   />
-                  <span className="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white text-ink opacity-0 shadow-soft transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
+                  <span className="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white dark:bg-surface text-ink opacity-0 shadow-soft transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
                     <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
                   </span>
                 </span>

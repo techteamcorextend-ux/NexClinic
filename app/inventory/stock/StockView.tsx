@@ -77,7 +77,7 @@ function AddStockDialog() {
                 <select
                   id="item-category"
                   name="category"
-                  className="h-12 w-full rounded-chip border border-line bg-white px-3 text-base text-ink focus:border-blue-500 focus:outline-none"
+                  className="h-12 w-full rounded-chip border border-line bg-white dark:bg-p-card px-3 text-base text-ink focus:border-blue-500 focus:outline-none"
                 >
                   {CATEGORIES.map((entry) => (
                     <option key={entry}>{entry}</option>

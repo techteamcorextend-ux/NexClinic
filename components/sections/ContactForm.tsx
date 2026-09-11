@@ -26,7 +26,7 @@ export function ContactForm() {
   };
 
   return (
-    <section id="pricing" className="scroll-mt-28 bg-white py-24 md:py-32">
+    <section id="pricing" className="scroll-mt-28 bg-white dark:bg-surface py-24 md:py-32">
       <div className="shell">
         <FadeInOnScroll>
           <TextReveal as="h2" className="text-center text-6xl font-bold uppercase leading-[0.9] tracking-tight text-ink sm:text-7xl md:text-8xl">
@@ -42,7 +42,7 @@ export function ContactForm() {
           {/* Tilted business card: gradient edge, white interior for legible fields. */}
           <div className="mx-auto mt-16 max-w-2xl">
             <div className="rounded-card bg-accent-gradient p-2.5 shadow-lift transition-transform duration-500 ease-out-soft [transform:rotate(-6deg)] hover:[transform:rotate(0deg)] motion-reduce:[transform:none]">
-              <div className="rounded-[22px] bg-white p-6 md:p-9">
+              <div className="rounded-[22px] bg-white dark:bg-surface p-6 md:p-9">
                 {submitted ? (
                   <div role="status" className="py-10 text-center">
                     <p className="text-2xl font-bold tracking-tight text-ink">

@@ -256,7 +256,7 @@ export default function ConsultationView({ patientId }: { patientId: string }) {
                               ),
                             )
                           }
-                          className="mt-1 h-10 bg-white text-base"
+                          className="mt-1 h-10 bg-white dark:bg-p-card text-base"
                         />
                       ) : (
                         <p className="mt-1 text-xl font-bold tabular-nums text-p-ink">

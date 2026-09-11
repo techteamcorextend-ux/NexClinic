@@ -83,7 +83,7 @@ export default function HealthOverview() {
         <DownloadButton
           onDownload={downloadCardiacReport}
           fileLabel="Cardiac overview"
-          className="bg-white text-[#101820] hover:bg-white/90"
+          className="bg-white dark:bg-p-card text-[#101820] hover:bg-white/90"
         >
           Report
         </DownloadButton>

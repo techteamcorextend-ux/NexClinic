@@ -25,7 +25,7 @@ export function Footer() {
                   <a
                     href={href}
                     aria-label={label}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-white text-ink transition-colors duration-300 hover:bg-surface-tint hover:text-accent-end"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-white dark:bg-surface text-ink transition-colors duration-300 hover:bg-surface-tint hover:text-accent-end"
                   >
                     <Icon className="h-4 w-4" aria-hidden="true" />
                   </a>

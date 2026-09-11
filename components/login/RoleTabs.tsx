@@ -92,7 +92,7 @@ export function RoleTabs({ value, onChange, panelId }: RoleTabsProps) {
         aria-label="Scroll login types left"
         onClick={() => scrollBy(-1)}
         className={cn(
-          "absolute left-0 top-1/2 z-20 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-full border border-line bg-white text-ink shadow-soft transition-opacity duration-200",
+          "absolute left-0 top-1/2 z-20 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-full border border-line bg-white dark:bg-p-card text-ink shadow-soft transition-opacity duration-200",
           overflow.left ? "opacity-100" : "pointer-events-none opacity-0",
         )}
       >
@@ -103,7 +103,7 @@ export function RoleTabs({ value, onChange, panelId }: RoleTabsProps) {
         aria-label="Scroll login types right"
         onClick={() => scrollBy(1)}
         className={cn(
-          "absolute right-0 top-1/2 z-20 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-full border border-line bg-white text-ink shadow-soft transition-opacity duration-200",
+          "absolute right-0 top-1/2 z-20 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-full border border-line bg-white dark:bg-p-card text-ink shadow-soft transition-opacity duration-200",
           overflow.right ? "opacity-100" : "pointer-events-none opacity-0",
         )}
       >
@@ -171,7 +171,7 @@ export function RoleTabs({ value, onChange, panelId }: RoleTabsProps) {
               ) : (
                 <span
                   aria-hidden="true"
-                  className="absolute inset-0 -z-10 rounded-full border border-line bg-white"
+                  className="absolute inset-0 -z-10 rounded-full border border-line bg-white dark:bg-p-card"
                 />
               )}
 

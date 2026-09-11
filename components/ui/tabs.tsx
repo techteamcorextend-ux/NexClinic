@@ -34,7 +34,7 @@ const TabsTrigger = React.forwardRef<
       // The active pill itself: no shared layoutId here (each trigger mounts
       // independently), so it fades/scales in on its own, but the colour and
       // shadow transitions above still carry the hand-off between triggers.
-      "data-[state=active]:shadow-admin data-[state=active]:before:absolute data-[state=active]:before:inset-0 data-[state=active]:before:-z-10 data-[state=active]:before:rounded-full data-[state=active]:before:bg-white data-[state=active]:before:content-['']",
+      "data-[state=active]:shadow-admin data-[state=active]:before:absolute data-[state=active]:before:inset-0 data-[state=active]:before:-z-10 data-[state=active]:before:rounded-full data-[state=active]:before:bg-white dark:data-[state=active]:before:bg-admin-card data-[state=active]:before:content-['']",
       className,
     )}
     {...props}

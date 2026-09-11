@@ -106,7 +106,7 @@ function AddStaffDialog() {
                   id="staff-access"
                   name="accessRole"
                   defaultValue="Nurse"
-                  className="h-12 w-full rounded-chip border border-admin-line bg-white px-3 text-base text-admin-ink focus:border-admin-pink focus:outline-none"
+                  className="h-12 w-full rounded-chip border border-admin-line bg-white dark:bg-admin-card px-3 text-base text-admin-ink focus:border-admin-pink focus:outline-none"
                 >
                   {ACCESS_ROLES.map((role) => (
                     <option key={role}>{role}</option>
@@ -197,7 +197,7 @@ export default function StaffView() {
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Search by name, designation or department"
-                className="h-11 w-full rounded-full border border-admin-line bg-white pl-11 pr-4 text-sm text-admin-ink placeholder:text-admin-muted focus:border-admin-pink focus:outline-none"
+                className="h-11 w-full rounded-full border border-admin-line bg-white dark:bg-admin-card pl-11 pr-4 text-sm text-admin-ink placeholder:text-admin-muted focus:border-admin-pink focus:outline-none"
               />
             </div>
             <FilterSelect

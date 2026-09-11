@@ -88,7 +88,7 @@ function SlipEditor({ id }: { id: string }) {
         <div className="flex flex-wrap items-center gap-2.5">
           <DownloadButton
             fileLabel={`Salary slip for ${member.name}`}
-            className="bg-white px-4 py-2.5 text-admin-ink hover:bg-admin-bg"
+            className="bg-white dark:bg-admin-card px-4 py-2.5 text-admin-ink hover:bg-admin-bg"
             onDownload={() =>
               downloadPdf(`salary-slip-${member.id}`, {
                 title: "Nexclinic — Salary Slip",

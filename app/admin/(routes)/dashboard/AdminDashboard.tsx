@@ -57,7 +57,7 @@ function OversightTabs() {
               "relative shrink-0 whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-semibold transition-all duration-300 ease-out-soft",
               active
                 ? "text-white"
-                : "border border-admin-line bg-white text-admin-muted hover:-translate-y-0.5 hover:text-admin-ink motion-reduce:hover:translate-y-0",
+                : "border border-admin-line bg-white dark:bg-admin-card text-admin-muted hover:-translate-y-0.5 hover:text-admin-ink motion-reduce:hover:translate-y-0",
             )}
           >
             {active ? (

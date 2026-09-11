@@ -20,7 +20,7 @@ function QuestionChip() {
     <BookDemoDialog>
       <button
         type="button"
-        className="inline-flex items-center gap-3 rounded-full border border-line bg-white py-2 pl-2 pr-5 text-sm font-medium text-ink shadow-soft transition-transform duration-300 ease-out-soft hover:scale-[1.03]"
+        className="inline-flex items-center gap-3 rounded-full border border-line bg-white dark:bg-surface py-2 pl-2 pr-5 text-sm font-medium text-ink shadow-soft transition-transform duration-300 ease-out-soft hover:scale-[1.03]"
       >
         <span
           aria-hidden="true"

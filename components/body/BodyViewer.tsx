@@ -294,7 +294,7 @@ export default function BodyViewer({ vitals, className, caption }: BodyViewerPro
               <p className="text-xs font-semibold text-slate-700">
                 {wideEnough ? "3D view unavailable" : "3D view hidden on small screens"}
               </p>
-              <p className="mt-0.5 text-[11px] text-slate-500">
+              <p className="mt-0.5 text-[11px] text-slate-500 dark:text-slate-400">
                 {wideEnough
                   ? "All readings are listed below."
                   : "Shipping a 1 MB model to a phone for a decorative visual isn't worth it — the full readings are below."}
@@ -325,12 +325,12 @@ export default function BodyViewer({ vitals, className, caption }: BodyViewerPro
       ) : null}
 
       <div className="flex items-center justify-between gap-3 border-t border-slate-200/70 px-4 py-2">
-        <p className="truncate text-[10px] text-slate-400">{caption ?? "Hover or click a region"}</p>
+        <p className="truncate text-[10px] text-slate-400 dark:text-slate-400">{caption ?? "Hover or click a region"}</p>
         <a
           href={MODEL_ATTRIBUTION.href}
           target="_blank"
           rel="noreferrer noopener"
-          className="shrink-0 text-[10px] text-slate-400 underline-offset-2 hover:text-slate-600 hover:underline"
+          className="shrink-0 text-[10px] text-slate-400 dark:text-slate-400 underline-offset-2 hover:text-slate-600 hover:underline"
         >
           {MODEL_ATTRIBUTION.text}
         </a>

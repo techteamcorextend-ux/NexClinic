@@ -39,7 +39,7 @@ export function Features() {
             </div>
 
             {/* Floating card overlapping the bottom-left corner */}
-            <div className="absolute bottom-0 left-0 w-[min(21rem,88%)] rounded-card border border-line bg-white p-5 shadow-soft sm:left-4 md:p-6">
+            <div className="absolute bottom-0 left-0 w-[min(21rem,88%)] rounded-card border border-line bg-white dark:bg-surface p-5 shadow-soft sm:left-4 md:p-6">
               <div className="flex -space-x-3">
                 {AVATAR_TINTS.map((tint, index) => (
                   <span

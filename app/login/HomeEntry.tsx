@@ -25,6 +25,7 @@ import { useClinic } from "@/lib/clinic-store";
 import { CLINIC_INFO, DOCTOR_OPTIONS, ROLES } from "@/lib/roles";
 
 import TextReveal from "@/components/motion/TextReveal";
+import ThemeToggle from "@/components/system/ThemeToggle";
 const PILLARS = [
   "Six role-based portals on one record",
   "AI scribe drafts clinical notes as you consult",
@@ -138,7 +139,7 @@ function NewAppointmentDialog() {
                 id="appt-doctor"
                 value={doctor}
                 onChange={(event) => setDoctor(event.target.value)}
-                className="h-12 w-full rounded-2xl border border-line bg-white px-4 text-base text-ink focus:border-blue-500 focus:outline-none"
+                className="h-12 w-full rounded-2xl border border-line bg-white dark:bg-p-card px-4 text-base text-ink focus:border-blue-500 focus:outline-none"
               >
                 {DOCTOR_OPTIONS.map((option) => (
                   <option key={option}>{option}</option>
@@ -168,6 +169,11 @@ export default function HomeEntry() {
 
   return (
     <main className="relative isolate min-h-screen overflow-hidden bg-[#0B1020]">
+      {/* No header on this screen — pin the theme switch to the corner. */}
+      <div className="pointer-events-auto fixed right-4 top-4 z-50">
+        <ThemeToggle />
+      </div>
+
       {/* ─────────────── Shared backdrop — one texture behind both panels ─────────────── */}
       <div aria-hidden="true" className="absolute inset-0 -z-10">
         <Image
