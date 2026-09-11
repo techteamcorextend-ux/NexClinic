@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { Avatar, Card, CardHeading, EmptyState, Reveal } from "@/components/admin/ui";
+import { Card, CardHeading, EmptyState, Reveal } from "@/components/admin/ui";
 import StatusBadge from "@/components/admin/StatusBadge";
 import { MorphButton, DownloadButton } from "@/components/motion-ui/buttons";
 import { useClinic } from "@/lib/clinic-store";
@@ -22,6 +22,7 @@ import { netPay } from "@/lib/clinic-types";
 import { downloadPdf } from "@/lib/downloads";
 
 import TextReveal from "@/components/motion/TextReveal";
+import StaffProfileCard from "@/components/admin/StaffProfileCard";
 const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 export default function StaffProfile({ id }: { id: string }) {
@@ -88,7 +89,14 @@ export default function StaffProfile({ id }: { id: string }) {
 
         <Card className="mt-4">
           <div className="flex flex-wrap items-start gap-5">
-            <Avatar initials={member.initials} name={member.name} className="h-16 w-16 text-base" />
+            <StaffProfileCard
+              name={member.name}
+              initials={member.initials}
+              role={member.role}
+              dept={member.dept}
+              phone={member.phone}
+              email={member.email}
+            />
             <div className="min-w-0 flex-1">
               <TextReveal as="h2" className="text-2xl font-bold tracking-tight text-admin-ink">
                 {member.name}

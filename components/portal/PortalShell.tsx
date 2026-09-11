@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 
 import TextReveal from "@/components/motion/TextReveal";
+import ThemeToggle from "@/components/system/ThemeToggle";
 export type PortalNavItem = {
   label: string;
   href: string;
@@ -61,7 +62,7 @@ export function PortalShell({
           className={cn(
             "group grid h-12 w-12 place-items-center rounded-2xl transition-all duration-300 ease-out-soft",
             active
-              ? "bg-white text-p-accent shadow-lift"
+              ? "bg-white dark:bg-p-card text-p-accent shadow-lift"
               : "text-white/70 hover:-translate-y-0.5 hover:bg-white/15 hover:text-white motion-reduce:hover:translate-y-0",
           )}
           style={{ transitionDelay: reduced ? undefined : `${index * 15}ms` }}
@@ -134,7 +135,10 @@ export function PortalShell({
 
             <PortalSwitcher className="order-last w-full sm:order-none sm:w-auto" />
 
-            {actions ? <div className="flex shrink-0 items-center gap-2">{actions}</div> : null}
+            <div className="flex shrink-0 items-center gap-2">
+              <ThemeToggle />
+              {actions}
+            </div>
 
             <button
               type="button"
@@ -219,7 +223,7 @@ export function PortalShell({
                         aria-current={active ? "page" : undefined}
                         className={cn(
                           "flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium transition-colors",
-                          active ? "bg-white text-p-accent" : "text-white/80 hover:bg-white/15",
+                          active ? "bg-white dark:bg-p-card text-p-accent" : "text-white/80 hover:bg-white/15",
                         )}
                       >
                         <Icon className="h-[18px] w-[18px]" aria-hidden="true" />

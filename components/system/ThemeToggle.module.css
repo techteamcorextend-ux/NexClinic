@@ -1,0 +1,124 @@
+/*
+ * Light/dark switch.
+ *
+ * Adapted from Admin12121's Uiverse switch (CC BY 4.0, uiverse.io). Scaled
+ * from the original 115x55 down to 84x40 so it sits comfortably in a header
+ * row, and given its own chrome palette rather than each portal's accent —
+ * it's a system control, and it appears on screens whose accent colours
+ * differ wildly, so a single consistent look reads better than five.
+ *
+ * Unchecked = light, checked = dark. The indicator travels and turns from
+ * amber to green, which carries the state without relying on colour alone
+ * (the knob position says it too).
+ */
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.outer {
+  height: 100%;
+  background: #252532;
+  width: 84px;
+  border-radius: 165px;
+  box-shadow:
+    inset 0px 4px 8px 0px #16151c,
+    0px 2px 5px -2px #403f4e;
+  border: 1px solid #32303e;
+  padding: 4px;
+  box-sizing: border-box;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: box-shadow 0.2s ease;
+}
+
+.outer input[type="checkbox"] {
+  opacity: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  position: absolute;
+}
+
+/* The input is visually hidden, so the ring has to be drawn on the track. */
+.outer:has(input[type="checkbox"]:focus-visible) {
+  box-shadow:
+    inset 0px 4px 8px 0px #16151c,
+    0 0 0 3px rgb(var(--accent-mid-rgb, 124 111 240) / 0.75);
+}
+
+.knob {
+  height: 30px;
+  width: 30px;
+  background: linear-gradient(#3b3a4e, #272733);
+  border-radius: 100%;
+  box-shadow:
+    inset 0px 4px 3px 0px #424151,
+    0px 3px 11px 0px #0f0e17;
+  position: relative;
+  z-index: 2;
+  transition: left 0.3s ease-in;
+  left: 0;
+}
+
+.track {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.indicator {
+  height: 18px;
+  width: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  border: 3px solid #f0a13c;
+  box-sizing: border-box;
+  right: 7px;
+  position: relative;
+}
+
+.outer input[type="checkbox"]:checked + .track .knob {
+  left: 56%;
+}
+
+.outer input[type="checkbox"]:checked + .track .indicator {
+  animation: indicator 1s forwards;
+}
+
+@keyframes indicator {
+  0% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    border: 3px solid #60d480;
+    left: -66%;
+  }
+}
+
+/*
+ * Reduced motion: the knob still moves — that IS the state, not decoration —
+ * but instantly, and the indicator jumps to its end position instead of
+ * fading across.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .knob {
+    transition: none;
+  }
+  .outer input[type="checkbox"]:checked + .track .indicator {
+    animation: none;
+    border: 3px solid #60d480;
+    left: -66%;
+  }
+}

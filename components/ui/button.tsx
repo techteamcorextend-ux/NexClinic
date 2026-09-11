@@ -11,10 +11,13 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        solid: "bg-ink text-white shadow-soft hover:bg-[#1b1b22]",
+        // --ink inverts in dark mode, so a white label on it would be
+        // white-on-white. The label follows the page ground instead.
+        solid:
+          "bg-ink text-white dark:text-bg shadow-soft hover:bg-[#1b1b22] dark:hover:bg-ink/85",
         gradient: "bg-accent-gradient-strong text-white shadow-lift",
         outline:
-          "border border-line bg-white text-ink hover:border-ink/25 hover:bg-surface",
+          "border border-line bg-white dark:bg-surface text-ink hover:border-ink/25 hover:bg-surface",
         ghost: "text-ink hover:bg-surface",
         glass: "glass text-ink shadow-soft",
       },

@@ -31,7 +31,7 @@ export function QrPlaceholder({
       role="img"
       aria-label={label}
       className={cn(
-        "grid aspect-square w-full max-w-[220px] grid-cols-[repeat(21,1fr)] gap-[2px] rounded-2xl bg-white p-3 shadow-[0_4px_24px_rgba(16,24,40,0.08)]",
+        "grid aspect-square w-full max-w-[220px] grid-cols-[repeat(21,1fr)] gap-[2px] rounded-2xl bg-white dark:bg-surface p-3 shadow-[0_4px_24px_rgba(16,24,40,0.08)]",
         className,
       )}
     >

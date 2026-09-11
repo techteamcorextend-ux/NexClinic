@@ -3,6 +3,10 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClinicProvider } from "@/lib/clinic-store";
 import PhoneToasts from "@/components/system/PhoneToasts";
+import {
+  ThemeProvider,
+  THEME_INIT_SCRIPT,
+} from "@/components/system/ThemeProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -35,17 +39,28 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={inter.variable} suppressHydrationWarning>
+      <head>
+        {/*
+          Sets the theme class before the first paint. Without it every load
+          would render light, hydrate, then flip — a white flash for anyone
+          on the dark theme. suppressHydrationWarning above is because this
+          script legitimately changes <html> before React sees it.
+        */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+      </head>
       <body className="font-sans antialiased">
         {/*
           One client-side store backs every portal, so an action in one shows
           up in another: a request from the homepage lands at the front desk,
           a bill draws down inventory, a shift change pushes to a phone.
         */}
-        <ClinicProvider>
-          {children}
-          <PhoneToasts />
-        </ClinicProvider>
+        <ThemeProvider>
+          <ClinicProvider>
+            {children}
+            <PhoneToasts />
+          </ClinicProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

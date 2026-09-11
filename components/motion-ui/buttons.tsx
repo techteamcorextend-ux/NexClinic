@@ -145,7 +145,7 @@ export function MorphButton({
         "relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-7 py-3 text-sm font-semibold transition-colors duration-400 disabled:pointer-events-none disabled:opacity-60",
         done
           ? "bg-p-grad text-white shadow-lift"
-          : "border border-p-line bg-white text-p-ink hover:border-p-ink/25",
+          : "border border-p-line bg-white dark:bg-surface text-p-ink hover:border-p-ink/25",
         className,
       )}
     >

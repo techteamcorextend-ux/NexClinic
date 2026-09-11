@@ -54,7 +54,7 @@ export function ShowcaseWidget() {
   const reduced = useReducedMotionSafe();
 
   return (
-    <section className="bg-white pb-24 md:pb-32">
+    <section className="bg-white dark:bg-surface pb-24 md:pb-32">
       <div className="shell">
         <FadeInOnScroll>
           {/*

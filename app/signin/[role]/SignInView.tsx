@@ -22,6 +22,7 @@ import { CLINIC_INFO, ROLES, findRole, type RoleKey } from "@/lib/roles";
 import { cn } from "@/lib/utils";
 
 import TextReveal from "@/components/motion/TextReveal";
+import ThemeToggle from "@/components/system/ThemeToggle";
 /**
  * Shared backdrop for the whole admin sign-in screen: the desk photo sits
  * behind everything, blurred and dimmed just enough to read as texture
@@ -466,6 +467,11 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
 
   return (
     <main className="min-h-screen bg-[#0B1020] lg:grid lg:grid-cols-[1fr_1fr]">
+      {/* No header on this screen — pin the theme switch to the corner. */}
+      <div className="pointer-events-auto fixed right-4 top-4 z-50">
+        <ThemeToggle />
+      </div>
+
       {/* ── Left grid — clinic information ──
           `isolate` gives this section its own stacking context, so the
           absolutely-positioned -z-10 background below paints above the
@@ -560,7 +566,7 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
       </section>
 
       {/* ── Right grid — sign-in form ── */}
-      <section className="flex min-h-screen items-center justify-center bg-white px-6 py-12 sm:px-10 lg:px-14">
+      <section className="flex min-h-screen items-center justify-center bg-white dark:bg-p-card px-6 py-12 sm:px-10 lg:px-14">
         <motion.div
           initial={{ opacity: 0, y: reduced ? 0 : 18 }}
           animate={{ opacity: 1, y: 0 }}

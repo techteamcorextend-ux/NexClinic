@@ -41,7 +41,7 @@ export function Testimonials() {
   };
 
   return (
-    <section className="bg-white py-24 md:py-32">
+    <section className="bg-white dark:bg-surface py-24 md:py-32">
       <div className="shell">
         <FadeInOnScroll className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
@@ -54,7 +54,7 @@ export function Testimonials() {
               type="button"
               onClick={() => scrollByCards(-1)}
               aria-label="Previous testimonials"
-              className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-line bg-white text-ink transition-colors duration-300 hover:bg-surface"
+              className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-line bg-white dark:bg-surface text-ink transition-colors duration-300 hover:bg-surface"
             >
               <ArrowLeft className="h-4 w-4" aria-hidden="true" />
             </button>
@@ -62,7 +62,7 @@ export function Testimonials() {
               type="button"
               onClick={() => scrollByCards(1)}
               aria-label="Next testimonials"
-              className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-line bg-white text-ink transition-colors duration-300 hover:bg-surface"
+              className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-line bg-white dark:bg-surface text-ink transition-colors duration-300 hover:bg-surface"
             >
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </button>

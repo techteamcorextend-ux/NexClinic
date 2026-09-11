@@ -131,7 +131,7 @@ function AddCredentialsDialog() {
                   id="cred-access"
                   name="accessRole"
                   defaultValue="Nurse"
-                  className="h-12 w-full rounded-chip border border-admin-line bg-white px-3 text-base text-admin-ink focus:border-admin-pink focus:outline-none"
+                  className="h-12 w-full rounded-chip border border-admin-line bg-white dark:bg-admin-card px-3 text-base text-admin-ink focus:border-admin-pink focus:outline-none"
                 >
                   {ACCESS_ROLES.map((role) => (
                     <option key={role}>{role}</option>

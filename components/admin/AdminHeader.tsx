@@ -25,6 +25,7 @@ import { ADMIN_PROFILE } from "@/lib/admin-data";
 import { findNavItem } from "@/lib/admin-nav";
 
 import TextReveal from "@/components/motion/TextReveal";
+import ThemeToggle from "@/components/system/ThemeToggle";
 export function AdminHeader({ onOpenDrawer }: { onOpenDrawer: () => void }) {
   const pathname = usePathname();
   const current = findNavItem(pathname);
@@ -39,7 +40,7 @@ export function AdminHeader({ onOpenDrawer }: { onOpenDrawer: () => void }) {
           onClick={onOpenDrawer}
           aria-label="Open navigation menu"
           aria-controls="admin-sidebar"
-          className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white text-admin-ink shadow-admin md:hidden"
+          className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white dark:bg-admin-card text-admin-ink shadow-admin md:hidden"
         >
           <Menu className="h-5 w-5" aria-hidden="true" />
         </button>
@@ -80,7 +81,7 @@ export function AdminHeader({ onOpenDrawer }: { onOpenDrawer: () => void }) {
               id="admin-search"
               type="search"
               placeholder="Search patients, staff, invoices..."
-              className="h-11 w-full rounded-full border border-transparent bg-white pl-11 pr-4 text-sm text-admin-ink placeholder:text-admin-muted shadow-admin transition-colors duration-200 focus:border-admin-pink focus:outline-none"
+              className="h-11 w-full rounded-full border border-transparent bg-white dark:bg-admin-card pl-11 pr-4 text-sm text-admin-ink placeholder:text-admin-muted shadow-admin transition-colors duration-200 focus:border-admin-pink focus:outline-none"
             />
           </div>
         </div>
@@ -89,7 +90,7 @@ export function AdminHeader({ onOpenDrawer }: { onOpenDrawer: () => void }) {
           <button
             type="button"
             aria-label="Notifications, 3 unread"
-            className="relative grid h-10 w-10 place-items-center rounded-full bg-white text-admin-ink shadow-admin transition-colors duration-200 hover:text-admin-pink"
+            className="relative grid h-10 w-10 place-items-center rounded-full bg-white dark:bg-admin-card text-admin-ink shadow-admin transition-colors duration-200 hover:text-admin-pink"
           >
             <Bell className="h-[18px] w-[18px]" aria-hidden="true" />
             <span
@@ -101,10 +102,12 @@ export function AdminHeader({ onOpenDrawer }: { onOpenDrawer: () => void }) {
           <button
             type="button"
             aria-label="Messages"
-            className="grid h-10 w-10 place-items-center rounded-full bg-white text-admin-ink shadow-admin transition-colors duration-200 hover:text-admin-pink"
+            className="grid h-10 w-10 place-items-center rounded-full bg-white dark:bg-admin-card text-admin-ink shadow-admin transition-colors duration-200 hover:text-admin-pink"
           >
             <MessageSquare className="h-[18px] w-[18px]" aria-hidden="true" />
           </button>
+
+          <ThemeToggle className="hidden sm:flex" />
 
           <span
             aria-hidden="true"
@@ -115,7 +118,7 @@ export function AdminHeader({ onOpenDrawer }: { onOpenDrawer: () => void }) {
             <DropdownMenuTrigger asChild>
               <button
                 type="button"
-                className="flex items-center gap-2.5 rounded-full bg-white py-1.5 pl-1.5 pr-3 text-left shadow-admin transition-colors duration-200 hover:bg-white/80"
+                className="flex items-center gap-2.5 rounded-full bg-white dark:bg-admin-card py-1.5 pl-1.5 pr-3 text-left shadow-admin transition-colors duration-200 hover:bg-white/80 dark:hover:bg-admin-card/80"
               >
                 <span
                   aria-hidden="true"
@@ -149,9 +152,14 @@ export function AdminHeader({ onOpenDrawer }: { onOpenDrawer: () => void }) {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-rose-600 data-[highlighted]:bg-rose-50">
-                <LogOut className="h-4 w-4" aria-hidden="true" />
-                Log out
+              <DropdownMenuItem
+                asChild
+                className="text-rose-600 data-[highlighted]:bg-rose-50 dark:data-[highlighted]:bg-rose-500/15"
+              >
+                <Link href="/login">
+                  <LogOut className="h-4 w-4" aria-hidden="true" />
+                  Log out
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

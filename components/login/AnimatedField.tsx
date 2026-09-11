@@ -49,7 +49,7 @@ export function AnimatedField({
           className="pointer-events-none absolute -inset-[1.5px] rounded-2xl bg-gradient-to-r from-rose-500 to-blue-600 opacity-0 blur-[3px] transition-opacity duration-300 group-focus-within:opacity-70"
         />
 
-        <div className="relative rounded-2xl border border-line bg-white transition-colors duration-300 group-hover:border-ink/25 group-focus-within:border-blue-500">
+        <div className="relative rounded-2xl border border-line bg-white dark:bg-p-card transition-colors duration-300 group-hover:border-ink/25 group-focus-within:border-blue-500">
           <input
             {...props}
             id={fieldId}

@@ -25,7 +25,7 @@ const BodyViewer = dynamic(() => import("@/components/body/BodyViewer"), {
           aria-hidden="true"
           className="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-teal-500/30 border-t-teal-600 motion-reduce:animate-none"
         />
-        <p className="mt-3 text-xs text-slate-400">Loading body model…</p>
+        <p className="mt-3 text-xs text-slate-400 dark:text-p-muted">Loading body model…</p>
       </div>
     </div>
   ),

@@ -231,7 +231,7 @@ export function GhostButton({
     <button
       type="button"
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-full border border-admin-line bg-white px-4 py-2.5 text-sm font-medium text-admin-ink transition-colors duration-200 hover:bg-admin-bg disabled:pointer-events-none disabled:opacity-60",
+        "inline-flex items-center justify-center gap-2 rounded-full border border-admin-line bg-white dark:bg-admin-card px-4 py-2.5 text-sm font-medium text-admin-ink transition-colors duration-200 hover:bg-admin-bg disabled:pointer-events-none disabled:opacity-60",
         className,
       )}
       {...props}
@@ -263,7 +263,7 @@ export function FilterSelect({
         value={value}
         onChange={(event) => onChange(event.target.value)}
         aria-label={label}
-        className="h-11 w-full rounded-full border border-admin-line bg-white px-4 pr-9 text-sm text-admin-ink transition-colors duration-200 hover:border-admin-muted/40 focus:border-admin-pink focus:outline-none"
+        className="h-11 w-full rounded-full border border-admin-line bg-white dark:bg-admin-card px-4 pr-9 text-sm text-admin-ink transition-colors duration-200 hover:border-admin-muted/40 focus:border-admin-pink focus:outline-none"
       >
         {options.map((option) => (
           <option key={option} value={option}>
@@ -287,7 +287,7 @@ export function EmptyState({
   description: string;
 }) {
   return (
-    <div className="flex flex-col items-center justify-center rounded-admin border border-dashed border-admin-line bg-white/60 px-6 py-12 text-center">
+    <div className="flex flex-col items-center justify-center rounded-admin border border-dashed border-admin-line bg-white/60 dark:bg-admin-card/60 px-6 py-12 text-center">
       <span
         aria-hidden="true"
         className="grid h-12 w-12 place-items-center rounded-full bg-admin-bg text-admin-muted"

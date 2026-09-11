@@ -93,7 +93,7 @@ function EquipmentLogDialog() {
                   aria-pressed={mode === entry}
                   className={
                     mode === entry
-                      ? "flex-1 rounded-full bg-white px-4 py-2 text-sm font-semibold text-ink shadow-sm"
+                      ? "flex-1 rounded-full bg-white dark:bg-p-card px-4 py-2 text-sm font-semibold text-ink shadow-sm"
                       : "flex-1 rounded-full px-4 py-2 text-sm font-medium text-ink-muted"
                   }
                 >
@@ -110,7 +110,7 @@ function EquipmentLogDialog() {
                     <select
                       id="eq-asset"
                       name="asset"
-                      className="h-12 w-full rounded-chip border border-line bg-white px-3 text-base text-ink focus:border-blue-500 focus:outline-none"
+                      className="h-12 w-full rounded-chip border border-line bg-white dark:bg-p-card px-3 text-base text-ink focus:border-blue-500 focus:outline-none"
                     >
                       {state.equipment.map((item) => (
                         <option key={item.id} value={item.id}>
@@ -150,7 +150,7 @@ function EquipmentLogDialog() {
                       <select
                         id="eq-status"
                         name="status"
-                        className="h-12 w-full rounded-chip border border-line bg-white px-3 text-base text-ink focus:border-blue-500 focus:outline-none"
+                        className="h-12 w-full rounded-chip border border-line bg-white dark:bg-p-card px-3 text-base text-ink focus:border-blue-500 focus:outline-none"
                       >
                         {STATUSES.map((entry) => (
                           <option key={entry}>{entry}</option>

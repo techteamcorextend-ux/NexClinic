@@ -8,19 +8,17 @@ import { usePrefersReducedMotion } from "@/components/admin/use-media-query";
 
 const MotionLink = motion.create(Link);
 
-const REST_SHADOW = "0 12px 28px -14px rgba(15,23,42,0.45)";
-const HOVER_SHADOW = "0 26px 50px -16px rgba(15,23,42,0.55)";
+const REST_SHADOW = "var(--mc-shadow-rest)";
+const HOVER_SHADOW = "var(--mc-shadow-hover)";
 
-/** Deep, muted 3-stop palettes a card's mesh gradient is picked from. */
-const MESH_PALETTES: [string, string, string][] = [
-  ["#2b2a4a", "#4c3f74", "#1c1b33"], // indigo → violet
-  ["#12211f", "#2e5850", "#16302c"], // teal → slate
-  ["#3a1a12", "#7a3a48", "#341612"], // amber → rose
-  ["#16240f", "#455423", "#152510"], // forest → moss
-];
-
-/** Uniform dark wash blended over every gradient so the mesh reads muted and premium, not neon. */
-const VIBRANCE_WASH = "rgba(10, 12, 20, 0.28)";
+/**
+ * Four ramps, one picked per card from its seed. The values live in
+ * globals.css as --mc-N-a/b/c so the whole card can flip with the theme:
+ * airy tints from the page's own blue family in light mode, deep ones in
+ * dark. Hard-coding them here is what made the cards read as dark slabs
+ * projected onto a light page instead of part of it.
+ */
+const MESH_COUNT = 4;
 
 const NOISE_SVG =
   "<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'>" +
@@ -37,25 +35,19 @@ function hashSeed(seed: string) {
   return Math.abs(hash);
 }
 
-/** Same seed always resolves to the same mesh gradient and avatar tint. */
+/** Same seed always resolves to the same ramp, in either theme. */
 function meshGradient(seed: string) {
   const hash = hashSeed(seed);
-  const [start, mid, end] = MESH_PALETTES[hash % MESH_PALETTES.length];
+  const ramp = (hash % MESH_COUNT) + 1;
   const angle = 120 + (hash % 5) * 15;
   const posX = 22 + (hash % 7) * 8;
   const posY = 18 + ((hash >> 3) % 7) * 8;
   return {
-    background: `radial-gradient(135% 135% at ${posX}% ${posY}%, ${mid} 0%, transparent 62%), linear-gradient(${angle}deg, ${start}, ${end})`,
-    tint: mid,
+    background:
+      `radial-gradient(135% 135% at ${posX}% ${posY}%, var(--mc-${ramp}-b) 0%, transparent 62%), ` +
+      `linear-gradient(${angle}deg, var(--mc-${ramp}-a), var(--mc-${ramp}-c))`,
+    tint: `var(--mc-${ramp}-tint)`,
   };
-}
-
-function tintToRgba(hex: string, alpha: number) {
-  const value = hex.replace("#", "");
-  const r = parseInt(value.slice(0, 2), 16);
-  const g = parseInt(value.slice(2, 4), 16);
-  const b = parseInt(value.slice(4, 6), 16);
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
 export interface MediaCardProps {
@@ -119,7 +111,7 @@ export function MediaCard({
   // behind it, where a white ring would have no contrast to read against.
   const rootClassName = cn(
     "group/card relative mx-auto flex aspect-[5/7] w-full overflow-hidden rounded-3xl text-left outline-none",
-    "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-white",
+    "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-[color:var(--mc-ink)]",
     className,
   );
 
@@ -128,27 +120,33 @@ export function MediaCard({
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
-        style={{ backgroundColor: VIBRANCE_WASH }}
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-4"
-        style={{ backgroundImage: `url("${NOISE_URL}")` }}
+        style={{ backgroundColor: "var(--mc-wash)" }}
       />
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
-        style={{ backgroundImage: "linear-gradient(to bottom, rgba(0,0,0,.55), transparent 38%)" }}
+        style={{ backgroundImage: `url("${NOISE_URL}")`, opacity: "var(--mc-noise-opacity)" }}
       />
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
-        style={{ backgroundImage: "linear-gradient(to top, rgba(0,0,0,.6), transparent 45%)" }}
+        style={{ backgroundImage: "linear-gradient(to bottom, var(--mc-scrim-top), transparent 38%)" }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{ backgroundImage: "linear-gradient(to top, var(--mc-scrim-bottom), transparent 45%)" }}
       />
 
       <div className="relative flex h-full w-full flex-col p-3">
         <div className="flex justify-center">
-          <span className="inline-flex h-5 items-center gap-1.5 rounded-full border border-white/22 bg-white/16 px-2.5 backdrop-blur-md">
+          <span
+            className="inline-flex h-5 items-center gap-1.5 rounded-full border px-2.5 backdrop-blur-md"
+            style={{
+              borderColor: "var(--mc-chip-border)",
+              backgroundColor: "var(--mc-chip-bg)",
+            }}
+          >
             {badgeStatus ? (
               <span
                 aria-hidden="true"
@@ -158,23 +156,34 @@ export function MediaCard({
                 )}
               />
             ) : badgeIcon ? (
-              <span className="grid h-3 w-3 shrink-0 place-items-center text-white [&_svg]:h-3 [&_svg]:w-3">
+              <span
+                className="grid h-3 w-3 shrink-0 place-items-center [&_svg]:h-3 [&_svg]:w-3"
+                style={{ color: "var(--mc-ink)" }}
+              >
                 {badgeIcon}
               </span>
             ) : null}
-            <span className="whitespace-nowrap text-[10px] font-semibold text-white">
+            <span
+              className="whitespace-nowrap text-[10px] font-semibold"
+              style={{ color: "var(--mc-ink)" }}
+            >
               {badgeLabel}
             </span>
           </span>
         </div>
 
         <div className="flex flex-1 flex-col items-center justify-center px-2 text-center">
-          {eyebrow ? <p className="mb-1 text-xs font-medium text-white/70">{eyebrow}</p> : null}
+          {eyebrow ? (
+            <p className="mb-1 text-xs font-medium" style={{ color: "var(--mc-ink-soft)" }}>
+              {eyebrow}
+            </p>
+          ) : null}
           <motion.p
             className={cn(
-              "font-bold tracking-tight text-white",
+              "font-bold tracking-tight",
               eyebrow ? "text-[28px] leading-[1.1]" : "text-lg leading-tight",
             )}
+            style={{ color: "var(--mc-ink)" }}
             initial={reduced ? undefined : { clipPath: "inset(0 100% 0 0)" }}
             whileInView={reduced ? undefined : { clipPath: "inset(0 0% 0 0)" }}
             viewport={{ once: false, margin: "0px 0px -40px 0px" }}
@@ -188,17 +197,30 @@ export function MediaCard({
           <div className="flex min-w-0 items-center gap-2">
             <span
               aria-hidden="true"
-              className="grid h-6 w-6 shrink-0 place-items-center rounded-full text-[9px] font-semibold text-white ring-[1.5px] ring-white/60 [&_svg]:h-3 [&_svg]:w-3"
-              style={{ backgroundColor: tintToRgba(tint, 0.55) }}
+              className="grid h-6 w-6 shrink-0 place-items-center rounded-full text-[9px] font-semibold [&_svg]:h-3 [&_svg]:w-3"
+              style={{
+                backgroundColor: tint,
+                color: "var(--mc-ink)",
+                // Tailwind's ring-* can't take a CSS-variable colour here.
+                boxShadow: "0 0 0 1.5px var(--mc-avatar-ring)",
+              }}
             >
               {avatarInitials ?? avatarIcon}
             </span>
             <div className="min-w-0">
-              <p title={line1} className="truncate text-[10px] font-semibold text-white">
+              <p
+                title={line1}
+                className="truncate text-[10px] font-semibold"
+                style={{ color: "var(--mc-ink)" }}
+              >
                 {line1}
               </p>
               {line2 ? (
-                <p title={line2} className="truncate text-[9px] text-white/65">
+                <p
+                  title={line2}
+                  className="truncate text-[9px]"
+                  style={{ color: "var(--mc-ink-soft)" }}
+                >
                   {line2}
                 </p>
               ) : null}
@@ -207,10 +229,14 @@ export function MediaCard({
 
           <span
             className={cn(
-              "flex h-7 shrink-0 items-center justify-center whitespace-nowrap rounded-full bg-white px-3",
-              "text-[10px] font-semibold text-slate-900 shadow-[0_6px_16px_-6px_rgba(15,23,42,0.35)]",
+              "flex h-7 shrink-0 items-center justify-center whitespace-nowrap rounded-full px-3",
+              "text-[10px] font-semibold shadow-[0_6px_16px_-6px_rgba(15,23,42,0.28)]",
               "transition-transform duration-150 ease-out hover:scale-[1.04] motion-reduce:hover:scale-100",
             )}
+            style={{
+              backgroundColor: "var(--mc-action-bg)",
+              color: "var(--mc-action-ink)",
+            }}
           >
             {actionLabel}
           </span>

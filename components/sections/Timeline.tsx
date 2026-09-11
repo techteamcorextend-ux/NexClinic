@@ -20,7 +20,7 @@ function QuestionChip() {
     <BookDemoDialog>
       <button
         type="button"
-        className="inline-flex items-center gap-3 rounded-full border border-line bg-white py-2 pl-2 pr-5 text-sm font-medium text-ink shadow-soft transition-transform duration-300 ease-out-soft hover:scale-[1.03]"
+        className="inline-flex items-center gap-3 rounded-full border border-line bg-white dark:bg-surface py-2 pl-2 pr-5 text-sm font-medium text-ink shadow-soft transition-transform duration-300 ease-out-soft hover:scale-[1.03]"
       >
         <span
           aria-hidden="true"
@@ -120,7 +120,7 @@ export function Timeline() {
                 />
               </AnimatePresence>
 
-              <span className="absolute bottom-6 left-6 rounded-full bg-white/85 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-ink backdrop-blur">
+              <span className="absolute bottom-6 left-6 rounded-full bg-white/85 dark:bg-surface/85 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-ink backdrop-blur">
                 {activeMilestone.year}
               </span>
             </div>

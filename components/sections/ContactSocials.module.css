@@ -1,0 +1,124 @@
+/*
+ * Contact social row.
+ *
+ * Adapted from MrBishtji's Uiverse tooltip icons (CC BY 4.0, uiverse.io).
+ * Two effects: a label that scales up above the icon, and the brand colour
+ * flooding the circle from the bottom on hover.
+ *
+ * Changed from the original: the row is laid out with flex/gap instead of
+ * being absolutely centred (the original positions each tooltip with a
+ * hard-coded left/right offset, which only works at its exact 350px width);
+ * each tooltip is centred over its own icon instead, so the row survives
+ * any width and any number of icons.
+ */
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.item {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.label {
+  position: absolute;
+  top: -38px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  transform-origin: bottom center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  border-radius: 4px;
+  white-space: nowrap;
+  text-align: center;
+  padding: 4px 8px;
+  transition: transform 0.3s ease;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.item:hover .label,
+.icon:focus-visible + .label {
+  transform: translateX(-50%) scale(1);
+}
+
+.icon {
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  background: rgb(var(--surface-rgb));
+  border: 1px solid rgb(var(--border-rgb));
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.3s ease, box-shadow 0.3s ease;
+  color: rgb(var(--ink-rgb));
+}
+
+.icon svg {
+  position: relative;
+  z-index: 2;
+  height: 22px;
+  width: 22px;
+}
+
+.icon::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  border-radius: 50%;
+  transition: height 0.3s ease;
+  z-index: 1;
+}
+
+.icon:hover,
+.icon:focus-visible {
+  color: #fff;
+  box-shadow: 5px 5px 10px rgb(var(--ink-rgb) / 0.25);
+}
+
+.icon:hover::before,
+.icon:focus-visible::before {
+  height: 100%;
+}
+
+.icon:focus-visible {
+  outline: 2px solid rgb(var(--accent-mid-rgb));
+  outline-offset: 3px;
+}
+
+/* Brand colours, on both the flood and its matching label. */
+.linkedin::before { background: #0274b3; }
+.labelLinkedin { background: #0274b3; }
+
+.twitter::before { background: #0f1419; }
+.labelTwitter { background: #0f1419; }
+
+.instagram::before { background: linear-gradient(40deg, #0000ff, #f56040); }
+.labelInstagram { background: linear-gradient(30deg, #0000ff, #f56040); }
+
+.whatsapp::before { background: #25d366; }
+.labelWhatsapp { background: #25d366; }
+
+.email::before { background: rgb(var(--accent-end-rgb)); }
+.labelEmail { background: rgb(var(--accent-end-rgb)); }
+
+@media (prefers-reduced-motion: reduce) {
+  .label,
+  .icon,
+  .icon::before {
+    transition: none;
+  }
+}

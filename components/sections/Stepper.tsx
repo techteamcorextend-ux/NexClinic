@@ -104,7 +104,7 @@ export function Stepper() {
                             ? "h-6 w-6 -translate-y-[1px] bg-accent-gradient-strong shadow-lift"
                             : isPast
                               ? "h-3.5 w-3.5 translate-y-[4px] bg-accent-end"
-                              : "h-3.5 w-3.5 translate-y-[4px] border border-line bg-white",
+                              : "h-3.5 w-3.5 translate-y-[4px] border border-line bg-white dark:bg-surface",
                         )}
                       />
                       <span
@@ -130,7 +130,7 @@ export function Stepper() {
             </div>
 
             {/* Copy panel that updates with the active step */}
-            <div className="mt-16 min-h-[9rem] rounded-card border border-line bg-white p-8 md:p-10">
+            <div className="mt-16 min-h-[9rem] rounded-card border border-line bg-white dark:bg-surface p-8 md:p-10">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeStep.title}

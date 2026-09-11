@@ -16,7 +16,7 @@ export function ExplorePanels() {
   const openPanel = EXPLORE_PANELS[openIndex];
 
   return (
-    <section className="bg-white py-24 md:py-32">
+    <section className="bg-white dark:bg-surface py-24 md:py-32">
       <div className="shell">
         <FadeInOnScroll className="max-w-2xl">
           <p className="eyebrow">What&apos;s inside</p>
@@ -37,7 +37,7 @@ export function ExplorePanels() {
                     "group flex h-full w-full flex-col items-start justify-between gap-10 rounded-card border p-6 text-left transition-[background-color,border-color,transform] duration-500 ease-out-soft md:p-7",
                     isOpen
                       ? "border-transparent bg-surface-tint"
-                      : "border-line bg-white hover:bg-surface",
+                      : "border-line bg-white dark:bg-surface hover:bg-surface",
                   )}
                 >
                   <span
@@ -58,7 +58,7 @@ export function ExplorePanels() {
                         "inline-flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-medium transition-colors duration-500",
                         isOpen
                           ? "bg-accent-gradient-strong text-white"
-                          : "border border-line bg-white text-ink group-hover:border-ink/25",
+                          : "border border-line bg-white dark:bg-surface text-ink group-hover:border-ink/25",
                       )}
                     >
                       Explore

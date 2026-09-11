@@ -417,7 +417,7 @@ export default function PatientDashboard() {
               <select
                 id="book-doctor"
                 name="doctor"
-                className="h-12 w-full rounded-chip border border-line bg-white px-3 text-base text-ink focus:border-blue-500 focus:outline-none"
+                className="h-12 w-full rounded-chip border border-line bg-white dark:bg-p-card px-3 text-base text-ink focus:border-blue-500 focus:outline-none"
               >
                 {DOCTOR_OPTIONS.map((option) => (
                   <option key={option}>{option}</option>
