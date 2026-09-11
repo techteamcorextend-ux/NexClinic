@@ -228,13 +228,13 @@ export default function SurgeonDashboard() {
           {/* ── Next up ── */}
           {nextUp ? (
             <Reveal delay={0.1}>
-              <div className="relative overflow-hidden rounded-[24px] bg-p-grad p-6 text-white shadow-lift md:p-8">
+              <div className="relative overflow-hidden rounded-[24px] bg-p-grad p-6 text-white shadow-lift md:p-8 md:pr-[210px] lg:pr-[230px]">
                 <div
                   aria-hidden="true"
                   className="absolute -right-12 -top-16 h-56 w-56 rounded-full bg-white/10 blur-2xl"
                 />
 
-                <HeartBeat className="absolute bottom-2 right-4 hidden h-[170px] w-[170px] cursor-grab active:cursor-grabbing md:block lg:right-10" />
+                <HeartBeat className="absolute right-3 top-1/2 hidden h-[170px] w-[170px] -translate-y-1/2 cursor-grab active:cursor-grabbing md:block lg:right-6" />
 
                 <div className="relative flex flex-wrap items-center justify-between gap-5">
                   <div className="min-w-0">
