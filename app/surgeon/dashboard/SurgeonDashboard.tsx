@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import {
   Activity,
@@ -36,6 +37,13 @@ import { DOCTOR_PROFILE, PATIENTS } from "@/lib/portal-data";
 import { downloadCsv } from "@/lib/downloads";
 import { cn } from "@/lib/utils";
 
+
+// 3.2 MB of model and a WebGL context — kept out of the server bundle and
+// off the critical path.
+const HeartBeat = dynamic(() => import("@/components/three/HeartBeat"), {
+  ssr: false,
+  loading: () => null,
+});
 const QUICK_ACTIONS = [
   {
     label: "AI Scribe",
@@ -225,6 +233,9 @@ export default function SurgeonDashboard() {
                   aria-hidden="true"
                   className="absolute -right-12 -top-16 h-56 w-56 rounded-full bg-white/10 blur-2xl"
                 />
+
+                <HeartBeat className="absolute bottom-2 right-4 hidden h-[170px] w-[170px] cursor-grab active:cursor-grabbing md:block lg:right-10" />
+
                 <div className="relative flex flex-wrap items-center justify-between gap-5">
                   <div className="min-w-0">
                     <p className="text-xs font-semibold uppercase tracking-[0.14em] text-white/80">
@@ -247,6 +258,7 @@ export default function SurgeonDashboard() {
                       Start consultation
                     </span>
                   </StretchButton>
+
                 </div>
               </div>
             </Reveal>
