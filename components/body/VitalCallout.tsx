@@ -34,7 +34,7 @@ export default function VitalCallout({ region, entry, locked, onClose }: VitalCa
 
   return (
     <div
-      className="pointer-events-auto absolute bottom-4 left-4 right-4 z-20 rounded-2xl border border-slate-200/80 bg-white/95 p-4 shadow-[0_18px_40px_-20px_rgba(15,23,42,0.45)] backdrop-blur-md sm:right-auto sm:w-72"
+      className="pointer-events-auto absolute bottom-4 left-4 right-4 z-20 rounded-2xl border border-slate-200/80 dark:border-slate-700/80 bg-white/95 dark:bg-slate-900/95 p-4 shadow-[0_18px_40px_-20px_rgba(15,23,42,0.45)] backdrop-blur-md sm:right-auto sm:w-72"
       role="status"
       aria-live="polite"
     >

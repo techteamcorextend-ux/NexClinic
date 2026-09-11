@@ -15,6 +15,7 @@ import {
 import { CONTACT } from "@/lib/data";
 
 import TextReveal from "@/components/motion/TextReveal";
+import ContactSocials from "@/components/sections/ContactSocials";
 export function ContactForm() {
   const [volume, setVolume] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -170,6 +171,10 @@ export function ContactForm() {
               {CONTACT.phone}
             </a>
           </address>
+        </FadeInOnScroll>
+
+        <FadeInOnScroll delay={0.22}>
+          <ContactSocials email={CONTACT.email} className="mt-10" />
         </FadeInOnScroll>
       </div>
     </section>

@@ -118,7 +118,7 @@ export function AdminHeader({ onOpenDrawer }: { onOpenDrawer: () => void }) {
             <DropdownMenuTrigger asChild>
               <button
                 type="button"
-                className="flex items-center gap-2.5 rounded-full bg-white dark:bg-admin-card py-1.5 pl-1.5 pr-3 text-left shadow-admin transition-colors duration-200 hover:bg-white/80"
+                className="flex items-center gap-2.5 rounded-full bg-white dark:bg-admin-card py-1.5 pl-1.5 pr-3 text-left shadow-admin transition-colors duration-200 hover:bg-white/80 dark:hover:bg-admin-card/80"
               >
                 <span
                   aria-hidden="true"

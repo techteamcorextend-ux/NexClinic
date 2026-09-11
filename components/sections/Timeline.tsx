@@ -120,7 +120,7 @@ export function Timeline() {
                 />
               </AnimatePresence>
 
-              <span className="absolute bottom-6 left-6 rounded-full bg-white/85 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-ink backdrop-blur">
+              <span className="absolute bottom-6 left-6 rounded-full bg-white/85 dark:bg-surface/85 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-ink backdrop-blur">
                 {activeMilestone.year}
               </span>
             </div>

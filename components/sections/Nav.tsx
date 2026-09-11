@@ -38,7 +38,7 @@ export function Nav() {
       className={cn(
         "sticky top-0 z-50 w-full transition-[background-color,box-shadow,backdrop-filter] duration-500 ease-out-soft",
         scrolled
-          ? "border-b border-line/70 bg-white/75 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60"
+          ? "border-b border-line/70 bg-white/75 dark:bg-bg/75 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-bg/60"
           : "bg-transparent",
       )}
     >
@@ -54,7 +54,7 @@ export function Nav() {
           <DialogPrimitive.Trigger asChild>
             <button
               type="button"
-              className="ml-3 hidden items-center gap-2.5 rounded-full border border-line bg-white/60 px-4 py-2 text-sm font-medium text-ink transition-colors duration-300 hover:bg-white sm:inline-flex"
+              className="ml-3 hidden items-center gap-2.5 rounded-full border border-line bg-white/60 dark:bg-surface/60 px-4 py-2 text-sm font-medium text-ink transition-colors duration-300 hover:bg-white dark:hover:bg-surface sm:inline-flex"
             >
               <MenuLines />
               Menu
@@ -141,7 +141,7 @@ export function Nav() {
           <button
             type="button"
             aria-label="Search Nexclinic"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line bg-white/60 text-ink transition-colors duration-300 hover:bg-white"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line bg-white/60 dark:bg-surface/60 text-ink transition-colors duration-300 hover:bg-white dark:hover:bg-surface"
           >
             <Search className="h-4 w-4" aria-hidden="true" />
           </button>
@@ -150,7 +150,7 @@ export function Nav() {
             type="button"
             aria-label="Open menu"
             onClick={() => setMenuOpen(true)}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line bg-white/60 text-ink transition-colors duration-300 hover:bg-white sm:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line bg-white/60 dark:bg-surface/60 text-ink transition-colors duration-300 hover:bg-white dark:hover:bg-surface sm:hidden"
           >
             <MenuLines />
           </button>

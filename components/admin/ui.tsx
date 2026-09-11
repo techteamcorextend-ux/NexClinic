@@ -287,7 +287,7 @@ export function EmptyState({
   description: string;
 }) {
   return (
-    <div className="flex flex-col items-center justify-center rounded-admin border border-dashed border-admin-line bg-white/60 px-6 py-12 text-center">
+    <div className="flex flex-col items-center justify-center rounded-admin border border-dashed border-admin-line bg-white/60 dark:bg-admin-card/60 px-6 py-12 text-center">
       <span
         aria-hidden="true"
         className="grid h-12 w-12 place-items-center rounded-full bg-admin-bg text-admin-muted"
