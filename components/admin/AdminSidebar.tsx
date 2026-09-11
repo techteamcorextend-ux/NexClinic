@@ -217,23 +217,23 @@ export function AdminSidebar({
 
           <div className="mt-3 border-t border-admin-line pt-3">
             {showLabels ? (
-              <button
-                type="button"
+              <Link
+                href="/login"
                 className="flex w-full items-center gap-3 rounded-xl px-2 py-2 text-sm font-medium text-admin-muted transition-colors duration-200 hover:bg-admin-bg hover:text-rose-600"
               >
                 <LogOut className="h-[18px] w-[18px]" aria-hidden="true" />
                 Log out
-              </button>
+              </Link>
             ) : (
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <button
-                    type="button"
+                  <Link
+                    href="/login"
                     aria-label="Log out"
                     className="grid h-10 w-full place-items-center rounded-xl text-admin-muted transition-colors duration-200 hover:bg-admin-bg hover:text-rose-600"
                   >
                     <LogOut className="h-[18px] w-[18px]" aria-hidden="true" />
-                  </button>
+                  </Link>
                 </TooltipTrigger>
                 <TooltipContent side="right">Log out</TooltipContent>
               </Tooltip>

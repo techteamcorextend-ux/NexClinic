@@ -152,9 +152,14 @@ export function AdminHeader({ onOpenDrawer }: { onOpenDrawer: () => void }) {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-rose-600 data-[highlighted]:bg-rose-50">
-                <LogOut className="h-4 w-4" aria-hidden="true" />
-                Log out
+              <DropdownMenuItem
+                asChild
+                className="text-rose-600 data-[highlighted]:bg-rose-50 dark:data-[highlighted]:bg-rose-500/15"
+              >
+                <Link href="/login">
+                  <LogOut className="h-4 w-4" aria-hidden="true" />
+                  Log out
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
