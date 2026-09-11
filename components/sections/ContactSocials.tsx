@@ -20,6 +20,8 @@ type Social = {
   Icon: LucideIcon;
   /** Maps to the brand colour pair in the stylesheet. */
   tone: "linkedin" | "twitter" | "instagram" | "whatsapp" | "email";
+  /** Overrides the default "Nexclinic on <label>" accessible name. */
+  ariaLabel?: string;
 };
 
 const SOCIALS: Social[] = [
@@ -47,17 +49,24 @@ export default function ContactSocials({
   const items: Social[] = email
     ? [
         ...SOCIALS,
-        { key: "email", label: "Email us", href: `mailto:${email}`, Icon: Mail, tone: "email" },
+        {
+          key: "email",
+          label: "Email us",
+          href: `mailto:${email}`,
+          Icon: Mail,
+          tone: "email",
+          ariaLabel: `Email Nexclinic at ${email}`,
+        },
       ]
     : SOCIALS;
 
   return (
     <ul className={`${styles.row}${className ? ` ${className}` : ""}`}>
-      {items.map(({ key, label, href, Icon, tone }) => (
+      {items.map(({ key, label, href, Icon, tone, ariaLabel }) => (
         <li key={key} className={styles.item}>
           <a
             href={href}
-            aria-label={`Nexclinic on ${label}`}
+            aria-label={ariaLabel ?? `Nexclinic on ${label}`}
             className={`${styles.icon} ${styles[tone]}`}
             {...(href.startsWith("#") ? {} : { rel: "noreferrer noopener" })}
           >

@@ -662,6 +662,15 @@
     --p-line: 46 52 66;
   }
 
+  /*
+     .glass is a hard-coded white wash — the one frosted surface that the
+     variable swap can't reach, since it predates the token system.
+  */
+  .dark .glass {
+    background: rgb(var(--surface-rgb) / 0.72);
+    border: 1px solid rgb(var(--border-rgb) / 0.6);
+  }
+
   /* The page ground itself, so there's no white gutter behind the frame. */
   .dark body {
     background-color: rgb(var(--bg-frame-rgb));
