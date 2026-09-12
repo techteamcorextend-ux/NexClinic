@@ -13,7 +13,9 @@ import BookDemoButton from "@/components/ui/BookDemoButton";
 /** The Three.js scene is client-only and lazily loaded so it never blocks first paint. */
 const ParticleHuman = dynamic(() => import("@/components/three/ParticleHuman"), {
   ssr: false,
-  loading: () => <HelixFallback />,
+  // Render nothing while the chunk loads. This used to show the helix,
+  // which read as the page loading one visual and then replacing it.
+  loading: () => null,
 });
 
 export function Hero() {
@@ -56,13 +58,17 @@ export function Hero() {
               <HelixFallback />
             ) : (
               <ParticleHuman
-                cameraDistance={3}
+                /* Camera closer = bigger figure; 3 -> 2.58 is about +16%. */
+                cameraDistance={2.58}
                 offsetY={0.05}
                 count={4500}
-                pointSize={1.3}
+                /* Smaller dots read crisper at this density. */
+                pointSize={1.17}
                 opacity={0.65}
-                looseRatio={0.22}
-                looseOpacity={0.75}
+                /* More shedding particles, and brighter, so the effect still
+                   reads against a light page rather than only a dark one. */
+                looseRatio={0.34}
+                looseOpacity={0.92}
               />
             )}
           </div>

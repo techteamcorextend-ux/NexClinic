@@ -121,6 +121,31 @@ const config: Config = {
           "70%": { boxShadow: "0 0 0 10px rgba(239, 68, 68, 0)" },
           "100%": { boxShadow: "0 0 0 0 rgba(239, 68, 68, 0)" },
         },
+        /* A slow lub-dub for the resting emergency button: two squeezes,
+           then a long diastole. Distinct from `emergency-glow`, which is the
+           urgent full-screen alert once a broadcast is live. */
+        "heartbeat-glow": {
+          "0%, 100%": {
+            boxShadow:
+              "0 0 0 0 rgba(225, 29, 72, 0.45), 0 10px 26px -12px rgba(225, 29, 72, 0.55)",
+          },
+          "12%": {
+            boxShadow:
+              "0 0 22px 5px rgba(244, 63, 94, 0.6), 0 10px 26px -12px rgba(225, 29, 72, 0.6)",
+          },
+          "24%": {
+            boxShadow:
+              "0 0 8px 1px rgba(225, 29, 72, 0.35), 0 10px 26px -12px rgba(225, 29, 72, 0.5)",
+          },
+          "34%": {
+            boxShadow:
+              "0 0 18px 4px rgba(244, 63, 94, 0.5), 0 10px 26px -12px rgba(225, 29, 72, 0.58)",
+          },
+          "50%, 99%": {
+            boxShadow:
+              "0 0 0 0 rgba(225, 29, 72, 0.45), 0 10px 26px -12px rgba(225, 29, 72, 0.55)",
+          },
+        },
         "emergency-glow": {
           "0%, 100%": {
             boxShadow:
@@ -146,6 +171,7 @@ const config: Config = {
         float: "float 3s ease-in-out infinite",
         "pulse-ring": "pulse-ring 1.8s ease-out infinite",
         "emergency-glow": "emergency-glow 1.1s ease-in-out infinite",
+        "heartbeat-glow": "heartbeat-glow 2.6s ease-in-out infinite",
         "btn-fly": "btn-fly 680ms cubic-bezier(0.4, 0, 0.2, 1)",
         "accordion-down": "accordion-down 380ms cubic-bezier(0.16, 1, 0.3, 1)",
         "accordion-up": "accordion-up 320ms cubic-bezier(0.16, 1, 0.3, 1)",

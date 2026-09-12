@@ -195,7 +195,7 @@ export default function HomeEntry() {
           initial={{ opacity: 0, y: reduced ? 0 : 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduced ? 0.2 : 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col justify-between rounded-[32px] border border-white/15 bg-white/[0.03] p-7 shadow-[0_8px_60px_rgba(0,0,0,0.35)] backdrop-blur-sm sm:p-9 lg:min-h-[calc(100vh-7rem)] lg:p-12"
+          className="flex flex-col justify-between rounded-[32px] border border-white/15 bg-white/[0.03] p-7 shadow-[0_8px_60px_rgba(0,0,0,0.35)] backdrop-blur-[3px] sm:p-9 lg:min-h-[calc(100vh-7rem)] lg:p-12"
         >
           <div>
             <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-xs font-medium text-white/90">
@@ -253,7 +253,7 @@ export default function HomeEntry() {
           initial={{ opacity: 0, y: reduced ? 0 : 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduced ? 0.2 : 0.6, delay: reduced ? 0 : 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="rounded-[32px] border border-white/15 bg-white/[0.03] p-7 shadow-[0_8px_60px_rgba(0,0,0,0.35)] backdrop-blur-sm sm:p-9 lg:p-12"
+          className="rounded-[32px] border border-white/15 bg-white/[0.03] p-7 shadow-[0_8px_60px_rgba(0,0,0,0.35)] backdrop-blur-[3px] sm:p-9 lg:p-12"
         >
           <div className="mx-auto w-full max-w-md">
             <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-white">
@@ -309,7 +309,7 @@ export default function HomeEntry() {
             </ul>
 
             {/* Pre-login action */}
-            <div className="mt-8 rounded-[24px] border border-white/10 bg-gradient-to-br from-rose-500/90 via-fuchsia-600/90 to-blue-600/90 p-5 backdrop-blur-md">
+            <div className="mt-8 rounded-[24px] border border-white/10 bg-gradient-to-br from-rose-500/90 via-fuchsia-600/90 to-blue-600/90 p-5 backdrop-blur-sm">
               <p className="text-sm font-semibold text-white">First time here?</p>
               <p className="mt-1 text-xs leading-relaxed text-white/80">
                 Book a slot without an account — the front desk confirms it.

@@ -113,6 +113,9 @@ function EmergencyButton() {
             type="button"
             className={cn(
               "inline-flex items-center gap-2.5 rounded-full bg-rose-600 px-5 py-3 text-sm font-bold text-white transition-transform duration-300 hover:scale-[1.03] motion-reduce:hover:scale-100",
+              // Slow cardiac pulse at rest, so the button reads as live
+              // without competing with the page. Stops under reduced motion.
+              "animate-heartbeat-glow motion-reduce:animate-none",
               open
                 ? "motion-safe:animate-emergency-glow shadow-[0_0_45px_12px_rgba(244,63,94,0.85)]"
                 : "shadow-[0_16px_40px_-14px_rgba(225,29,72,0.8)]",

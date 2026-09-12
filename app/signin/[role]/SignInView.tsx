@@ -225,7 +225,7 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
         {/* One unified glass card: a single translucent panel around the
             whole sign-in experience, floating on the shared backdrop —
             no seam between a "left panel" and a "right panel". */}
-        <div className="isolate relative w-full max-w-6xl overflow-hidden rounded-[2.5rem] border border-white/15 bg-white/[0.05] shadow-[0_8px_60px_rgba(0,0,0,0.45)] backdrop-blur-md">
+        <div className="isolate relative w-full max-w-6xl overflow-hidden rounded-[2.5rem] border border-white/15 bg-white/[0.05] shadow-[0_8px_60px_rgba(0,0,0,0.45)] backdrop-blur-sm">
           <div className="relative grid gap-10 p-8 sm:p-10 lg:grid-cols-[1.05fr_1fr] lg:gap-8 lg:p-14">
             {/* Left — role info. */}
             <div className="flex flex-col justify-center">
@@ -271,7 +271,7 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
               </motion.div>
 
               {/* Nested glass card so it stays legible over the backdrop. */}
-              <div className="mt-8 max-w-sm rounded-[22px] border border-white/15 bg-white/[0.04] p-5 backdrop-blur-sm">
+              <div className="mt-8 max-w-sm rounded-[22px] border border-white/15 bg-white/[0.04] p-5 backdrop-blur-[3px]">
                 <p className="flex items-center gap-2 text-sm font-semibold text-white">
                   <Building2 className="h-4 w-4" aria-hidden="true" />
                   {CLINIC_INFO.name}
@@ -315,7 +315,7 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
               transition={{ duration: reduced ? 0.2 : 0.55, delay: reduced ? 0 : 0.08, ease: [0.16, 1, 0.3, 1] }}
               className="flex items-center justify-center lg:justify-end"
             >
-              <div className="w-full max-w-sm rounded-[28px] border border-white/15 bg-white/[0.04] p-6 backdrop-blur-sm sm:p-8">
+              <div className="w-full max-w-sm rounded-[28px] border border-white/15 bg-white/[0.04] p-6 backdrop-blur-[3px] sm:p-8">
                 <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-white">
                   <ShieldCheck className="h-3.5 w-3.5 text-indigo-300" aria-hidden="true" />
                   Demo credentials — no password check
@@ -354,7 +354,7 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
           initial={{ opacity: 0, y: reduced ? 0 : 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduced ? 0.2 : 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col justify-between rounded-[32px] border border-white/15 bg-white/[0.04] p-7 shadow-[0_8px_60px_rgba(0,0,0,0.4)] backdrop-blur-sm sm:p-9 lg:min-h-[calc(100vh-7rem)] lg:p-12"
+          className="flex flex-col justify-between rounded-[32px] border border-white/15 bg-white/[0.04] p-7 shadow-[0_8px_60px_rgba(0,0,0,0.4)] backdrop-blur-[3px] sm:p-9 lg:min-h-[calc(100vh-7rem)] lg:p-12"
         >
           <div>
             <Link
@@ -389,7 +389,7 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
             </ul>
           </div>
 
-          <div className="mt-10 rounded-[22px] border border-white/15 bg-white/[0.03] p-5 backdrop-blur-sm">
+          <div className="mt-10 rounded-[22px] border border-white/15 bg-white/[0.03] p-5 backdrop-blur-[3px]">
             <p className="flex items-center gap-2 text-sm font-semibold text-white">
               <Building2 className="h-4 w-4" aria-hidden="true" />
               {CLINIC_INFO.name}
@@ -430,7 +430,7 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
           initial={{ opacity: 0, y: reduced ? 0 : 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduced ? 0.2 : 0.55, delay: reduced ? 0 : 0.08, ease: [0.16, 1, 0.3, 1] }}
-          className="rounded-[32px] border border-white/15 bg-white/[0.04] p-7 shadow-[0_8px_60px_rgba(0,0,0,0.4)] backdrop-blur-sm sm:p-9 lg:p-12"
+          className="rounded-[32px] border border-white/15 bg-white/[0.04] p-7 shadow-[0_8px_60px_rgba(0,0,0,0.4)] backdrop-blur-[3px] sm:p-9 lg:p-12"
         >
           <div className="mx-auto w-full max-w-sm">
             <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-white">
@@ -529,7 +529,7 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
           </motion.div>
         </div>
 
-        <div className="mt-10 rounded-[22px] border border-white/15 bg-white/8 p-5 backdrop-blur-md">
+        <div className="mt-10 rounded-[22px] border border-white/15 bg-white/8 p-5 backdrop-blur-sm">
           <p className="flex items-center gap-2 text-sm font-semibold text-white">
             <Building2 className="h-4 w-4" aria-hidden="true" />
             {CLINIC_INFO.name}

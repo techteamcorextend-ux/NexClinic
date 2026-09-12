@@ -12,12 +12,14 @@ const buttonVariants = cva(
     variants: {
       variant: {
         // --ink inverts in dark mode, so a white label on it would be
-        // white-on-white. The label follows the page ground instead.
+        // white-on-white. In dark the pill is pinned to white with a dark
+        // label rather than left to follow --ink, so the primary CTA can
+        // never drift toward the page ground.
         solid:
-          "bg-ink text-white dark:text-bg shadow-soft hover:bg-[#1b1b22] dark:hover:bg-ink/85",
+          "bg-ink text-white shadow-soft hover:bg-[#1b1b22] dark:bg-white dark:text-[#0b0b10] dark:hover:bg-white/90",
         gradient: "bg-accent-gradient-strong text-white shadow-lift",
         outline:
-          "border border-line bg-white dark:bg-surface text-ink hover:border-ink/25 hover:bg-surface",
+          "border border-line bg-white text-ink hover:border-ink/25 hover:bg-surface dark:border-white/25 dark:bg-white/10 dark:hover:border-white/40 dark:hover:bg-white/20",
         ghost: "text-ink hover:bg-surface",
         glass: "glass text-ink shadow-soft",
       },
