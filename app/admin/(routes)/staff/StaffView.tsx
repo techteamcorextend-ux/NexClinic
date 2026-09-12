@@ -183,7 +183,7 @@ export default function StaffView() {
       <Reveal delay={0.05}>
         <Card className="mt-6">
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-[2fr_1fr]">
-            <div className="relative">
+            <div className="btn-aurora rounded-full relative">
               <label htmlFor="staff-search" className="sr-only">
                 Search staff
               </label>

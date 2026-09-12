@@ -464,9 +464,75 @@
       --btn-angle: 360deg;
     }
   }
+
+  /* 2 · Aurora — the same conic ring, but always running and far subtler.
+     `btn-conic` above is a hover flourish in full saturation; this is the
+     resting state for sign-in and search controls, so the palette is pulled
+     back to a lens-fringe (pale blue, amber, violet) that reads as a sheen
+     travelling round the edge rather than a rainbow. */
+  .btn-aurora {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .btn-aurora::before {
+    content: "";
+    position: absolute;
+    inset: -1.5px;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: conic-gradient(
+      from var(--btn-angle),
+      rgba(147, 197, 253, 0.95),
+      rgba(251, 191, 36, 0.85),
+      rgba(233, 213, 255, 0.7),
+      rgba(103, 232, 249, 0.9),
+      rgba(165, 180, 252, 0.95),
+      rgba(147, 197, 253, 0.95)
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    mask-composite: exclude;
+    animation: btn-spin 3.6s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* A quiet outer bloom, so the ring reads as light rather than as a stroke. */
+  .btn-aurora::after {
+    content: "";
+    position: absolute;
+    inset: -5px;
+    border-radius: inherit;
+    background: conic-gradient(
+      from var(--btn-angle),
+      rgba(147, 197, 253, 0.5),
+      rgba(251, 191, 36, 0.35),
+      rgba(165, 180, 252, 0.5),
+      rgba(147, 197, 253, 0.5)
+    );
+    filter: blur(9px);
+    opacity: 0.35;
+    animation: btn-spin 3.6s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .btn-aurora:hover::after,
+  .btn-aurora:focus-visible::after {
+    opacity: 0.6;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .btn-aurora::before,
+  .btn-aurora::after {
+    animation: none;
+  }
+
   .btn-conic:hover::before,
   .btn-conic:focus-visible::before {
     animation: none;

@@ -72,7 +72,7 @@ export function AdminHeader({ onOpenDrawer }: { onOpenDrawer: () => void }) {
           <label htmlFor="admin-search" className="sr-only">
             Search patients, staff and invoices
           </label>
-          <div className="relative">
+          <div className="btn-aurora relative rounded-full">
             <Search
               className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-admin-muted"
               aria-hidden="true"

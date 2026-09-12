@@ -22,7 +22,6 @@ import { CLINIC_INFO, ROLES, findRole, type RoleKey } from "@/lib/roles";
 import { cn } from "@/lib/utils";
 
 import TextReveal from "@/components/motion/TextReveal";
-import ThemeToggle from "@/components/system/ThemeToggle";
 /**
  * Shared backdrop for the whole admin sign-in screen: the desk photo sits
  * behind everything, blurred and dimmed just enough to read as texture
@@ -181,7 +180,7 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
         Keep me signed in on this device
       </label>
 
-      <StretchButton type="submit" className="w-full" disabled={pending}>
+      <StretchButton type="submit" className="btn-aurora w-full" disabled={pending}>
         {pending ? "Opening portal…" : `Sign in as ${role.label}`}
       </StretchButton>
     </form>
@@ -467,11 +466,6 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
 
   return (
     <main className="min-h-screen bg-[#0B1020] lg:grid lg:grid-cols-[1fr_1fr]">
-      {/* No header on this screen — pin the theme switch to the corner. */}
-      <div className="pointer-events-auto fixed right-4 top-4 z-50">
-        <ThemeToggle />
-      </div>
-
       {/* ── Left grid — clinic information ──
           `isolate` gives this section its own stacking context, so the
           absolutely-positioned -z-10 background below paints above the

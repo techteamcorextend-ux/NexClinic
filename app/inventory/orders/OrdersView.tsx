@@ -194,7 +194,7 @@ export default function OrdersView() {
 
               <div>
                 <Label htmlFor="order-search">Search medicines and supplies</Label>
-                <div className="relative">
+                <div className="btn-aurora rounded-full relative">
                   <Search
                     className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-p-muted"
                     aria-hidden="true"

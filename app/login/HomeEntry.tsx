@@ -25,7 +25,6 @@ import { useClinic } from "@/lib/clinic-store";
 import { CLINIC_INFO, DOCTOR_OPTIONS, ROLES } from "@/lib/roles";
 
 import TextReveal from "@/components/motion/TextReveal";
-import ThemeToggle from "@/components/system/ThemeToggle";
 const PILLARS = [
   "Six role-based portals on one record",
   "AI scribe drafts clinical notes as you consult",
@@ -154,7 +153,7 @@ function NewAppointmentDialog() {
 
             <AnimatedField label="Reason for visit" name="reason" required />
 
-            <MorphButton type="submit" doneLabel="Sent to front desk" className="w-full">
+            <MorphButton type="submit" doneLabel="Sent to front desk" className="btn-aurora w-full">
               Send request
             </MorphButton>
           </form>
@@ -169,11 +168,6 @@ export default function HomeEntry() {
 
   return (
     <main className="relative isolate min-h-screen overflow-hidden bg-[#0B1020]">
-      {/* No header on this screen — pin the theme switch to the corner. */}
-      <div className="pointer-events-auto fixed right-4 top-4 z-50">
-        <ThemeToggle />
-      </div>
-
       {/* ─────────────── Shared backdrop — one texture behind both panels ─────────────── */}
       <div aria-hidden="true" className="absolute inset-0 -z-10">
         <Image
@@ -284,7 +278,7 @@ export default function HomeEntry() {
                   >
                     <Link
                       href={`/signin/${role.key}`}
-                      className="group flex items-center gap-4 rounded-2xl border border-white/15 bg-white/[0.02] p-4 backdrop-blur-[2px] transition-all duration-300 ease-out-soft hover:-translate-y-1 hover:border-white/30 hover:bg-white/[0.08] motion-reduce:hover:translate-y-0"
+                      className="btn-aurora group flex items-center gap-4 rounded-2xl border border-white/15 bg-white/[0.02] p-4 backdrop-blur-[2px] transition-all duration-300 ease-out-soft hover:-translate-y-1 hover:border-white/30 hover:bg-white/[0.08] motion-reduce:hover:translate-y-0"
                     >
                       <span
                         aria-hidden="true"

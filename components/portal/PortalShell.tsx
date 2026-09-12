@@ -143,7 +143,7 @@ export function PortalShell({
             <button
               type="button"
               aria-label="Search"
-              className="hidden h-10 w-10 place-items-center rounded-full border border-p-line bg-p-card text-p-muted transition-colors hover:text-p-ink sm:grid"
+              className="btn-aurora hidden h-10 w-10 place-items-center rounded-full border border-p-line bg-p-card text-p-muted transition-colors hover:text-p-ink sm:grid"
             >
               <Search className="h-4 w-4" aria-hidden="true" />
             </button>
