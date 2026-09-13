@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Bell, LogOut, Menu, Search, X, type LucideIcon } from "lucide-react";
 import Backdrop from "./Backdrop";
 import PortalSwitcher from "./PortalSwitcher";
-import { PAvatar } from "./ui";
+import ProfileMenu from "@/components/profile/ProfileMenu";
 import { cn } from "@/lib/utils";
 import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 
@@ -24,7 +24,7 @@ type PortalShellProps = {
   nav: PortalNavItem[];
   title: string;
   subtitle?: string;
-  user: { name: string; initials: string; role: string };
+  user: { id: string; name: string; initials: string; role: string; email?: string };
   actions?: ReactNode;
   backdrop?: "soft" | "leaf" | "grid" | "aurora";
   children: ReactNode;
@@ -160,13 +160,15 @@ export function PortalShell({
               />
             </button>
 
-            <span className="flex shrink-0 items-center gap-2.5 rounded-full border border-p-line bg-p-card py-1.5 pl-1.5 pr-3">
-              <PAvatar initials={user.initials} name={user.name} size="sm" />
-              <span className="hidden leading-tight sm:block">
-                <span className="block text-xs font-semibold text-p-ink">{user.name}</span>
-                <span className="block text-[11px] text-p-muted">{user.role}</span>
-              </span>
-            </span>
+            <ProfileMenu
+              tone="portal"
+              id={user.id}
+              name={user.name}
+              initials={user.initials}
+              role={user.role}
+              email={user.email}
+              settingsHref={`/profile/${user.id}#preferences`}
+            />
           </header>
 
           <main id="portal-main" className="pb-10">

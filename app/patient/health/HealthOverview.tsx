@@ -78,7 +78,7 @@ export default function HealthOverview() {
       backdrop="aurora"
       title="Overview"
       subtitle="Patient health · cardiac study and this week's care"
-      user={{ name: patient.name, initials: patient.initials, role: "Patient" }}
+      user={{ id: patient.id, name: patient.name, initials: patient.initials, role: "Patient", email: patient.email }}
       actions={
         <DownloadButton
           onDownload={downloadCardiacReport}

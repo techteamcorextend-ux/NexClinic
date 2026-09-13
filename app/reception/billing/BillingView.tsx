@@ -122,9 +122,11 @@ export default function BillingView() {
       title="Billing & checkout"
       subtitle="Medicines added here are drawn out of pharmacy stock"
       user={{
+        id: RECEPTION_PROFILE.id,
         name: RECEPTION_PROFILE.name,
         initials: RECEPTION_PROFILE.initials,
         role: RECEPTION_PROFILE.role,
+        email: RECEPTION_PROFILE.email,
       }}
       actions={<NoticeBell audience="reception" />}
     >

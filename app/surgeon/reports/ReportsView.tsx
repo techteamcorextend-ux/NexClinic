@@ -54,9 +54,11 @@ export default function ReportsView() {
       title="Reports"
       subtitle={`${REPORTS.length} reports issued across ${PATIENTS.length} patients`}
       user={{
+        id: DOCTOR_PROFILE.id,
         name: DOCTOR_PROFILE.name,
         initials: DOCTOR_PROFILE.initials,
         role: DOCTOR_PROFILE.speciality,
+        email: DOCTOR_PROFILE.email,
       }}
       actions={<NoticeBell audience="surgeon" />}
     >

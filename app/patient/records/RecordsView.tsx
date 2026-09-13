@@ -116,7 +116,7 @@ export default function RecordsView() {
       backdrop="aurora"
       title="Medical timeline"
       subtitle={`${timeline.length} entries across visits, notes, labs, prescriptions and payments`}
-      user={{ name: patient.name, initials: patient.initials, role: "Patient" }}
+      user={{ id: patient.id, name: patient.name, initials: patient.initials, role: "Patient", email: patient.email }}
       actions={<NoticeBell audience="patient" />}
     >
       <Reveal>

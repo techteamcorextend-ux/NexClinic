@@ -136,9 +136,11 @@ export default function SurgeonDashboard() {
       title={`Welcome, ${DOCTOR_PROFILE.name}`}
       subtitle={`${DOCTOR_PROFILE.speciality} · ${activePatients} waiting`}
       user={{
+        id: DOCTOR_PROFILE.id,
         name: DOCTOR_PROFILE.name,
         initials: DOCTOR_PROFILE.initials,
         role: DOCTOR_PROFILE.speciality,
+        email: DOCTOR_PROFILE.email,
       }}
       actions={<NoticeBell audience="surgeon" />}
     >

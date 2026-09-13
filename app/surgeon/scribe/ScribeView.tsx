@@ -85,9 +85,11 @@ export default function ScribeView() {
       title="AI Clinical Scribe"
       subtitle="Listens to the consultation and drafts a structured note"
       user={{
+        id: DOCTOR_PROFILE.id,
         name: DOCTOR_PROFILE.name,
         initials: DOCTOR_PROFILE.initials,
         role: DOCTOR_PROFILE.speciality,
+        email: DOCTOR_PROFILE.email,
       }}
       actions={<NoticeBell audience="surgeon" />}
     >

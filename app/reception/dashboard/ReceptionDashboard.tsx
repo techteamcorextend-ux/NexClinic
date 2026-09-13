@@ -210,9 +210,11 @@ export default function ReceptionDashboard() {
       title="Front desk"
       subtitle={`${waiting} waiting · ${pending.length} requests to action`}
       user={{
+        id: RECEPTION_PROFILE.id,
         name: RECEPTION_PROFILE.name,
         initials: RECEPTION_PROFILE.initials,
         role: RECEPTION_PROFILE.role,
+        email: RECEPTION_PROFILE.email,
       }}
       actions={
         <span className="flex items-center gap-2">

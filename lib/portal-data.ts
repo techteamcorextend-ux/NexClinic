@@ -242,6 +242,9 @@ export const SIGNED_IN_PATIENT = PATIENTS[0];
 /* ═══════════════════════ DOCTOR / RECEPTION ═══════════════════════ */
 
 export const DOCTOR_PROFILE = {
+  /** Directory id — resolves through `findPerson` to the profile page. */
+  id: "DR-SP",
+  email: "shabrina.putri@nexclinic.health",
   name: "Dr. Shabrina Putri",
   short: "Shabrina",
   initials: "SP",
@@ -250,6 +253,9 @@ export const DOCTOR_PROFILE = {
 };
 
 export const RECEPTION_PROFILE = {
+  /** Directory id — resolves through `findPerson` to the profile page. */
+  id: "ST-4",
+  email: "kavya.r@nexclinic.health",
   name: "Kavya Reddy",
   short: "Kavya",
   initials: "KR",

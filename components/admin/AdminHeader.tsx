@@ -4,23 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   Bell,
-  ChevronDown,
   ChevronRight,
-  LogOut,
+  LayoutDashboard,
   Menu,
   MessageSquare,
   Search,
-  Settings,
-  User,
 } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import ProfileMenu from "@/components/profile/ProfileMenu";
 import { ADMIN_PROFILE } from "@/lib/admin-data";
 import { findNavItem } from "@/lib/admin-nav";
 
@@ -114,55 +104,23 @@ export function AdminHeader({ onOpenDrawer }: { onOpenDrawer: () => void }) {
             className="mx-1 hidden h-7 w-px bg-admin-line sm:block"
           />
 
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button
-                type="button"
-                className="flex items-center gap-2.5 rounded-full bg-white dark:bg-admin-card py-1.5 pl-1.5 pr-3 text-left shadow-admin transition-colors duration-200 hover:bg-white/80 dark:hover:bg-admin-card/80"
-              >
-                <span
-                  aria-hidden="true"
-                  className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-admin-grad-pink text-xs font-semibold text-white"
-                >
-                  {ADMIN_PROFILE.initials}
-                </span>
-                <span className="hidden text-sm font-medium text-admin-ink sm:block">
-                  {ADMIN_PROFILE.firstName}
-                </span>
-                <ChevronDown
-                  className="h-4 w-4 text-admin-muted"
-                  aria-hidden="true"
-                />
-                <span className="sr-only">Open account menu</span>
-              </button>
-            </DropdownMenuTrigger>
-
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>{ADMIN_PROFILE.name}</DropdownMenuLabel>
-              <DropdownMenuItem asChild>
-                <Link href="/admin/settings">
-                  <User className="h-4 w-4" aria-hidden="true" />
-                  Profile
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/admin/settings">
-                  <Settings className="h-4 w-4" aria-hidden="true" />
-                  Settings
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
-                asChild
-                className="text-rose-600 data-[highlighted]:bg-rose-50 dark:data-[highlighted]:bg-rose-500/15"
-              >
-                <Link href="/login">
-                  <LogOut className="h-4 w-4" aria-hidden="true" />
-                  Log out
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <ProfileMenu
+            tone="admin"
+            id={ADMIN_PROFILE.id}
+            name={ADMIN_PROFILE.name}
+            initials={ADMIN_PROFILE.initials}
+            role={ADMIN_PROFILE.role}
+            email={ADMIN_PROFILE.email}
+            settingsHref="/admin/settings"
+            items={[
+              {
+                label: "Staff directory",
+                href: "/admin/staff",
+                icon: LayoutDashboard,
+                hint: "Everyone on the roster",
+              },
+            ]}
+          />
         </div>
       </div>
     </header>

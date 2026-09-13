@@ -116,9 +116,11 @@ export default function ConsultationView({ patientId }: { patientId: string }) {
       title="Consultation"
       subtitle={`${patient.name} · ${patient.condition}`}
       user={{
+        id: DOCTOR_PROFILE.id,
         name: DOCTOR_PROFILE.name,
         initials: DOCTOR_PROFILE.initials,
         role: DOCTOR_PROFILE.speciality,
+        email: DOCTOR_PROFILE.email,
       }}
       actions={<NoticeBell audience="surgeon" />}
     >

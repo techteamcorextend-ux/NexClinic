@@ -12,6 +12,8 @@
 /* ══════════════════ Signed-in administrator (sample) ══════════════════ */
 
 export const ADMIN_PROFILE = {
+  /** Directory id — resolves through `findPerson` to the profile page. */
+  id: "ST-7",
   name: "Ananya Desai",
   firstName: "Ananya",
   role: "Super Admin",

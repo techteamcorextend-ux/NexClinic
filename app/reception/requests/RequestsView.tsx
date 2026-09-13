@@ -46,9 +46,11 @@ export default function RequestsView() {
       title="Appointment requests"
       subtitle={`${pendingCount} awaiting a decision`}
       user={{
+        id: RECEPTION_PROFILE.id,
         name: RECEPTION_PROFILE.name,
         initials: RECEPTION_PROFILE.initials,
         role: RECEPTION_PROFILE.role,
+        email: RECEPTION_PROFILE.email,
       }}
       actions={<NoticeBell audience="reception" />}
     >

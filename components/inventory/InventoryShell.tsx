@@ -30,7 +30,13 @@ export function InventoryShell({
       backdrop="soft"
       title={title}
       subtitle={subtitle}
-      user={{ name: "Divya Kamath", initials: "DK", role: "Inventory Manager" }}
+      user={{
+        id: "ST-6",
+        name: "Divya Kamath",
+        initials: "DK",
+        role: "Inventory Manager",
+        email: "divya.k@nexclinic.health",
+      }}
       actions={
         <span className="flex items-center gap-2">
           {actions}

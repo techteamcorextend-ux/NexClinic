@@ -78,9 +78,11 @@ export default function OnboardingView() {
       title="Walk-in onboarding"
       subtitle="Scan at the desk, the patient fills their own details in"
       user={{
+        id: RECEPTION_PROFILE.id,
         name: RECEPTION_PROFILE.name,
         initials: RECEPTION_PROFILE.initials,
         role: RECEPTION_PROFILE.role,
+        email: RECEPTION_PROFILE.email,
       }}
       actions={<NoticeBell audience="reception" />}
     >

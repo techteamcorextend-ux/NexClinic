@@ -105,7 +105,7 @@ export default function PatientDashboard() {
       backdrop="aurora"
       title={`Hello, ${patient.name.split(" ")[0]}`}
       subtitle={`${patient.condition} · ${patient.doctor}`}
-      user={{ name: patient.name, initials: patient.initials, role: "Patient" }}
+      user={{ id: patient.id, name: patient.name, initials: patient.initials, role: "Patient", email: patient.email }}
       actions={<NoticeBell audience="patient" />}
     >
       <div className="grid grid-cols-1 gap-5 xl:grid-cols-[1.5fr_1fr]">

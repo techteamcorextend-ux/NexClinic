@@ -167,6 +167,8 @@ export function PAvatar({
 /* ── Status pill ───────────────────────────────────────────────────── */
 
 const PILL_TONES: Record<string, string> = {
+  Active: "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300",
+  Inactive: "bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300",
   Stable: "bg-emerald-50 text-emerald-700",
   "Follow-up": "bg-amber-50 text-amber-700",
   Critical: "bg-rose-50 text-rose-700",

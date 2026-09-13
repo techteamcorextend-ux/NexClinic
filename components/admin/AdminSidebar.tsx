@@ -182,9 +182,11 @@ export function AdminSidebar({
 
         {/* Account + logout */}
         <div className="shrink-0 border-t border-admin-line px-4 py-4">
-          <div
+          <Link
+            href={`/profile/${ADMIN_PROFILE.id}`}
+            title="Open your profile"
             className={cn(
-              "flex items-center gap-3",
+              "flex items-center gap-3 rounded-2xl px-2 py-2 transition-colors duration-200 hover:bg-admin-bg",
               showLabels ? "" : "justify-center",
             )}
           >
@@ -213,7 +215,7 @@ export function AdminSidebar({
                 </motion.span>
               ) : null}
             </AnimatePresence>
-          </div>
+          </Link>
 
           <div className="mt-3 border-t border-admin-line pt-3">
             {showLabels ? (
