@@ -4,6 +4,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { FadeInOnScroll } from "@/components/motion/FadeInOnScroll";
+import ShotFrame from "@/components/ui/ShotFrame";
 import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 import { EXPLORE_PANELS } from "@/lib/data";
 import { cn } from "@/lib/utils";
@@ -82,15 +83,13 @@ export function ExplorePanels() {
               transition={{ duration: reduced ? 0.2 : 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="overflow-hidden"
             >
-              {/*
-                PLACEHOLDER VISUAL — abstract gradient standing in for a real
-                product screenshot at the same aspect ratio.
-              */}
               <div className="relative isolate flex min-h-[260px] items-end overflow-hidden rounded-card border border-line p-7 md:min-h-[380px] md:p-10">
-                <div
-                  role="img"
-                  aria-label={`Abstract gradient placeholder for the ${openPanel.title} interface`}
-                  className="placeholder-surface grain absolute inset-0 -z-10"
+                <ShotFrame
+                  src={openPanel.shot}
+                  alt={`The Nexclinic ${openPanel.title} interface`}
+                  sizes="100vw"
+                  position="center top"
+                  scrim="page"
                 />
                 <div className="relative max-w-xl">
                   <TextReveal as="h3" className="text-2xl font-bold tracking-tight text-ink md:text-3xl">

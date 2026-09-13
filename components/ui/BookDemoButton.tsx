@@ -44,7 +44,7 @@ export type BookDemoButtonProps = {
 };
 
 export default function BookDemoButton({
-  href = "/login",
+  href = "#book-demo",
   label = "BookDemo",
   hoverLabel = "BookNow",
   ariaLabel = "Book a demo",

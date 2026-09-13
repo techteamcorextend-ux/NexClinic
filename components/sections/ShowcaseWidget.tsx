@@ -1,9 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { FadeInOnScroll } from "@/components/motion/FadeInOnScroll";
+import ShotFrame from "@/components/ui/ShotFrame";
 import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 import { SHOWCASE } from "@/lib/data";
 
@@ -57,15 +57,14 @@ export function ShowcaseWidget() {
     <section className="bg-white dark:bg-surface pb-24 md:pb-32">
       <div className="shell">
         <FadeInOnScroll>
-          {/*
-            PLACEHOLDER VISUAL — a real dashboard screenshot drops straight in
-            here as an <Image fill /> without changing the surrounding layout.
-          */}
           <div className="relative isolate flex min-h-[440px] flex-col justify-end overflow-hidden rounded-card p-6 md:min-h-[600px] md:p-12">
-            <div
-              role="img"
-              aria-label="Abstract gradient placeholder for the Nexclinic facility dashboard"
-              className="placeholder-surface-deep grain absolute inset-0 -z-10"
+            <ShotFrame
+              src="/images/features/admin-dashboard.jpg"
+              alt="The Nexclinic facility dashboard"
+              placeholderClassName="placeholder-surface-deep grain"
+              sizes="100vw"
+              position="center top"
+              scrim="dark"
             />
             {/* Floating CTAs, top right */}
             <div className="absolute right-5 top-5 z-20 flex flex-wrap items-center justify-end gap-2 md:right-8 md:top-8 md:gap-3">
@@ -73,7 +72,7 @@ export function ShowcaseWidget() {
                 {SHOWCASE.ctaApp}
               </Button>
               <Button variant="solid" size="sm" asChild>
-                <Link href="/login">{SHOWCASE.ctaDemo}</Link>
+                <a href="#book-demo">{SHOWCASE.ctaDemo}</a>
               </Button>
             </div>
 

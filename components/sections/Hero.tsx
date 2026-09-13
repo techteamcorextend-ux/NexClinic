@@ -58,8 +58,10 @@ export function Hero() {
               <HelixFallback />
             ) : (
               <ParticleHuman
-                /* Camera closer = bigger figure; 3 -> 2.58 is about +16%. */
-                cameraDistance={2.58}
+                /* Camera closer = bigger figure; 3 -> 2.72 is about +10%.
+                   Pulled back 5% from 2.58 so the head clears the cards above
+                   and the legs stop colliding with the section below. */
+                cameraDistance={2.72}
                 offsetY={0.05}
                 count={4500}
                 /* Smaller dots read crisper at this density. */
@@ -111,7 +113,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
           >
-            <BookDemoButton href="/login" ariaLabel={HERO.primaryCta} />
+            <BookDemoButton href="#book-demo" ariaLabel={HERO.primaryCta} />
 
             <a
               href="#architecture"

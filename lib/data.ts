@@ -113,30 +113,41 @@ export const FEATURE_CARD = {
 
 /* ───────────────────────  PORTAL CARDS  ────────────────── */
 
+/**
+ * `shot` points at a product screenshot under /public/images/features. A card
+ * with no file there (or none named) falls back to the gradient — see
+ * <ShotFrame /> — so the deck is never broken while shots are being taken.
+ */
 export const PORTALS = [
   {
     name: "Patient Portal",
     body: "Health vault, mood tracker, women's health suite, and AI wellness chat.",
+    shot: "/images/features/patient-dashboard.jpg",
   },
   {
     name: "Doctor Portal",
     body: "Live queue, EHR, AI scribe, and one-click discharge approval.",
+    shot: "/images/features/consultation.jpg",
   },
   {
     name: "Receptionist & Clinic Portal",
     body: "Triage board, walk-in QR onboarding, billing, and pharmacy sync.",
+    shot: "/images/features/reception-desk.jpg",
   },
   {
     name: "Super Admin Dashboard",
     body: "Multi-clinic oversight, financial analytics, payroll, and audit logs.",
+    shot: "/images/features/admin-dashboard.jpg",
   },
   {
     name: "Inventory Management",
     body: "Medicines, equipment, and OT supplies with automated low-stock alerts.",
+    shot: "/images/features/inventory.jpg",
   },
   {
     name: "Corporate Wellness & Emergency",
     body: "Workforce stress analytics and multi-portal SOS response.",
+    shot: undefined as string | undefined,
   },
 ];
 
@@ -186,16 +197,19 @@ export const EXPLORE_PANELS = [
     index: "01",
     title: "Clinical Management",
     body: "EHR, triage boards, OT scheduling, and lab tracking.",
+    shot: "/images/features/consultation.jpg",
   },
   {
     index: "02",
     title: "AI Wellness Suite",
     body: "Nexclinic's mental health chat, cycle tracking, and diet AI.",
+    shot: "/images/features/patient-dashboard.jpg",
   },
   {
     index: "03",
     title: "Facility Operations",
     body: "Inventory, billing, payroll, and multi-clinic administration.",
+    shot: "/images/features/inventory.jpg",
   },
 ];
 

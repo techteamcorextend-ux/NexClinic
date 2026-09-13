@@ -8,6 +8,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { FadeInOnScroll } from "@/components/motion/FadeInOnScroll";
+import ShotFrame from "@/components/ui/ShotFrame";
 import { Marquee } from "@/components/sections/Marquee";
 import { FEATURES, FEATURE_CARD, MARQUEE_SMALL } from "@/lib/data";
 
@@ -26,16 +27,14 @@ export function Features() {
         {/* Visual panel + floating card */}
         <FadeInOnScroll>
           <div className="relative pb-24 sm:pb-16 lg:pb-20">
-            {/*
-              PLACEHOLDER VISUAL — abstract gradient standing in for a product
-              screenshot. Drop an <Image /> in here at the same aspect ratio.
-            */}
-            <div
-              role="img"
-              aria-label="Abstract lavender gradient placeholder for a Nexclinic portal screenshot"
-              className="placeholder-surface grain relative aspect-[4/5] w-full overflow-hidden rounded-card border border-line sm:aspect-[5/4] lg:aspect-[4/5]"
-            >
-              <div className="absolute inset-0 bg-[radial-gradient(60%_50%_at_70%_20%,rgba(255,255,255,0.55),transparent)]" />
+            {/* Product shot, gradient until the file lands. */}
+            <div className="relative isolate aspect-[4/5] w-full overflow-hidden rounded-card border border-line sm:aspect-[5/4] lg:aspect-[4/5]">
+              <ShotFrame
+                src="/images/features/consultation.jpg"
+                alt="The Nexclinic surgeon consultation screen"
+                sizes="(max-width: 1024px) 100vw, 45vw"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_70%_20%,rgba(255,255,255,0.18),transparent)]" />
             </div>
 
             {/* Floating card overlapping the bottom-left corner */}

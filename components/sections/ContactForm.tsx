@@ -28,6 +28,9 @@ export function ContactForm() {
 
   return (
     <section id="pricing" className="scroll-mt-28 bg-white dark:bg-surface py-24 md:py-32">
+      {/* Every "Book a Demo" CTA on the page scrolls here. The section already
+          carries #pricing for the nav, so the demo anchor rides alongside it. */}
+      <span id="book-demo" aria-hidden="true" className="block scroll-mt-28" />
       <div className="shell">
         <FadeInOnScroll>
           <TextReveal as="h2" className="text-center text-6xl font-bold uppercase leading-[0.9] tracking-tight text-ink sm:text-7xl md:text-8xl">

@@ -2,6 +2,7 @@
 
 import type { CSSProperties } from "react";
 import { FadeInOnScroll } from "@/components/motion/FadeInOnScroll";
+import ShotFrame from "@/components/ui/ShotFrame";
 import { PORTALS, PORTALS_HEADER } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
@@ -13,11 +14,13 @@ const FAN_LIFT = [18, 8, 0, 0, 8, 18];
 function PortalCard({
   name,
   body,
+  shot,
   index,
   className,
 }: {
   name: string;
   body: string;
+  shot?: string;
   index: number;
   className?: string;
 }) {
@@ -33,10 +36,14 @@ function PortalCard({
           Portal
         </span>
 
-        <div
-          aria-hidden="true"
-          className="placeholder-surface mt-5 h-24 w-full rounded-chip border border-line"
-        />
+        <div className="relative isolate mt-5 h-24 w-full overflow-hidden rounded-chip border border-line">
+          <ShotFrame
+            src={shot}
+            alt={`The ${name} workspace`}
+            sizes="220px"
+            position="left top"
+          />
+        </div>
 
         <TextReveal as="h3" className="mt-6 text-lg font-semibold leading-tight tracking-tight text-ink">
           {name}

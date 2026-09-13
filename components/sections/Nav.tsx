@@ -117,9 +117,9 @@ export function Nav() {
 
                     <div className="shell mt-12 flex flex-wrap items-center gap-4">
                       <Button variant="gradient" asChild>
-                        <Link href="/login" onClick={() => setMenuOpen(false)}>
+                        <a href="#book-demo" onClick={() => setMenuOpen(false)}>
                           Book a Demo
-                        </Link>
+                        </a>
                       </Button>
                       <Button variant="outline" asChild>
                         <Link href="/login" onClick={() => setMenuOpen(false)}>
@@ -155,7 +155,7 @@ export function Nav() {
             <MenuLines />
           </button>
 
-          {/* The demo CTA and the login link both open the portal picker. */}
+          {/* Login opens the portal picker; the demo CTA scrolls to the form. */}
           <Button
             variant="outline"
             size="sm"
@@ -165,7 +165,7 @@ export function Nav() {
             <Link href="/login">Login</Link>
           </Button>
           <Button variant="solid" size="sm" className="md:px-6 md:py-3 md:text-base" asChild>
-            <Link href="/login">Book a Demo</Link>
+            <a href="#book-demo">Book a Demo</a>
           </Button>
           <ThemeToggle className="hidden sm:flex" />
         </div>
