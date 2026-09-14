@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import {
@@ -22,11 +23,11 @@ import AnimatedField from "@/components/login/AnimatedField";
 import { StretchButton, MorphButton } from "@/components/motion-ui/buttons";
 import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 import { useClinic } from "@/lib/clinic-store";
-import { CLINIC_INFO, DOCTOR_OPTIONS, ROLES } from "@/lib/roles";
+import { CLINIC_INFO, DOCTOR_OPTIONS, ROLES, findRole } from "@/lib/roles";
 
 import TextReveal from "@/components/motion/TextReveal";
 const PILLARS = [
-  "Six role-based portals on one record",
+  "Five role-based portals on one record",
   "AI scribe drafts clinical notes as you consult",
   "Billing that draws down pharmacy stock in real time",
   "Revenue, footfall and payroll in a single ledger",
@@ -165,6 +166,19 @@ function NewAppointmentDialog() {
 
 export default function HomeEntry() {
   const reduced = useReducedMotionSafe();
+  const params = useSearchParams();
+
+  /** Set by the route guard when it turns someone away. */
+  const denied = params.get("denied");
+  const deniedRole = params.get("as");
+  const notice =
+    denied === "role"
+      ? `That workspace belongs to another role. You're signed in as ${
+          findRole(deniedRole ?? "")?.label ?? "another role"
+        } — sign out first to use a different account.`
+      : denied === "signed-out"
+        ? "Please sign in to open that page."
+        : null;
 
   return (
     <main className="relative isolate min-h-screen overflow-hidden bg-[#0B1020]">
@@ -252,15 +266,25 @@ export default function HomeEntry() {
           <div className="mx-auto w-full max-w-md">
             <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-white">
               <ShieldCheck className="h-3.5 w-3.5 text-rose-300" aria-hidden="true" />
-              Front-end test build · demo credentials pre-filled
+              Front-end test build · sign in with your own credentials
             </p>
 
             <TextReveal as="h2" className="mt-5 text-3xl font-bold tracking-tight text-white">
               Sign in to your portal
             </TextReveal>
             <p className="mt-2 text-sm text-white/60">
-              Pick the role you work as. Each portal opens on its own dashboard.
+              Pick the role you work as. Each portal opens on its own dashboard,
+              and only on its own — an account never reaches another role&apos;s.
             </p>
+
+            {notice ? (
+              <p
+                role="status"
+                className="mt-4 rounded-2xl border border-amber-300/30 bg-amber-400/15 px-4 py-3 text-sm text-amber-100"
+              >
+                {notice}
+              </p>
+            ) : null}
 
             <ul className="mt-7 list-none space-y-3">
               {ROLES.map((role, index) => {
@@ -308,8 +332,14 @@ export default function HomeEntry() {
               <p className="mt-1 text-xs leading-relaxed text-white/80">
                 Book a slot without an account — the front desk confirms it.
               </p>
-              <div className="mt-4">
+              <div className="mt-4 flex flex-wrap items-center gap-3">
                 <NewAppointmentDialog />
+                <Link
+                  href="/register"
+                  className="text-xs font-semibold text-white underline-offset-4 hover:underline"
+                >
+                  Create a patient account
+                </Link>
               </div>
             </div>
 

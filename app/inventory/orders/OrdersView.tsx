@@ -1,7 +1,16 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Minus, PackageCheck, Plus, Printer, Search, ShoppingCart, Trash2 } from "lucide-react";
+import {
+  Hourglass,
+  Minus,
+  PackageCheck,
+  Plus,
+  Printer,
+  Search,
+  ShoppingCart,
+  Trash2,
+} from "lucide-react";
 import InventoryShell from "@/components/inventory/InventoryShell";
 import { PCard, PPill, Reveal, SectionTitle } from "@/components/portal/ui";
 import {
@@ -91,7 +100,10 @@ export default function OrdersView() {
             <div className="mt-4">
               <TableScroll label="Purchase order history">
                 <Table className="min-w-[760px]">
-                  <TableCaption>Every purchase order raised, newest first.</TableCaption>
+                  <TableCaption>
+                    Every purchase order raised, newest first. Orders reach the
+                    supplier only once an administrator approves them.
+                  </TableCaption>
                   <TableHeader>
                     <TableRow>
                       <TableHead>Order</TableHead>
@@ -124,11 +136,18 @@ export default function OrdersView() {
                                 ? "Resolved"
                                 : order.status === "In transit"
                                   ? "In consult"
-                                  : "Waiting"
+                                  : order.status === "Rejected"
+                                    ? "Critical"
+                                    : "Waiting"
                             }
                           >
                             {order.status}
                           </PPill>
+                          {order.rejectionReason ? (
+                            <span className="mt-1 block text-xs text-p-muted">
+                              {order.rejectionReason}
+                            </span>
+                          ) : null}
                         </TableCell>
                         <TableCell className="text-right">
                           <span className="inline-flex items-center gap-2">
@@ -140,7 +159,9 @@ export default function OrdersView() {
                               <Printer className="hidden" aria-hidden="true" />
                               Print
                             </DownloadButton>
-                            {order.status !== "Received" ? (
+                            {/* An order can only be received once an admin
+                                approved it and it actually went out. */}
+                            {order.status === "Placed" || order.status === "In transit" ? (
                               <button
                                 type="button"
                                 onClick={() => dispatch({ type: "order/receive", id: order.id })}
@@ -149,6 +170,12 @@ export default function OrdersView() {
                                 <PackageCheck className="h-3.5 w-3.5" aria-hidden="true" />
                                 Receive
                               </button>
+                            ) : null}
+                            {order.status === "Awaiting approval" ? (
+                              <span className="inline-flex items-center gap-1.5 text-xs text-p-muted">
+                                <Hourglass className="h-3.5 w-3.5" aria-hidden="true" />
+                                With admin
+                              </span>
                             ) : null}
                           </span>
                         </TableCell>
@@ -168,7 +195,7 @@ export default function OrdersView() {
         {/* ── Place order ── */}
         <Reveal delay={0.06}>
           <PCard className="h-fit">
-            <SectionTitle title="Place an order" />
+            <SectionTitle title="Raise an order" />
 
             <div className="mt-4 space-y-4">
               <div>
@@ -315,13 +342,16 @@ export default function OrdersView() {
             </div>
 
             <MorphButton
-              doneLabel="Order placed"
+              doneLabel="Sent for approval"
               disabled={cart.length === 0}
               onClick={confirmOrder}
               className="mt-4 w-full bg-p-grad text-white"
             >
-              Confirm order
+              Send for approval
             </MorphButton>
+            <p className="mt-3 text-xs text-p-muted">
+              An administrator approves the order before it reaches the supplier.
+            </p>
           </PCard>
         </Reveal>
       </div>

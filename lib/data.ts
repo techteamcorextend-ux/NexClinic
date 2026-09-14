@@ -28,7 +28,7 @@ export const HERO_PROOF = {
   index: "01",
   label: "Enterprise Ready",
   headline: "Built for Hospitals & Multi-Clinic Networks",
-  body: "Nexclinic unifies six role-based portals — Patient, Doctor, Receptionist, Super Admin, Inventory, and Corporate Wellness — into a single secure system.",
+  body: "Nexclinic unifies five role-based portals — Patient, Doctor, Receptionist, Super Admin and Inventory — into a single secure system.",
 };
 
 /* ─────────────────────  MARQUEE TICKERS  ───────────────── */
@@ -144,15 +144,10 @@ export const PORTALS = [
     body: "Medicines, equipment, and OT supplies with automated low-stock alerts.",
     shot: "/images/features/inventory.jpg",
   },
-  {
-    name: "Corporate Wellness & Emergency",
-    body: "Workforce stress analytics and multi-portal SOS response.",
-    shot: undefined as string | undefined,
-  },
 ];
 
 export const PORTALS_HEADER = {
-  headline: "Six Portals. One System.",
+  headline: "Five Portals. One System.",
   subtext: "Every role in your facility gets a purpose-built workspace.",
 };
 
@@ -300,7 +295,7 @@ export const MILESTONES = [
   },
   {
     year: "2026",
-    body: "Corporate Wellness and Emergency Response modules added.",
+    body: "Emergency response wired across every portal.",
   },
 ];
 
@@ -335,7 +330,6 @@ export const FOOTER_COLUMNS = [
       "Receptionist Portal",
       "Super Admin",
       "Inventory",
-      "Corporate Wellness",
     ],
   },
   {

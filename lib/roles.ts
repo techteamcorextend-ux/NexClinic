@@ -8,9 +8,9 @@ import {
 } from "lucide-react";
 
 /**
- * The five portals, and the demo credentials each sign-in screen is
- * pre-filled with. There is no authentication in this build — submitting the
- * form simply routes to the portal.
+ * The five portals. Credentials are NOT kept here — they live in
+ * `lib/accounts.ts`, which the sign-in form checks against. Nothing on a
+ * sign-in screen is pre-filled.
  */
 export type RoleKey = "admin" | "surgeon" | "reception" | "patient" | "inventory";
 
@@ -20,8 +20,6 @@ export type RoleConfig = {
   blurb: string;
   icon: LucideIcon;
   home: string;
-  demoUser: string;
-  demoPass: string;
   /** Tailwind gradient for the role card and sign-in accent. */
   gradient: string;
   /** Shown on the sign-in page's left grid. */
@@ -35,8 +33,6 @@ export const ROLES: RoleConfig[] = [
     blurb: "Revenue, staff, payroll, access control and clinic settings.",
     icon: UserCog,
     home: "/admin/dashboard",
-    demoUser: "ananya.d",
-    demoPass: "admin@2026",
     gradient: "from-violet-500 to-indigo-600",
     highlights: [
       "Revenue and footfall analytics",
@@ -50,8 +46,6 @@ export const ROLES: RoleConfig[] = [
     blurb: "Queue, consultations, AI scribe and patient reports.",
     icon: Stethoscope,
     home: "/surgeon/dashboard",
-    demoUser: "priya.nair",
-    demoPass: "surgeon@2026",
     gradient: "from-sky-500 to-indigo-600",
     highlights: [
       "Today's list and the next patient up",
@@ -65,8 +59,6 @@ export const ROLES: RoleConfig[] = [
     blurb: "Patient queue, appointment requests, billing and onboarding.",
     icon: ClipboardList,
     home: "/reception/dashboard",
-    demoUser: "kavya.r",
-    demoPass: "front@2026",
     gradient: "from-emerald-500 to-teal-600",
     highlights: [
       "Priority queue and emergency broadcast",
@@ -80,8 +72,6 @@ export const ROLES: RoleConfig[] = [
     blurb: "Appointments, records, refills and telehealth.",
     icon: User,
     home: "/patient/dashboard",
-    demoUser: "clara.martin",
-    demoPass: "patient@2026",
     gradient: "from-rose-500 to-pink-600",
     highlights: [
       "Book, refill and join a video visit",
@@ -95,8 +85,6 @@ export const ROLES: RoleConfig[] = [
     blurb: "Stock, suppliers, purchase orders and equipment.",
     icon: Boxes,
     home: "/inventory/dashboard",
-    demoUser: "divya.k",
-    demoPass: "stock@2026",
     gradient: "from-amber-500 to-orange-600",
     highlights: [
       "Low-stock register and quick add",

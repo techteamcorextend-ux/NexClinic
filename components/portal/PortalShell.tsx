@@ -4,10 +4,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Bell, LogOut, Menu, Search, X, type LucideIcon } from "lucide-react";
+import { LogOut, Menu, X, type LucideIcon } from "lucide-react";
 import Backdrop from "./Backdrop";
-import PortalSwitcher from "./PortalSwitcher";
 import ProfileMenu from "@/components/profile/ProfileMenu";
+import SignOutLink from "@/components/system/SignOutLink";
+import GlobalSearch from "@/components/system/GlobalSearch";
 import { cn } from "@/lib/utils";
 import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 
@@ -90,26 +91,24 @@ export function PortalShell({
           aria-label={`${title} sections`}
           className="sticky top-6 hidden h-[calc(100vh-3rem)] w-[76px] shrink-0 flex-col items-center rounded-[26px] bg-p-grad py-6 shadow-lift md:flex"
         >
-          <Link
-            href="/login"
-            aria-label="Nexclinic — back to portal picker"
+          <SignOutLink
+            aria-label="Sign out and return to the portal picker"
             className="grid h-11 w-11 place-items-center rounded-2xl bg-white/20 text-sm font-bold text-white transition-transform duration-300 hover:scale-105 motion-reduce:hover:scale-100"
           >
             M
-          </Link>
+          </SignOutLink>
 
           <ul className="mt-8 flex list-none flex-col items-center gap-3">
             {nav.map(railItem)}
           </ul>
 
-          <Link
-            href="/login"
-            aria-label="Leave this portal"
-            title="Leave this portal"
+          <SignOutLink
+            aria-label="Log out"
+            title="Log out"
             className="mt-auto grid h-12 w-12 place-items-center rounded-2xl text-white/70 transition-colors duration-300 hover:bg-white/15 hover:text-white"
           >
             <LogOut className="h-5 w-5" aria-hidden="true" />
-          </Link>
+          </SignOutLink>
         </aside>
 
         {/* Content column */}
@@ -133,32 +132,12 @@ export function PortalShell({
               ) : null}
             </div>
 
-            <PortalSwitcher className="order-last w-full sm:order-none sm:w-auto" />
-
             <div className="flex shrink-0 items-center gap-2">
               <ThemeToggle />
               {actions}
             </div>
 
-            <button
-              type="button"
-              aria-label="Search"
-              className="btn-aurora hidden h-10 w-10 place-items-center rounded-full border border-p-line bg-p-card text-p-muted transition-colors hover:text-p-ink sm:grid"
-            >
-              <Search className="h-4 w-4" aria-hidden="true" />
-            </button>
-
-            <button
-              type="button"
-              aria-label="Notifications, 2 unread"
-              className="relative grid h-10 w-10 shrink-0 place-items-center rounded-full border border-p-line bg-p-card text-p-muted transition-colors hover:text-p-ink"
-            >
-              <Bell className="h-4 w-4" aria-hidden="true" />
-              <span
-                aria-hidden="true"
-                className="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-rose-500 ring-2 ring-p-card"
-              />
-            </button>
+            <GlobalSearch />
 
             <ProfileMenu
               tone="portal"
@@ -236,14 +215,13 @@ export function PortalShell({
                 })}
               </ul>
 
-              <Link
-                href="/login"
+              <SignOutLink
                 onClick={() => setMenuOpen(false)}
                 className="mt-8 flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium text-white/80 hover:bg-white/15"
               >
                 <LogOut className="h-[18px] w-[18px]" aria-hidden="true" />
-                Leave this portal
-              </Link>
+                Log out
+              </SignOutLink>
             </motion.nav>
           </motion.div>
         ) : null}

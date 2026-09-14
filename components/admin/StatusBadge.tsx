@@ -14,7 +14,9 @@ const TONES: Record<string, Tone> = {
   Paid: "success",
   Pending: "warning",
   // Purchase orders
+  "Awaiting approval": "warning",
   Approved: "info",
+  Rejected: "danger",
   Received: "success",
   // Equipment
   Operational: "success",

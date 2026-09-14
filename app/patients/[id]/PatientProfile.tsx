@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import {
   Activity,
   ArrowLeft,
@@ -13,12 +14,9 @@ import {
   FolderOpen,
   Mail,
   MapPin,
-  MessageSquare,
   Pencil,
   Phone,
   Search,
-  Settings,
-  ShieldCheck,
   Smartphone,
   Sparkles,
   Stethoscope,
@@ -26,7 +24,7 @@ import {
   Video,
 } from "lucide-react";
 import Backdrop from "@/components/portal/Backdrop";
-import PortalSwitcher from "@/components/portal/PortalSwitcher";
+import { ROLE_HOME, useSession } from "@/lib/session";
 import { PPill, Reveal } from "@/components/portal/ui";
 import {
   ChevronButton,
@@ -39,15 +37,16 @@ import type { Patient } from "@/lib/portal-data";
 import { downloadCsv, downloadPdf } from "@/lib/downloads";
 
 import TextReveal from "@/components/motion/TextReveal";
+/**
+ * Every entry scrolls to a section that exists on this page. The old list
+ * carried six more that were inert buttons with nowhere to go — a record
+ * with no Calendar or Messages section shouldn't advertise one.
+ */
 const SIDE_NAV = [
-  { label: "Profile", icon: User, count: null as number | null },
-  { label: "Care programmes", icon: ClipboardList, count: 4 },
-  { label: "Sessions attended", icon: Video, count: 1 },
-  { label: "Reports", icon: FolderOpen, count: 3 },
-  { label: "Certifications", icon: ShieldCheck, count: 2 },
-  { label: "Calendar", icon: CalendarDays, count: null },
-  { label: "Messages", icon: MessageSquare, count: 0 },
-  { label: "Settings", icon: Settings, count: null },
+  { id: "record-profile", label: "Profile", icon: User },
+  { id: "record-care", label: "Care pathway", icon: ClipboardList },
+  { id: "record-billing", label: "Billing", icon: FolderOpen },
+  { id: "record-activity", label: "Recent activity", icon: Activity },
 ];
 
 const PROGRAMME_ICONS = [Stethoscope, Smartphone, Activity];
@@ -70,6 +69,38 @@ const CARE_PLAN = [
 const PAYMENT_METHODS = ["Mastercard", "Visa", "Amex", "UPI"];
 
 export default function PatientProfile({ patient }: { patient: Patient }) {
+  const session = useSession();
+  const [section, setSection] = useState(SIDE_NAV[0].id);
+
+  /** Back goes to the dashboard of whoever is looking, not a fixed portal. */
+  const backHref = session ? ROLE_HOME[session.role] : "/login";
+
+  const goToSection = (id: string) => {
+    setSection(id);
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  // Keep the rail in step with whatever the reader has scrolled to.
+  useEffect(() => {
+    const targets = SIDE_NAV.map((item) => document.getElementById(item.id)).filter(
+      (node): node is HTMLElement => Boolean(node),
+    );
+    if (!targets.length) return undefined;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+        if (visible?.target.id) setSection(visible.target.id);
+      },
+      { rootMargin: "-20% 0px -65% 0px", threshold: 0 },
+    );
+
+    targets.forEach((node) => observer.observe(node));
+    return () => observer.disconnect();
+  }, []);
+
   const details = [
     { icon: CalendarDays, label: "Registered", value: patient.registered },
     { icon: MapPin, label: "Location", value: patient.city },
@@ -137,14 +168,15 @@ export default function PatientProfile({ patient }: { patient: Patient }) {
             </p>
 
             <ul className="mt-9 flex list-none flex-col gap-1">
-              {SIDE_NAV.map((item, index) => {
+              {SIDE_NAV.map((item) => {
                 const Icon = item.icon;
-                const active = index === 0;
+                const active = item.id === section;
                 return (
-                  <li key={item.label}>
+                  <li key={item.id}>
                     <button
                       type="button"
-                      aria-current={active ? "page" : undefined}
+                      onClick={() => goToSection(item.id)}
+                      aria-current={active ? "true" : undefined}
                       className={`flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium transition-all duration-300 ease-out-soft ${
                         active
                           ? "bg-white/25 text-white shadow-lift"
@@ -153,11 +185,6 @@ export default function PatientProfile({ patient }: { patient: Patient }) {
                     >
                       <Icon className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
                       <span className="flex-1 truncate text-left">{item.label}</span>
-                      {item.count !== null ? (
-                        <span className="text-xs tabular-nums text-white/70">
-                          {item.count}
-                        </span>
-                      ) : null}
                     </button>
                   </li>
                 );
@@ -174,7 +201,7 @@ export default function PatientProfile({ patient }: { patient: Patient }) {
           <Reveal>
             <header className="flex flex-wrap items-center gap-3 rounded-[22px] border border-p-line bg-p-card px-5 py-3.5 shadow-[0_4px_24px_rgba(16,24,40,0.05)]">
               <Link
-                href="/surgeon/dashboard"
+                href={backHref}
                 className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-p-muted transition-colors hover:text-p-ink"
               >
                 <ArrowLeft className="h-4 w-4" aria-hidden="true" />
@@ -215,14 +242,13 @@ export default function PatientProfile({ patient }: { patient: Patient }) {
             </header>
           </Reveal>
 
-          <div className="mt-3">
-            <PortalSwitcher />
-          </div>
-
           <main id="profile-main" className="mt-4 space-y-5 pb-10">
             {/* Identity card */}
             <Reveal delay={0.05}>
-              <section className="rounded-[22px] border border-p-line bg-p-card p-6 shadow-[0_4px_24px_rgba(16,24,40,0.05)] md:p-8">
+              <section
+                id="record-profile"
+                className="scroll-mt-6 rounded-[22px] border border-p-line bg-p-card p-6 shadow-[0_4px_24px_rgba(16,24,40,0.05)] md:p-8"
+              >
                 <div className="flex flex-col gap-7 md:flex-row md:items-start">
                   {/* Illustrated avatar */}
                   <div className="relative mx-auto h-40 w-40 shrink-0 md:mx-0">
@@ -309,7 +335,9 @@ export default function PatientProfile({ patient }: { patient: Patient }) {
             {/* Care pathway + billing */}
             <div className="grid grid-cols-1 gap-5 xl:grid-cols-[1.6fr_1fr]">
               <Reveal delay={0.1}>
-                <section className="h-full rounded-[22px] border border-p-line bg-p-card p-6 shadow-[0_4px_24px_rgba(16,24,40,0.05)]">
+                <section
+                  id="record-care"
+                  className="h-full scroll-mt-6 rounded-[22px] border border-p-line bg-p-card p-6 shadow-[0_4px_24px_rgba(16,24,40,0.05)]">
                   <TextReveal as="h3" className="text-lg font-bold tracking-tight text-p-ink">
                     Care pathway
                   </TextReveal>
@@ -332,10 +360,7 @@ export default function PatientProfile({ patient }: { patient: Patient }) {
                               aria-hidden="true"
                               className="absolute -left-9 top-6 grid h-4 w-4 place-items-center rounded-full border-[3px] border-p-card bg-p-accent"
                             />
-                            <Link
-                              href="/patient/health"
-                              className="group flex items-center gap-4 rounded-2xl bg-p-soft/70 p-4 transition-all duration-300 ease-out-soft hover:-translate-y-0.5 hover:bg-p-soft motion-reduce:hover:translate-y-0"
-                            >
+                            <div className="group flex items-center gap-4 rounded-2xl bg-p-soft/70 p-4 transition-all duration-300 ease-out-soft hover:-translate-y-0.5 hover:bg-p-soft motion-reduce:hover:translate-y-0">
                               <span
                                 aria-hidden="true"
                                 className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-p-card text-p-accent shadow-sm"
@@ -362,7 +387,7 @@ export default function PatientProfile({ patient }: { patient: Patient }) {
                               >
                                 →
                               </span>
-                            </Link>
+                            </div>
                           </li>
                         );
                       })}
@@ -370,7 +395,7 @@ export default function PatientProfile({ patient }: { patient: Patient }) {
                   )}
 
                   <div className="mt-6 flex flex-wrap justify-center gap-2.5">
-                    <ChevronButton href="/patient/health">View all programmes</ChevronButton>
+                    <ChevronButton href={`/profile/${patient.id}`}>Open profile</ChevronButton>
                     <DownloadButton
                       onDownload={exportVisits}
                       fileLabel="Visit history"
@@ -384,7 +409,9 @@ export default function PatientProfile({ patient }: { patient: Patient }) {
 
               <div className="space-y-5">
                 <Reveal delay={0.14}>
-                  <section className="rounded-[22px] border border-p-line bg-p-card p-6 shadow-[0_4px_24px_rgba(16,24,40,0.05)]">
+                  <section
+                    id="record-billing"
+                    className="scroll-mt-6 rounded-[22px] border border-p-line bg-p-card p-6 shadow-[0_4px_24px_rgba(16,24,40,0.05)]">
                     <TextReveal as="h3" className="text-base font-bold tracking-tight text-p-ink">
                       Billing information
                     </TextReveal>
@@ -430,7 +457,9 @@ export default function PatientProfile({ patient }: { patient: Patient }) {
 
             {/* Recent activity */}
             <Reveal delay={0.22}>
-              <section className="relative overflow-hidden rounded-[22px] border border-p-line bg-p-card p-6 shadow-[0_4px_24px_rgba(16,24,40,0.05)]">
+              <section
+                id="record-activity"
+                className="relative scroll-mt-6 overflow-hidden rounded-[22px] border border-p-line bg-p-card p-6 shadow-[0_4px_24px_rgba(16,24,40,0.05)]">
                 <TextReveal as="h3" className="text-lg font-bold tracking-tight text-p-ink">
                   Recent activity
                 </TextReveal>
@@ -440,10 +469,7 @@ export default function PatientProfile({ patient }: { patient: Patient }) {
                     const Icon = ACTIVITY_ICONS[entry.kind] ?? FileText;
                     return (
                       <li key={entry.id}>
-                        <Link
-                          href="/patient/health"
-                          className="group flex items-center gap-4 rounded-2xl px-3 py-3 transition-colors duration-300 hover:bg-p-soft/70"
-                        >
+                        <div className="group flex items-center gap-4 rounded-2xl px-3 py-3 transition-colors duration-300 hover:bg-p-soft/70">
                           <span
                             aria-hidden="true"
                             className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-p-soft text-p-accent"
@@ -465,7 +491,7 @@ export default function PatientProfile({ patient }: { patient: Patient }) {
                           >
                             →
                           </span>
-                        </Link>
+                        </div>
                       </li>
                     );
                   })}

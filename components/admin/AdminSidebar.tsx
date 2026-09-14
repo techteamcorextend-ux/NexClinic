@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/tooltip";
 import { ADMIN_NAV } from "@/lib/admin-nav";
 import { ADMIN_PROFILE } from "@/lib/admin-data";
+import SignOutLink from "@/components/system/SignOutLink";
 import { cn } from "@/lib/utils";
 import { useMediaQuery, usePrefersReducedMotion } from "./use-media-query";
 
@@ -219,23 +220,19 @@ export function AdminSidebar({
 
           <div className="mt-3 border-t border-admin-line pt-3">
             {showLabels ? (
-              <Link
-                href="/login"
-                className="flex w-full items-center gap-3 rounded-xl px-2 py-2 text-sm font-medium text-admin-muted transition-colors duration-200 hover:bg-admin-bg hover:text-rose-600"
-              >
+              <SignOutLink className="flex w-full items-center gap-3 rounded-xl px-2 py-2 text-sm font-medium text-admin-muted transition-colors duration-200 hover:bg-admin-bg hover:text-rose-600">
                 <LogOut className="h-[18px] w-[18px]" aria-hidden="true" />
                 Log out
-              </Link>
+              </SignOutLink>
             ) : (
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Link
-                    href="/login"
+                  <SignOutLink
                     aria-label="Log out"
                     className="grid h-10 w-full place-items-center rounded-xl text-admin-muted transition-colors duration-200 hover:bg-admin-bg hover:text-rose-600"
                   >
                     <LogOut className="h-[18px] w-[18px]" aria-hidden="true" />
-                  </Link>
+                  </SignOutLink>
                 </TooltipTrigger>
                 <TooltipContent side="right">Log out</TooltipContent>
               </Tooltip>

@@ -3,20 +3,15 @@
 import Image from "next/image";
 import {
   Activity,
-  BarChart3,
-  Bell,
   CalendarDays,
   ChevronLeft,
   ChevronRight,
   FlaskConical,
-  HeartPulse,
-  LayoutGrid,
-  Settings,
   Stethoscope,
-  User,
   Video,
 } from "lucide-react";
 import PortalShell from "@/components/portal/PortalShell";
+import NoticeBell from "@/components/system/NoticeBell";
 import { PAvatar, PCard, Reveal, SectionTitle } from "@/components/portal/ui";
 import {
   ConicButton,
@@ -25,17 +20,18 @@ import {
   StretchButton,
 } from "@/components/motion-ui/buttons";
 import { SIGNED_IN_PATIENT } from "@/lib/portal-data";
+import { PATIENT_NAV } from "@/lib/portal-nav";
 import { downloadPdf } from "@/lib/downloads";
 
 import TextReveal from "@/components/motion/TextReveal";
-const NAV = [
-  { label: "Dashboard", href: "/patient", icon: LayoutGrid },
-  { label: "Health overview", href: "/patient/health", icon: HeartPulse },
-  { label: "My records", href: "/patients/p-1001", icon: User },
-  { label: "Statistics", href: "/patient", icon: BarChart3 },
-  { label: "Notifications", href: "/patient", icon: Bell },
-  { label: "Settings", href: "/patient", icon: Settings },
-];
+/**
+ * The patient rail, shared with every other patient screen.
+ *
+ * This page used to carry its own six-entry copy: Statistics, Notifications
+ * and Settings all pointed at /patient and did nothing, and "My records"
+ * pointed at the clinician file (/patients/…), which a patient may not open.
+ */
+const NAV = PATIENT_NAV;
 
 /* A fixed month keeps the server and client markup identical. */
 const MONTH_LABEL = "April 2026";
@@ -80,13 +76,16 @@ export default function HealthOverview() {
       subtitle="Patient health · cardiac study and this week's care"
       user={{ id: patient.id, name: patient.name, initials: patient.initials, role: "Patient", email: patient.email }}
       actions={
-        <DownloadButton
-          onDownload={downloadCardiacReport}
-          fileLabel="Cardiac overview"
-          className="bg-white dark:bg-p-card text-[#101820] hover:bg-white/90"
-        >
-          Report
-        </DownloadButton>
+        <span className="flex items-center gap-2">
+          <DownloadButton
+            onDownload={downloadCardiacReport}
+            fileLabel="Cardiac overview"
+            className="bg-white dark:bg-p-card text-[#101820] hover:bg-white/90"
+          >
+            Report
+          </DownloadButton>
+          <NoticeBell audience="patient" />
+        </span>
       }
     >
       <div className="grid grid-cols-1 gap-5 xl:grid-cols-[1.35fr_1fr]">

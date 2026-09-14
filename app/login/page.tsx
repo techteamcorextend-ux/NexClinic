@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import HomeEntry from "./HomeEntry";
 
 export const metadata: Metadata = {
@@ -8,5 +9,11 @@ export const metadata: Metadata = {
 };
 
 export default function LoginPage() {
-  return <HomeEntry />;
+  // HomeEntry reads the ?denied= notice the route guard sets, and
+  // useSearchParams needs a boundary to render inside.
+  return (
+    <Suspense fallback={null}>
+      <HomeEntry />
+    </Suspense>
+  );
 }

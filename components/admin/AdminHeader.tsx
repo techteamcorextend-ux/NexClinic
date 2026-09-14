@@ -2,15 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Bell,
-  ChevronRight,
-  LayoutDashboard,
-  Menu,
-  MessageSquare,
-  Search,
-} from "lucide-react";
+import { ChevronRight, LayoutDashboard, Menu, MessageSquare } from "lucide-react";
 import ProfileMenu from "@/components/profile/ProfileMenu";
+import NoticeBell from "@/components/system/NoticeBell";
+import GlobalSearch from "@/components/system/GlobalSearch";
 import { ADMIN_PROFILE } from "@/lib/admin-data";
 import { findNavItem } from "@/lib/admin-nav";
 
@@ -59,35 +54,14 @@ export function AdminHeader({ onOpenDrawer }: { onOpenDrawer: () => void }) {
         </div>
 
         <div className="order-last w-full sm:order-none sm:w-auto sm:max-w-xs md:max-w-sm sm:flex-1">
-          <label htmlFor="admin-search" className="sr-only">
-            Search patients, staff and invoices
-          </label>
+          {/* Was a dead input. Now opens the same search every portal uses. */}
           <div className="btn-aurora relative rounded-full">
-            <Search
-              className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-admin-muted"
-              aria-hidden="true"
-            />
-            <input
-              id="admin-search"
-              type="search"
-              placeholder="Search patients, staff, invoices..."
-              className="h-11 w-full rounded-full border border-transparent bg-white dark:bg-admin-card pl-11 pr-4 text-sm text-admin-ink placeholder:text-admin-muted shadow-admin transition-colors duration-200 focus:border-admin-pink focus:outline-none"
-            />
+            <GlobalSearch tone="admin" variant="field" />
           </div>
         </div>
 
         <div className="flex shrink-0 items-center gap-2">
-          <button
-            type="button"
-            aria-label="Notifications, 3 unread"
-            className="relative grid h-10 w-10 place-items-center rounded-full bg-white dark:bg-admin-card text-admin-ink shadow-admin transition-colors duration-200 hover:text-admin-pink"
-          >
-            <Bell className="h-[18px] w-[18px]" aria-hidden="true" />
-            <span
-              aria-hidden="true"
-              className="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-admin-pink ring-2 ring-white"
-            />
-          </button>
+          <NoticeBell audience="admin" tone="admin" />
 
           <button
             type="button"

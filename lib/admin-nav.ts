@@ -1,5 +1,6 @@
 import {
   BarChart3,
+  ClipboardCheck,
   History,
   KeyRound,
   LayoutDashboard,
@@ -28,6 +29,7 @@ export type AdminNavItem = {
 export const ADMIN_NAV: AdminNavItem[] = [
   { label: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard, title: "Dashboard", crumb: "Oversight" },
   { label: "Staff", href: "/admin/staff", icon: Users, title: "Staff", crumb: "People" },
+  { label: "Approvals", href: "/admin/approvals", icon: ClipboardCheck, title: "Approvals", crumb: "Purchasing" },
   { label: "Payroll", href: "/admin/payroll", icon: Wallet, title: "Payroll", crumb: "Finance" },
   { label: "Access Control", href: "/admin/access", icon: KeyRound, title: "Access Control", crumb: "Security" },
   { label: "Analytics", href: "/admin/analytics", icon: BarChart3, title: "Analytics", crumb: "Reporting" },

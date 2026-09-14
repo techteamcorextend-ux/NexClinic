@@ -11,11 +11,15 @@ import { cn } from "@/lib/utils";
 /** Notification centre for one portal. Reads only that audience's notices. */
 export function NoticeBell({
   audience,
+  tone = "portal",
   className,
 }: {
   audience: NoticeAudience;
+  /** The admin panel has its own token family — this picks the right one. */
+  tone?: "portal" | "admin";
   className?: string;
 }) {
+  const admin = tone === "admin";
   const { list, unread, markAllRead } = useNotices(audience);
   const [open, setOpen] = useState(false);
   const reduced = useReducedMotionSafe();
@@ -30,11 +34,21 @@ export function NoticeBell({
           setOpen((value) => !value);
           if (!open) markAllRead();
         }}
-        className="relative grid h-10 w-10 place-items-center rounded-full border border-p-line bg-p-card text-p-muted transition-colors hover:text-p-ink"
+        className={cn(
+          "relative grid h-10 w-10 place-items-center rounded-full transition-colors",
+          admin
+            ? "bg-white dark:bg-admin-card text-admin-ink shadow-admin hover:text-admin-pink"
+            : "border border-p-line bg-p-card text-p-muted hover:text-p-ink",
+        )}
       >
         <Bell className="h-4 w-4" aria-hidden="true" />
         {unread > 0 ? (
-          <span className="absolute -right-0.5 -top-0.5 grid h-[18px] min-w-[18px] place-items-center rounded-full bg-rose-500 px-1 text-[10px] font-bold text-white ring-2 ring-p-card">
+          <span
+            className={cn(
+              "absolute -right-0.5 -top-0.5 grid h-[18px] min-w-[18px] place-items-center rounded-full bg-rose-500 px-1 text-[10px] font-bold text-white ring-2",
+              admin ? "ring-white dark:ring-admin-card" : "ring-p-card",
+            )}
+          >
             {unread > 9 ? "9+" : unread}
           </span>
         ) : null}
@@ -54,7 +68,12 @@ export function NoticeBell({
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: reduced ? 0 : -8, scale: reduced ? 1 : 0.98 }}
               transition={{ duration: reduced ? 0.1 : 0.22, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute right-0 z-50 mt-2 w-[min(20rem,calc(100vw-2rem))] overflow-hidden rounded-[20px] border border-p-line bg-p-card shadow-[0_24px_60px_-24px_rgba(16,24,40,0.35)]"
+              className={cn(
+                "absolute right-0 z-50 mt-2 w-[min(20rem,calc(100vw-2rem))] overflow-hidden rounded-[20px] shadow-[0_24px_60px_-24px_rgba(16,24,40,0.35)]",
+                admin
+                  ? "border border-admin-line bg-white dark:bg-admin-card"
+                  : "border border-p-line bg-p-card",
+              )}
             >
               <p className="border-b border-p-line px-4 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-p-muted">
                 Notifications

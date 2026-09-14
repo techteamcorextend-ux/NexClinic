@@ -95,14 +95,35 @@ export type Supplier = {
   rating: number;
 };
 
+/**
+ * A purchase order is RAISED by the inventory manager and only becomes a real
+ * order once an administrator approves it. Nothing reaches a supplier while
+ * the status is "Awaiting approval".
+ */
+export type PurchaseOrderStatus =
+  | "Awaiting approval"
+  | "Rejected"
+  | "Placed"
+  | "In transit"
+  | "Received";
+
 export type PurchaseOrder = {
   id: string;
   supplierId: string;
   supplier: string;
   items: { name: string; qty: number; price: number }[];
   total: number;
+  /** Date the order went to the supplier — set on approval, "—" before that. */
   placedAt: string;
-  status: "Placed" | "In transit" | "Received";
+  status: PurchaseOrderStatus;
+  /** When the inventory manager raised it. */
+  raisedAt?: string;
+  raisedBy?: string;
+  /** Who approved or rejected it, and when. */
+  decidedAt?: string;
+  decidedBy?: string;
+  /** Why it was turned down — shown back to the inventory manager. */
+  rejectionReason?: string;
 };
 
 export type EquipmentStatus = "Operational" | "Under maintenance" | "Service due";

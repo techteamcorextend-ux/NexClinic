@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import AdminShell from "@/components/admin/AdminShell";
+import RequireRole from "@/components/system/RequireRole";
 
 export const metadata: Metadata = {
   title: {
@@ -14,5 +15,9 @@ export const metadata: Metadata = {
 export default function AdminLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  return <AdminShell>{children}</AdminShell>;
+  return (
+    <RequireRole allow={["admin"]}>
+      <AdminShell>{children}</AdminShell>
+    </RequireRole>
+  );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ScheduleSurgeryFab from "@/components/surgeon/ScheduleSurgeryFab";
+import RequireRole from "@/components/system/RequireRole";
 
 export const metadata: Metadata = {
   title: { default: "Surgeon", template: "%s · Nexclinic Surgeon" },
@@ -14,9 +15,9 @@ export default function SurgeonLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <>
+    <RequireRole allow={["surgeon"]}>
       {children}
       <ScheduleSurgeryFab />
-    </>
+    </RequireRole>
   );
 }

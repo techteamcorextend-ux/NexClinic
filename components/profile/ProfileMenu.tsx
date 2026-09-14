@@ -4,9 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDown, LogOut, Settings, User, type LucideIcon } from "lucide-react";
+import { ChevronDown, KeyRound, LogOut, Settings, User, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
+import { signOut } from "@/lib/session";
 
 export type ProfileMenuItem = {
   label: string;
@@ -14,6 +15,8 @@ export type ProfileMenuItem = {
   icon: LucideIcon;
   hint?: string;
   tone?: "default" | "danger";
+  /** Runs before the link is followed — logging out clears the session. */
+  onSelect?: () => void;
 };
 
 type ProfileMenuProps = {
@@ -127,8 +130,16 @@ export function ProfileMenu({
   const rows: ProfileMenuItem[] = [
     { label: "Profile", href: `/profile/${id}`, icon: User, hint: "View and edit your details" },
     ...(items ?? []),
+    {
+      label: "Change password",
+      href: "/account/password",
+      icon: KeyRound,
+      hint: "Pick a new one",
+    },
     { label: "Settings", href: settingsHref ?? "/admin/settings", icon: Settings, hint: "Preferences and access" },
-    { label: "Log out", href: "/login", icon: LogOut, tone: "danger" },
+    // Clearing the session is what makes this a real log out rather than a
+    // link that lands you on a picker you are still signed in behind.
+    { label: "Log out", href: "/login", icon: LogOut, tone: "danger", onSelect: signOut },
   ];
 
   const spring = reduced
@@ -283,7 +294,10 @@ export function ProfileMenu({
                     <Link
                       href={row.href}
                       role="menuitem"
-                      onClick={close}
+                      onClick={() => {
+                        row.onSelect?.();
+                        close();
+                      }}
                       onPointerEnter={() => setHovered(row.label)}
                       onFocus={() => setHovered(row.label)}
                       className={cn(

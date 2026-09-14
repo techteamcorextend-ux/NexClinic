@@ -597,68 +597,76 @@
   .dark {
     color-scheme: dark;
 
-    /* ── Marketing / shared shell ── */
-    --bg: #0b0b10;
-    --bg-frame: #07070b;
-    --surface: #14141c;
-    --surface-tint: #1a1530;
-    --ink: #f4f4f7;
-    --ink-muted: #a1a6b4;
-    --border: #2a2a35;
-    /* Accents lift toward the light end of the ramp: the light-mode violets
-       are too dark to read as "bright" against a near-black ground. */
-    --accent-start: #c4b5fd;
-    --accent-mid: #a78bfa;
-    --accent-end: #8b7cf0;
+    /* ── Marketing / shared shell ──
+       The ground is a warm charcoal rather than the near-black blue it was:
+       #0b0b10 against pure-white text is the contrast of a terminal, and it
+       made every violet on top of it glow. Lifting the floor ~8 points and
+       pulling the text down to a warm off-white keeps everything legible
+       (ink still clears 13:1) while taking the glare off a long session. */
+    --bg: #17171b;
+    --bg-frame: #111114;
+    --surface: #1f1f25;
+    --surface-tint: #262232;
+    --ink: #e9e7e4;
+    --ink-muted: #a6a3a8;
+    --border: #32323a;
+    /* Accents desaturated a step — bright enough to read as the brand
+       violet, no longer neon against the softer ground. */
+    --accent-start: #bcaef0;
+    --accent-mid: #a294e3;
+    --accent-end: #8a7ed2;
 
-    --bg-rgb: 11 11 16;
-    --bg-frame-rgb: 7 7 11;
-    --surface-rgb: 20 20 28;
-    --surface-tint-rgb: 26 21 48;
-    --ink-rgb: 244 244 247;
-    --ink-muted-rgb: 161 166 180;
-    --border-rgb: 42 42 53;
-    --accent-start-rgb: 196 181 253;
-    --accent-mid-rgb: 167 139 250;
-    --accent-end-rgb: 139 124 240;
+    --bg-rgb: 23 23 27;
+    --bg-frame-rgb: 17 17 20;
+    --surface-rgb: 31 31 37;
+    --surface-tint-rgb: 38 34 50;
+    --ink-rgb: 233 231 228;
+    --ink-muted-rgb: 166 163 168;
+    --border-rgb: 50 50 58;
+    --accent-start-rgb: 188 174 240;
+    --accent-mid-rgb: 162 148 227;
+    --accent-end-rgb: 138 126 210;
 
-    --accent-gradient: linear-gradient(135deg, #c4b5fd 0%, #a78bfa 52%, #8b7cf0 100%);
-    --accent-gradient-strong: linear-gradient(135deg, #a78bfa 0%, #8b7cf0 55%, #6d5bd0 100%);
+    --accent-gradient: linear-gradient(135deg, #bcaef0 0%, #a294e3 52%, #8a7ed2 100%);
+    --accent-gradient-strong: linear-gradient(135deg, #a294e3 0%, #8a7ed2 55%, #6f63b8 100%);
 
-    /* ── Super Admin panel — keeps its blue identity ── */
-    --admin-page-bg: #0c1120;
-    --admin-sidebar-bg: #111a2e;
-    --admin-card-bg: #131d33;
-    --admin-text-primary: #e9eefb;
-    --admin-text-muted-soft: #6d7d9c; /* decorative only */
-    --admin-text-muted: #9aabc9; /* readable labels — 6.8:1 on the card */
-    --admin-border: #243049;
+    /* ── Super Admin panel — keeps its blue identity, quietly ──
+       Was a saturated navy (#0c1120) carrying saturated blue on top. Now a
+       slate that only leans blue, so the accent does the identifying rather
+       than the whole page. */
+    --admin-page-bg: #15171d;
+    --admin-sidebar-bg: #1a1d25;
+    --admin-card-bg: #1f232c;
+    --admin-text-primary: #e7e8ec;
+    --admin-text-muted-soft: #7b8393; /* decorative only */
+    --admin-text-muted: #a5adbc; /* readable labels — 7.1:1 on the card */
+    --admin-border: #2e333f;
 
-    --admin-page-bg-rgb: 12 17 32;
-    --admin-sidebar-bg-rgb: 17 26 46;
-    --admin-card-bg-rgb: 19 29 51;
-    --admin-ink-rgb: 233 238 251;
-    --admin-muted-soft-rgb: 109 125 156;
-    --admin-muted-rgb: 154 171 201;
-    --admin-border-rgb: 36 48 73;
-    --admin-pink-rgb: 96 165 250;
-    --admin-purple-rgb: 139 156 255;
-    --admin-blue-rgb: 56 189 248;
+    --admin-page-bg-rgb: 21 23 29;
+    --admin-sidebar-bg-rgb: 26 29 37;
+    --admin-card-bg-rgb: 31 35 44;
+    --admin-ink-rgb: 231 232 236;
+    --admin-muted-soft-rgb: 123 131 147;
+    --admin-muted-rgb: 165 173 188;
+    --admin-border-rgb: 46 51 63;
+    --admin-pink-rgb: 122 165 235;
+    --admin-purple-rgb: 146 154 224;
+    --admin-blue-rgb: 104 168 214;
 
-    --admin-grad-pink-purple: linear-gradient(135deg, #3b82f6 0%, #6d7cf7 100%);
-    --admin-grad-purple: linear-gradient(135deg, #6d7cf7 0%, #4553d6 100%);
-    --admin-grad-blue: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
-    --admin-grad-orange: linear-gradient(135deg, #ffb877 0%, #ff8a5c 100%);
+    --admin-grad-pink-purple: linear-gradient(135deg, #5b87d6 0%, #7a7fd0 100%);
+    --admin-grad-purple: linear-gradient(135deg, #7a7fd0 0%, #5a5fae 100%);
+    --admin-grad-blue: linear-gradient(135deg, #68a8d6 0%, #4f8fc0 100%);
+    --admin-grad-orange: linear-gradient(135deg, #e3a878 0%, #cf8a63 100%);
 
     /* ── Portal default (inherited by any screen without a skin) ── */
-    --p-bg: 12 18 20;
-    --p-card: 22 30 33;
-    --p-ink: 236 244 246;
-    --p-muted: 150 166 172;
-    --p-line: 44 58 62;
-    --p-accent: 45 212 191;
-    --p-accent-2: 94 234 212;
-    --p-soft: 28 42 45;
+    --p-bg: 24 26 27;
+    --p-card: 32 35 37;
+    --p-ink: 231 233 232;
+    --p-muted: 162 168 168;
+    --p-line: 54 59 60;
+    --p-accent: 82 197 180;
+    --p-accent-2: 122 216 201;
+    --p-soft: 40 46 47;
   }
 
   /*
@@ -670,56 +678,56 @@
 
   /* Nurse / care — teal */
   .dark .theme-care {
-    --p-bg: 10 20 20;
-    --p-card: 20 32 32;
-    --p-ink: 232 246 244;
-    --p-muted: 146 168 166;
-    --p-line: 40 60 58;
-    --p-accent: 45 212 191;
-    --p-accent-2: 94 234 212;
-    --p-soft: 24 44 42;
-    --p-grad: linear-gradient(135deg, #5eead4 0%, #2dd4bf 55%, #14b8a6 100%);
+    --p-bg: 22 27 26;
+    --p-card: 31 38 37;
+    --p-ink: 228 234 232;
+    --p-muted: 158 168 165;
+    --p-line: 52 61 59;
+    --p-accent: 82 197 180;
+    --p-accent-2: 122 216 201;
+    --p-soft: 38 47 45;
+    --p-grad: linear-gradient(135deg, #7ad0c0 0%, #52c5b4 55%, #3ba394 100%);
   }
 
   /* Doctor + reception — indigo */
   .dark .theme-clinic {
-    --p-bg: 13 15 28;
-    --p-card: 22 25 44;
-    --p-ink: 234 236 250;
-    --p-muted: 154 160 190;
-    --p-line: 44 50 78;
-    --p-accent: 129 140 248;
-    --p-accent-2: 165 180 252;
-    --p-soft: 28 32 56;
-    --p-grad: linear-gradient(135deg, #a5b4fc 0%, #818cf8 55%, #6366f1 100%);
+    --p-bg: 24 25 31;
+    --p-card: 33 35 43;
+    --p-ink: 230 231 236;
+    --p-muted: 162 165 178;
+    --p-line: 53 56 68;
+    --p-accent: 140 148 214;
+    --p-accent-2: 170 177 232;
+    --p-soft: 41 43 54;
+    --p-grad: linear-gradient(135deg, #a3aae0 0%, #8c94d6 55%, #6f77b8 100%);
   }
 
   /* Patient profile — violet */
   .dark .theme-violet {
-    --p-bg: 18 14 28;
-    --p-card: 28 22 44;
-    --p-ink: 240 236 250;
-    --p-muted: 166 156 190;
-    --p-line: 52 44 76;
-    --p-accent: 167 139 250;
-    --p-accent-2: 196 181 253;
-    --p-soft: 34 26 54;
-    --p-grad: linear-gradient(135deg, #c4b5fd 0%, #a78bfa 55%, #8b7cf0 100%);
+    --p-bg: 27 25 32;
+    --p-card: 36 33 44;
+    --p-ink: 233 230 236;
+    --p-muted: 169 164 176;
+    --p-line: 57 53 68;
+    --p-accent: 162 148 227;
+    --p-accent-2: 188 174 240;
+    --p-soft: 44 40 55;
+    --p-grad: linear-gradient(135deg, #bcaef0 0%, #a294e3 55%, #8a7ed2 100%);
   }
 
   /* Inventory — indigo */
   .dark .theme-vault {
-    --p-bg: 14 15 30;
-    --p-card: 24 26 46;
-    --p-ink: 234 236 252;
-    --p-muted: 152 156 190;
-    --p-line: 46 50 80;
-    --p-accent: 139 122 255;
-    --p-accent-2: 167 153 255;
-    --p-soft: 30 32 58;
-    --p-grad: linear-gradient(135deg, #a78bfa 0%, #8b7af5 55%, #6d5bd0 100%);
-    --p-panel: 10 11 24;
-    --p-panel-soft: 22 23 44;
+    --p-bg: 25 26 32;
+    --p-card: 34 36 44;
+    --p-ink: 231 232 237;
+    --p-muted: 163 166 178;
+    --p-line: 55 58 69;
+    --p-accent: 150 138 224;
+    --p-accent-2: 178 168 238;
+    --p-soft: 42 44 55;
+    --p-grad: linear-gradient(135deg, #b0a3ea 0%, #968ae0 55%, #7a6fc0 100%);
+    --p-panel: 20 21 26;
+    --p-panel-soft: 32 34 42;
   }
 
   /*
@@ -728,9 +736,9 @@
      still reads as deliberately darker than its neighbours.
   */
   .dark .theme-night {
-    --p-bg: 9 11 16;
-    --p-card: 22 26 34;
-    --p-line: 46 52 66;
+    --p-bg: 19 21 25;
+    --p-card: 29 32 38;
+    --p-line: 50 55 63;
   }
 
   /*
@@ -804,26 +812,26 @@
   }
 
   .dark {
-    --mc-1-a: #16243f;
-    --mc-1-b: #26456f;
-    --mc-1-c: #101a2e;
-    --mc-1-tint: rgba(38, 69, 111, 0.8);
-    --mc-2-a: #102421;
-    --mc-2-b: #1e4c42;
-    --mc-2-c: #0d1d1a;
-    --mc-2-tint: rgba(30, 76, 66, 0.8);
-    --mc-3-a: #1e1b3a;
-    --mc-3-b: #362e66;
-    --mc-3-c: #14122a;
-    --mc-3-tint: rgba(54, 46, 102, 0.8);
-    --mc-4-a: #2c1e13;
-    --mc-4-b: #5c3c24;
-    --mc-4-c: #1e1410;
-    --mc-4-tint: rgba(92, 60, 36, 0.8);
+    --mc-1-a: #232c3a;
+    --mc-1-b: #33455e;
+    --mc-1-c: #1c232e;
+    --mc-1-tint: rgba(51, 69, 94, 0.78);
+    --mc-2-a: #1e2c29;
+    --mc-2-b: #2c463f;
+    --mc-2-c: #19221f;
+    --mc-2-tint: rgba(44, 70, 63, 0.78);
+    --mc-3-a: #282639;
+    --mc-3-b: #3b3757;
+    --mc-3-c: #201f2d;
+    --mc-3-tint: rgba(59, 55, 87, 0.78);
+    --mc-4-a: #332a22;
+    --mc-4-b: #533f2f;
+    --mc-4-c: #27201b;
+    --mc-4-tint: rgba(83, 63, 47, 0.78);
 
-    --mc-wash: rgba(8, 10, 18, 0.22);
-    --mc-ink: #eef2fb;
-    --mc-ink-soft: rgba(238, 242, 251, 0.68);
+    --mc-wash: rgba(16, 17, 21, 0.2);
+    --mc-ink: #e9e9ec;
+    --mc-ink-soft: rgba(233, 233, 236, 0.68);
     --mc-scrim-top: rgba(0, 0, 0, 0.5);
     --mc-scrim-bottom: rgba(0, 0, 0, 0.55);
     --mc-chip-bg: rgba(255, 255, 255, 0.12);

@@ -19,6 +19,8 @@ import AnimatedField from "@/components/login/AnimatedField";
 import { StretchButton } from "@/components/motion-ui/buttons";
 import { useReducedMotionSafe } from "@/components/motion/useReducedMotionSafe";
 import { CLINIC_INFO, ROLES, findRole, type RoleKey } from "@/lib/roles";
+import { verifyCredentials } from "@/lib/accounts";
+import { signIn } from "@/lib/session";
 import { cn } from "@/lib/utils";
 
 import TextReveal from "@/components/motion/TextReveal";
@@ -121,8 +123,9 @@ function PatientBackdrop() {
 
 /**
  * Role sign-in — 2-grid: clinic information on the left, the form on the
- * right with demo credentials already filled in. There is no authentication
- * in this build; submitting routes straight to the portal.
+ * right. Credentials are checked against `lib/accounts` and a session is
+ * written before the portal opens; a wrong password, or the right password
+ * for a different role, is refused here rather than waved through.
  *
  * Takes the role key (not the RoleConfig) because RoleConfig carries a
  * Lucide icon component, which can't cross the server → client boundary
@@ -136,6 +139,7 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
   const router = useRouter();
   const reduced = useReducedMotionSafe();
   const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const role = findRole(roleKey)!;
   const Icon = role.icon;
   const isAdmin = role.key === "admin";
@@ -146,25 +150,67 @@ export default function SignInView({ roleKey }: { roleKey: RoleKey }) {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setError(null);
+
+    const data = new FormData(event.currentTarget);
+    const username = String(data.get("username") ?? "").trim();
+    const password = String(data.get("password") ?? "");
+
+    if (!username || !password) {
+      setError("Enter your username and password.");
+      return;
+    }
+
+    const result = verifyCredentials(username, password, role.key);
+    if (!result.ok) {
+      setError(
+        result.reason === "wrong-role"
+          ? `That account isn't a ${role.label.toLowerCase()} account. Pick the right portal below.`
+          : "We don't recognise that username and password.",
+      );
+      return;
+    }
+
+    const { account } = result;
     setPending(true);
-    window.setTimeout(() => router.push(role.home), reduced ? 0 : 600);
+    signIn({
+      role: account.role,
+      personId: account.personId,
+      username: account.username,
+      name: account.name,
+      mustChangePassword: account.mustChangePassword,
+    });
+
+    // An admin-issued password gets changed before the portal opens.
+    const destination = account.mustChangePassword
+      ? "/account/password?first=1"
+      : role.home;
+    window.setTimeout(() => router.push(destination), reduced ? 0 : 600);
   };
 
   const formFields = (
     <form className="mt-7 space-y-4" onSubmit={handleSubmit}>
-      <AnimatedField
-        label="Username"
-        name="username"
-        defaultValue={role.demoUser}
-        autoComplete="username"
-      />
+      <AnimatedField label="Username" name="username" autoComplete="username" />
       <AnimatedField
         label="Password"
         name="password"
         type="password"
-        defaultValue={role.demoPass}
         autoComplete="current-password"
       />
+
+      {error ? (
+        <p
+          role="alert"
+          className={cn(
+            "rounded-2xl px-4 py-3 text-sm",
+            isGlass
+              ? "bg-rose-500/20 text-rose-100"
+              : "bg-rose-50 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300",
+          )}
+        >
+          {error}
+        </p>
+      ) : null}
 
       <label
         className={cn(

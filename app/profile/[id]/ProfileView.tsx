@@ -21,6 +21,7 @@ import { Switch } from "@/components/ui/switch";
 import TextReveal from "@/components/motion/TextReveal";
 import ThemeToggle from "@/components/system/ThemeToggle";
 import type { Person } from "@/lib/people";
+import { ROLE_HOME, useSession } from "@/lib/session";
 
 /** Each kind of person gets the palette of the portal they belong to. */
 function themeFor(person: Person) {
@@ -33,6 +34,22 @@ function themeFor(person: Person) {
 const CONTACT_ICONS = { email: Mail, phone: Phone, clinic: Building2 } as const;
 
 export default function ProfileView({ person }: { person: Person }) {
+  const session = useSession();
+  /**
+   * You only get a door into a portal when it is YOUR portal. An admin
+   * reading a surgeon's profile sees the record and nothing else — no step
+   * from here into the surgeon's dashboard.
+   */
+  const isSelf = Boolean(session && session.personId === person.id);
+  const ownPortal = session ? ROLE_HOME[session.role] : "/login";
+
+  /** Staff records are admin-only; patient files are for clinicians and the desk. */
+  const canSeeRecord = session
+    ? person.kind === "patient"
+      ? ["admin", "surgeon", "reception"].includes(session.role)
+      : session.role === "admin"
+    : false;
+
   const [notifyEmail, setNotifyEmail] = useState(true);
   const [notifyPush, setNotifyPush] = useState(false);
   const [twoFactor, setTwoFactor] = useState(person.kind !== "patient");
@@ -50,7 +67,7 @@ export default function ProfileView({ person }: { person: Person }) {
       <div className="relative mx-auto w-full max-w-[1100px] px-4 py-6 sm:px-6 lg:py-10">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <Link
-            href={person.portalHref ?? "/login"}
+            href={ownPortal}
             className="inline-flex items-center gap-2 rounded-full border border-p-line bg-p-card px-4 py-2 text-sm font-medium text-p-ink transition-colors hover:text-p-accent"
           >
             <ArrowLeft className="h-4 w-4" aria-hidden="true" />
@@ -98,13 +115,13 @@ export default function ProfileView({ person }: { person: Person }) {
                     <ExternalLink className="h-4 w-4" aria-hidden="true" />
                   </Link>
                 ) : null}
-                {person.portalHref ? (
+                {isSelf && person.portalHref ? (
                   <Link
                     href={person.portalHref}
                     className="inline-flex items-center justify-center gap-2 rounded-full border border-p-line bg-p-card px-5 py-2.5 text-sm font-medium text-p-ink transition-colors hover:text-p-accent"
                   >
                     <MonitorSmartphone className="h-4 w-4" aria-hidden="true" />
-                    Go to portal
+                    Go to my portal
                   </Link>
                 ) : null}
               </div>
@@ -230,17 +247,18 @@ export default function ProfileView({ person }: { person: Person }) {
               <PCard>
                 <SectionTitle title="Shortcuts" />
                 <ul className="mt-4 flex list-none flex-col gap-2">
+                  {/* Each shortcut is filtered by what the reader may open. */}
                   {[
-                    person.recordHref
+                    person.recordHref && canSeeRecord
                       ? { label: person.recordLabel ?? "Open record", href: person.recordHref }
                       : null,
-                    person.kind === "staff"
+                    person.kind === "staff" && session?.role === "admin"
                       ? { label: "Staff directory", href: "/admin/staff" }
                       : null,
-                    person.kind === "patient"
+                    person.kind === "patient" && isSelf
                       ? { label: "Medical timeline", href: "/patient/records" }
                       : null,
-                    { label: "Switch portal", href: "/login" },
+                    isSelf ? { label: "Change password", href: "/account/password" } : null,
                   ]
                     .filter(Boolean)
                     .map((link) => {

@@ -49,6 +49,8 @@ export type ClinicAction =
   | { type: "stock/flagLow"; id: string; flagged: boolean }
   | { type: "stock/consume"; lines: { stockId: string; qty: number }[]; ref: string }
   | { type: "order/place"; supplierId: string; items: { name: string; qty: number; price: number }[] }
+  | { type: "order/approve"; id: string; by?: string }
+  | { type: "order/reject"; id: string; reason: string; by?: string }
   | { type: "order/receive"; id: string }
   | { type: "equipment/log"; id: string; note: string; nextService?: string }
   | { type: "equipment/add"; item: Omit<EquipmentItem, "id" | "logs"> }
@@ -333,6 +335,11 @@ export function clinicReducer(state: ClinicState, action: ClinicAction): ClinicS
     }
 
     /* ── Orders ── */
+    /**
+     * Raising an order does NOT place it. It waits at "Awaiting approval"
+     * until an administrator decides, and the admin is notified so the
+     * request doesn't sit unseen.
+     */
     case "order/place": {
       const supplier = state.suppliers.find((entry) => entry.id === action.supplierId);
       const total = action.items.reduce((sum, item) => sum + item.qty * item.price, 0);
@@ -342,29 +349,96 @@ export function clinicReducer(state: ClinicState, action: ClinicAction): ClinicS
         supplier: supplier?.name ?? "Unknown supplier",
         items: action.items,
         total,
-        placedAt: stamp().split(",")[0],
-        status: "Placed",
+        placedAt: "—",
+        status: "Awaiting approval",
+        raisedAt: stamp().split(",")[0],
+        raisedBy: "Inventory manager",
       };
       return {
         ...state,
         orders: [order, ...state.orders],
         stockLogs: log(state, {
           kind: "order",
-          detail: `${order.id} placed with ${order.supplier} — ${action.items.length} line items`,
+          detail: `${order.id} raised for approval — ${order.supplier}, ${action.items.length} line items`,
           by: "Inventory manager",
         }),
         notices: notice(state, {
           to: "admin",
           kind: "system",
-          title: "Purchase order raised",
+          title: "Purchase order needs approval",
           body: `${order.id} · ${order.supplier} · ₹${total.toLocaleString("en-IN")}`,
+        }),
+      };
+    }
+
+    case "order/approve": {
+      const order = state.orders.find((entry) => entry.id === action.id);
+      if (!order || order.status !== "Awaiting approval") return state;
+      const decidedAt = stamp().split(",")[0];
+      return {
+        ...state,
+        orders: state.orders.map((entry) =>
+          entry.id === action.id
+            ? {
+                ...entry,
+                status: "Placed",
+                placedAt: decidedAt,
+                decidedAt,
+                decidedBy: action.by ?? "Super Admin",
+              }
+            : entry,
+        ),
+        stockLogs: log(state, {
+          kind: "order",
+          detail: `${order.id} approved and placed with ${order.supplier}`,
+          by: action.by ?? "Super Admin",
+        }),
+        notices: notice(state, {
+          to: "inventory",
+          kind: "system",
+          title: "Purchase order approved",
+          body: `${order.id} · ${order.supplier} — placed with the supplier.`,
+        }),
+      };
+    }
+
+    case "order/reject": {
+      const order = state.orders.find((entry) => entry.id === action.id);
+      if (!order || order.status !== "Awaiting approval") return state;
+      const decidedAt = stamp().split(",")[0];
+      return {
+        ...state,
+        orders: state.orders.map((entry) =>
+          entry.id === action.id
+            ? {
+                ...entry,
+                status: "Rejected",
+                decidedAt,
+                decidedBy: action.by ?? "Super Admin",
+                rejectionReason: action.reason,
+              }
+            : entry,
+        ),
+        stockLogs: log(state, {
+          kind: "order",
+          detail: `${order.id} rejected — ${action.reason}`,
+          by: action.by ?? "Super Admin",
+        }),
+        notices: notice(state, {
+          to: "inventory",
+          kind: "system",
+          title: "Purchase order rejected",
+          body: `${order.id} · ${order.supplier} — ${action.reason}`,
         }),
       };
     }
 
     case "order/receive": {
       const order = state.orders.find((entry) => entry.id === action.id);
-      if (!order) return state;
+      // Nothing can be received before it was approved and actually placed.
+      if (!order || (order.status !== "Placed" && order.status !== "In transit")) {
+        return state;
+      }
       const nextStock = state.stock.map((item) => {
         const line = order.items.find((entry) => entry.name === item.name);
         return line ? { ...item, qty: item.qty + line.qty } : item;

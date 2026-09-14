@@ -8,8 +8,8 @@ import { cn } from "@/lib/utils";
 
 import TextReveal from "@/components/motion/TextReveal";
 /** Fan angles for the stacked desktop deck (degrees, left → right). */
-const FAN_ANGLES = [-7, -4.2, -1.4, 1.4, 4.2, 7];
-const FAN_LIFT = [18, 8, 0, 0, 8, 18];
+const FAN_ANGLES = [-7, -3.5, 0, 3.5, 7];
+const FAN_LIFT = [18, 6, 0, 6, 18];
 
 function PortalCard({
   name,
@@ -52,7 +52,7 @@ function PortalCard({
       </div>
 
       <span className="mt-8 text-xs font-medium tabular-nums text-ink-muted">
-        0{index + 1} / 06
+        {String(index + 1).padStart(2, "0")} / {String(PORTALS.length).padStart(2, "0")}
       </span>
     </article>
   );
@@ -90,7 +90,8 @@ export function Portals() {
                   {
                     "--fan-rot": `${FAN_ANGLES[index]}deg`,
                     "--fan-y": `${FAN_LIFT[index]}px`,
-                    zIndex: 10 - Math.abs(index - 2.5),
+                    // Centre card on top, fanning down to the edges.
+                    zIndex: 10 - Math.abs(index - (PORTALS.length - 1) / 2),
                   } as CSSProperties
                 }
               >
@@ -117,7 +118,9 @@ export function Portals() {
             </li>
           ))}
         </ul>
-        <p className="shell mt-2 text-xs text-ink-muted">Swipe to see all six portals →</p>
+        <p className="shell mt-2 text-xs text-ink-muted">
+          Swipe to see all {PORTALS.length} portals →
+        </p>
       </div>
     </section>
   );
